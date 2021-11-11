@@ -52,8 +52,6 @@ function squareWeave(gridCoors) {
                 if (!(i === newGrid.length - 1 && j === newGrid[i].length - 1)) {
                     let tI = dir ? i + 1 : i;
                     let tJ = dir ? j : j + 1;
-                    traveled[i][j] = 1;
-                    traveled[tI][tJ] = 1;
 
                     // let tempLeft = newGrid[i][j].left;
                     // let tempTop = newGrid[i][j].top;
@@ -62,14 +60,18 @@ function squareWeave(gridCoors) {
                     // newGrid[tI][tJ].left = tempLeft;
                     // newGrid[tI][tJ].top = tempTop;
 
-                    let temp = newGrid[i][j];
-                    newGrid[i][j] = newGrid[tI][tJ];
-                    newGrid[tI][tJ] = temp;
+                    if (traveled[tI][tJ] !== 1) {
+                        let temp = newGrid[i][j];
+                        newGrid[i][j] = newGrid[tI][tJ];
+                        newGrid[tI][tJ] = temp;
+                    }
+
+                    traveled[i][j] = 1;
+                    traveled[tI][tJ] = 1;
                 }
             }
         }
     }
-    console.log('sqW: ', newGrid);
     updateGridLayout(newGrid);
     setTimeout(() => squareWeave(newGrid), 3200);
 }

@@ -39,6 +39,12 @@ export function updateGridLayout(gridCoors) {
                 const div = document.getElementById('item-' + gridCoors[i][j].index);
                 div.style.top = layout[i][j].top + 'px';
                 div.style.left = layout[i][j].left + 'px';
+                div.style.backgroundColor = `rgb(
+                    ${Math.floor(Math.random() * 256)},
+                    ${Math.floor(Math.random() * 256)},
+                    ${Math.floor(Math.random() * 256)}
+                )`;
+                div.innerHTML = '';
             }, 50 * index);
             index++;
         }

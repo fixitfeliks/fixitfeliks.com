@@ -1,0 +1,46 @@
+:root {
+    --grid-item-width: 150px;
+    --grid-item-height: 150px;
+    --x-rows: 8;
+    --y-cols: 8;
+}
+
+.content-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.grid-wrapper {
+    /* border-style: solid;
+    border-color: black; */
+    position: relative;
+    display: block;
+    margin: auto;
+    height: calc(var(--grid-item-height) * var(--x-rows));
+    width: calc(var(--grid-item-width) * var(--y-cols));
+}
+
+.item {
+    position: absolute;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    top: 10px;
+    left: 10px;
+    padding: 0px;
+    width: var(--grid-item-width);
+    height: var(--grid-item-height);
+    background-color: blueviolet;
+    -webkit-transition: all 1s ease, background-color 400ms ease;
+    -moz-transition: all 1s ease, background-color 400ms ease;
+    -ms-transition: all 1s ease, background-color 400ms ease;
+    -o-transition: all 1s ease, background-color 400ms ease;
+    transition: all 1s ease, background-color 400ms ease;
+}
+
+.item:hover {
+    background-color: orange;
+}

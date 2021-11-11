@@ -1,0 +1,46 @@
+:root {
+    --scroll-min-height: 0;
+}
+
+#content-wrapper {
+    height: 100%;
+    width: 100%;
+    min-width: 0;
+    overflow: auto;
+}
+
+.flex-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.flex-col {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    min-height: var(--scroll-min-height);
+    overflow: auto;
+}
+
+.flex-row {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+}
+
+.flex-item {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    min-height: var(--scroll-min-height);
+}
+
+.item-container {
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 100%;
+    min-width: 0;
+}

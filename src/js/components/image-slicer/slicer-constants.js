@@ -1,0 +1,4 @@
+export const SPREAD_MOVE_TIME = 50;
+export const SPREAD_TOTAL_TIME = 1000;
+export const SPREAD_TOTAL_MOVES = SPREAD_TOTAL_TIME / SPREAD_MOVE_TIME;
+export const TILE_STEPS_MAX = 10;

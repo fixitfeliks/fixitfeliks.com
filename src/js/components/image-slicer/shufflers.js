@@ -33,7 +33,7 @@ export function squareShuffle(gridCoors) {
     return newGrid;
 }
 
-function shuffleArray(array) {
+export function shuffleArray(array) {
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * i);

@@ -1,6 +1,6 @@
 :root {
-    --grid-width: 570px;
-    --grid-height: 880px;
+    --grid-width: 1000px;
+    --grid-height: 1000px;
     --x-rows: 10;
     --y-cols: 10;
 }

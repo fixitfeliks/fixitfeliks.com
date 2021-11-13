@@ -1,3 +1,4 @@
+import { TILE_STEPS_MAX } from './slicer-constants';
 export class ImageGrid {
     tiles = [];
 
@@ -9,13 +10,13 @@ export class ImageGrid {
         let index = 0;
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.cols; j++) {
-                this.tiles.push(new Tile(index, i * tileWidth, j * tileHeight, tileWidth, tileHeight));
+                this.tiles.push(new Tile(index, j * tileWidth, i * tileHeight, tileWidth, tileHeight));
                 index++;
             }
         }
     }
 
-    getFrame() {
+    getCurrentState() {
         let frame = [];
 
         for (let i = 0; i < this.tiles.length; i++) {
@@ -28,7 +29,7 @@ export class ImageGrid {
 class Tile {
     dir = Math.floor(Math.random() * 4);
     lastDir = Math.floor(Math.random() * 4);
-    dirStepsMax = 10;
+    dirStepsMax = TILE_STEPS_MAX;
     dirSteps = 0;
     // isWalking = false;
 

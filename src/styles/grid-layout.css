@@ -1,14 +1,24 @@
 :root {
-    --grid-item-width: 150px;
-    --grid-item-height: 150px;
-    --x-rows: 8;
-    --y-cols: 8;
+    --grid-width: 570px;
+    --grid-height: 880px;
+    --x-rows: 10;
+    --y-cols: 10;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
 }
 
 .content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
 }
 
 .grid-wrapper {
@@ -17,8 +27,8 @@
     position: relative;
     display: block;
     margin: auto;
-    height: calc(var(--grid-item-height) * var(--x-rows));
-    width: calc(var(--grid-item-width) * var(--y-cols));
+    height: var(--grid-height);
+    width: var(--grid-width);
 }
 
 .item {
@@ -31,8 +41,6 @@
     top: 10px;
     left: 10px;
     padding: 0px;
-    width: var(--grid-item-width);
-    height: var(--grid-item-height);
     background-color: blueviolet;
     -webkit-transition: all 1s ease, background-color 400ms ease;
     -moz-transition: all 1s ease, background-color 400ms ease;

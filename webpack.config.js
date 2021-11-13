@@ -11,7 +11,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './index.html',
+            template: './index.html'
             // favicon: './src/assets/favicon.ico'
         })
     ],
@@ -27,8 +27,8 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: '[name].[ext]',
-                            outputPath: 'assets/images/'
+                            name: './assets/[name].[ext]'
+                            // outputPath: 'assets/'
                         }
                     }
                 ]
@@ -46,9 +46,16 @@ module.exports = {
         alias: {
             Styles: path.resolve(__dirname, './src/styles/'),
             Scripts: path.resolve(__dirname, './src/js/'),
-            Images: path.resolve(__dirname, './src/assets/images'),
+            Assets: path.resolve(__dirname, './src/assets'),
             Components: path.resolve(__dirname, './src/js/components'),
             Views: path.resolve(__dirname, './src/js/views')
         }
+    },
+    devServer: {
+        static: {
+            directory: path.join(__dirname, './dist')
+        },
+        compress: true,
+        port: 8080
     }
 };

@@ -1,47 +1,116 @@
-import { createGridLayout, updateGridLayout } from './layout.js';
+import { createGridLayout, initCanvasTile, updateGridLayout, showTiles } from './layout.js';
 import { shuffleArray } from './shufflers';
 import { ImageGrid } from './image-grid.js';
-import { SPREAD_MOVE_TIME, SPREAD_TOTAL_MOVES } from './slicer-constants.js';
+import {
+    MAIN_WRAPPER_ELEMENT_ID,
+    MAIN_WRAPPER_ELEMENT_CLASS,
+    GRID_WRAPPER_ELEMENT_ID,
+    GRID_WRAPPER_ELEMENT_CLASS,
+    GRID_ELEMENT_ID_PREFIX,
+    GRID_ELEMENT_CLASS,
+    CSS_LOADER_ID,
+    SPREAD_TOTAL_MOVES,
+    SPREAD_MOVE_TIME
+} from './slicer-constants.js';
 
 export class ImageSlicer {
-    constructor(src, rows, cols, width, height) {
+    constructor(src, rows, cols) {
         this.src = src;
         this.rows = rows;
         this.cols = cols;
-        this.width = width;
-        this.height = height;
-        this.tileWidth = width / cols;
-        this.tileHeight = height / rows;
-        this.grid = new ImageGrid(rows, cols, this.tileWidth, this.tileHeight);
+        this.width = 0;
+        this.height = 0;
+        this.tileWidth = 0;
+        this.tileHeight = 0;
+        this.grid = new ImageGrid(this.rows, this.cols, this.tileWidth, this.tileHeight);
+        this.image = document.createElement('img');
+        this.imageLoadedPromise = new Promise((resolve) => {
+            const context = () => resolve();
+            this.loadImage(context);
+        });
+        this.tilesLoadedPromise;
     }
 
-    getSpreadElement() {
-        const moveFrames = this.getFramesForNumMoves(SPREAD_TOTAL_MOVES);
-        let index = moveFrames.length - 1;
+    loadImage(context) {
+        this.image.src = this.src;
+        this.image.style.display = 'none';
+        document.body.appendChild(this.image);
+        this.image.onload = () => {
+            this.width = this.image.naturalWidth;
+            this.height = this.image.naturalHeight;
+            this.tileWidth = this.width / this.cols;
+            this.tileHeight = this.height / this.rows;
+            this.grid = new ImageGrid(this.rows, this.cols, this.tileWidth, this.tileHeight);
+            this.tilesLoadedPromise = new Promise((resolve) => {
+                this.initImageTiles();
+                resolve();
+            });
+            context();
+        };
+    }
 
-        let fragment = this.createElements(moveFrames[moveFrames.length - 1]);
-
-        const timer = setInterval(() => {
-            updateGridLayout(moveFrames[index]);
-            if (index == 0) clearInterval(timer);
-            index--;
-        }, SPREAD_MOVE_TIME);
-
-        this.sliceImage(fragment);
+    getHTML() {
+        const fragment = this.createWrapper();
+        fragment.appendChild(createGridLayout(this.rows * this.cols));
         return fragment;
     }
 
-    sliceImage(fragment) {
-        let index = 0;
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.cols; j++) {
-                const item = fragment.getElementById('item-' + index);
-                item.style.backgroundImage = `url('${this.src}')`;
-                item.style.backgroundPositionX = -j * this.tileWidth + 'px';
-                item.style.backgroundPositionY = -i * this.tileHeight + 'px';
-                index++;
-            }
+    createWrapper() {
+        const contentWrapper = document.createElement('div');
+        contentWrapper.id = MAIN_WRAPPER_ELEMENT_ID;
+        contentWrapper.className = MAIN_WRAPPER_ELEMENT_CLASS;
+        return contentWrapper;
+    }
+
+    initImageTiles() {
+        console.log('init Tiles ', this.grid.tiles);
+        const cssLoader = document.getElementById(CSS_LOADER_ID);
+        const wrapper = document.getElementById(GRID_WRAPPER_ELEMENT_ID);
+        wrapper.style.width = this.width + 'px';
+        wrapper.style.height = this.height + 'px';
+
+        for (let i = 0; i < this.grid.tiles.length; i++) {
+            const tSrc = this.image.src;
+            let imageType = tSrc.substring(tSrc.lastIndexOf('.') + 1, tSrc.length);
+            imageType = imageType === 'jpg' ? 'jpeg' : imageType;
+            let canvas = document.getElementById(GRID_ELEMENT_ID_PREFIX + this.grid.tiles[i].id);
+            canvas.id = GRID_ELEMENT_ID_PREFIX + this.grid.tiles[i].id;
+            canvas.width = this.tileWidth;
+            canvas.height = this.tileHeight;
+            let context = canvas.getContext('2d');
+            context.drawImage(
+                this.image,
+                this.grid.tiles[i].x,
+                this.grid.tiles[i].y,
+                this.tileWidth,
+                this.tileHeight,
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+            initCanvasTile(canvas, this.grid.tiles[i]);
         }
+    }
+
+    async initSpreadElement() {
+        this.imageLoadedPromise.then(() => {
+            console.log('image loaded');
+            this.tilesLoadedPromise.then(() => {
+                console.log('tiles loaded');
+                const moveFrames = this.getFramesForNumMoves(SPREAD_TOTAL_MOVES);
+                let index = moveFrames.length - 1;
+
+                updateGridLayout(shuffleArray(moveFrames[index]));
+                showTiles(this.grid.tiles);
+
+                const timer = setInterval(() => {
+                    updateGridLayout(moveFrames[index]);
+                    if (index == 0) clearInterval(timer);
+                    index--;
+                }, SPREAD_MOVE_TIME);
+            });
+        });
     }
 
     getFramesForNumMoves(numMoves) {
@@ -55,36 +124,18 @@ export class ImageSlicer {
         return frames;
     }
 
-    createElements(frame) {
-        const fragment = document.createDocumentFragment();
-        const contentWrapper = document.createElement('div');
-        contentWrapper.className = 'content-wrapper';
-        contentWrapper.appendChild(createGridLayout(shuffleArray(frame)));
-        fragment.appendChild(contentWrapper);
-        return fragment;
-    }
+    // sliceImage() {
+    //     let index = 0;
+    //     for (let i = 0; i < this.rows; i++) {
+    //         for (let j = 0; j < this.cols; j++) {
+    //             const item = document.getElementById(GRID_ELEMENT_ID_PREFIX + index);
+    //             item.style.backgroundImage = `url('${this.src}')`;
+    //             item.style.backgroundPositionX = -j * this.tileWidth + 'px';
+    //             item.style.backgroundPositionY = -i * this.tileHeight + 'px';
+    //             index++;
+    //         }
+    //     }
+    // }
 
-    //TODO see if making small canvas is better than shifted background
-    optimized() {
-        let imageSlices = [];
-        var image = new Image();
-        image.src = src;
-        let canvas = document.createElement('canvas');
-        canvas.id = index;
-        canvas.width = tileWidth;
-        canvas.height = tileHeight;
-        let context = canvas.getContext('2d');
-        context.drawImage(
-            image,
-            i * tileWidth,
-            j * tileHeight,
-            tileWidth,
-            tileHeight,
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-        imageSlices.push(canvas.toDataURL());
-    }
+    load;
 }

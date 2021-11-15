@@ -1,39 +1,34 @@
-:root {
-    --grid-width: 1000px;
-    --grid-height: 1000px;
-    --x-rows: 10;
-    --y-cols: 10;
-}
-
 html,
 body {
     margin: 0;
     padding: 0;
 }
 
-.content-wrapper {
+.slicer-main-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
 }
 
-.grid-wrapper {
-    /* border-style: solid;
-    border-color: black; */
+.slicer-grid-wrapper {
     position: relative;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: auto;
-    height: var(--grid-height);
-    width: var(--grid-width);
+    max-height: 100%;
+    max-width: 100%;
 }
 
-.item {
+.slicer-grid-item {
     position: absolute;
-    display: flex;
+    display: none;
     text-align: center;
     justify-content: center;
     align-content: center;
@@ -41,14 +36,16 @@ body {
     top: 10px;
     left: 10px;
     padding: 0px;
+    width: 10px;
+    height: 10px;
     background-color: blueviolet;
-    -webkit-transition: all 1s ease, background-color 400ms ease;
+    -webkit-transition: all 1s, background-color 400ms ease;
     -moz-transition: all 1s ease, background-color 400ms ease;
     -ms-transition: all 1s ease, background-color 400ms ease;
     -o-transition: all 1s ease, background-color 400ms ease;
     transition: all 1s ease, background-color 400ms ease;
 }
 
-.item:hover {
-    background-color: orange;
-}
+/* .item:hover {
+    background-color: orange; 
+} */

@@ -1,23 +1,30 @@
-export function createGridLayout(tiles) {
-    console.log('create grid ', tiles);
-    const fragment = new DocumentFragment();
-    if (tiles != null) {
-        const flexContainer = document.createElement('div');
-        flexContainer.setAttribute('class', 'grid-wrapper');
+import { cssLoader } from './css-loader.js';
+import {
+    GRID_WRAPPER_ELEMENT_ID,
+    GRID_WRAPPER_ELEMENT_CLASS,
+    GRID_ELEMENT_CLASS,
+    GRID_ELEMENT_ID_PREFIX
+} from './slicer-constants.js';
 
-        for (let i = 0; i < tiles.length; i++) {
-            const itemId = 'item-' + tiles[i].id.toString();
-            const gridItem = document.createElement('div');
+export function createGridLayout(numTiles) {
+    console.log('create grid for numTiles:', numTiles);
+    const fragment = new DocumentFragment();
+    if (numTiles != null) {
+        const wrapper = document.createElement('div');
+        wrapper.className = GRID_WRAPPER_ELEMENT_CLASS;
+        wrapper.id = GRID_WRAPPER_ELEMENT_ID;
+        wrapper.style.width = '100px';
+        wrapper.style.height = '100px';
+        wrapper.appendChild(cssLoader);
+        for (let i = 0; i < numTiles; i++) {
+            const itemId = GRID_ELEMENT_ID_PREFIX + i;
+            const gridItem = document.createElement('canvas');
             gridItem.id = itemId;
-            gridItem.className = 'item';
-            gridItem.style.top = tiles[i].y + 'px';
-            gridItem.style.left = tiles[i].x + 'px';
-            gridItem.style.width = tiles[i].width + 'px';
-            gridItem.style.height = tiles[i].height + 'px';
-            // gridItem.innerHTML = /*html*/ `<a>${itemId}</a>`;
-            flexContainer.appendChild(gridItem);
+            gridItem.className = GRID_ELEMENT_CLASS;
+            gridItem.style.display = 'none';
+            wrapper.appendChild(gridItem);
         }
-        fragment.appendChild(flexContainer);
+        fragment.appendChild(wrapper);
         return fragment;
     }
     const error = document.createElement('div');
@@ -26,12 +33,27 @@ export function createGridLayout(tiles) {
     return fragment;
 }
 
-export function updateGridLayout(tiles) {
-    console.log('update grid ', tiles);
+export function initCanvasTile(canvas, tile) {
+    canvas.style.top = tile.y + 'px';
+    canvas.style.left = tile.x + 'px';
+    canvas.style.width = tile.width + 'px';
+    canvas.style.height = tile.height + 'px';
+}
+
+export function showTiles(tiles) {
+    const wrapper = document.getElementById(GRID_WRAPPER_ELEMENT_ID);
     for (let i = 0; i < tiles.length; i++) {
-        const div = document.getElementById('item-' + tiles[i].id);
-        div.style.top = tiles[i].y + 'px';
-        div.style.left = tiles[i].x + 'px';
+        const tile = document.getElementById(GRID_ELEMENT_ID_PREFIX + tiles[i].id);
+        tile.style.display = 'flex';
+    }
+    wrapper.removeChild(cssLoader);
+}
+
+export function updateGridLayout(tiles) {
+    for (let i = 0; i < tiles.length; i++) {
+        const gridItem = document.getElementById(GRID_ELEMENT_ID_PREFIX + tiles[i].id);
+        gridItem.style.top = tiles[i].y + 'px';
+        gridItem.style.left = tiles[i].x + 'px';
     }
 }
 

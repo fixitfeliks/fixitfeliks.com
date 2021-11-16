@@ -11,23 +11,26 @@ body {
 
 .slicer-main-wrapper {
     position: relative;
-    display: block;
-    justify-content: center;
-    align-items: center;
-    /* top: 0;
-    left: 0; */
-    /* height: 100vh;
-    width: 100vw; */
-}
-
-.slicer-grid-wrapper {
-    position: relative;
-    display: block;
+    display: flex;
     justify-content: center;
     align-items: center;
     margin: auto;
     max-height: 100%;
     max-width: 100%;
+}
+
+.slicer-transition-overflow {
+    display: flex;
+    position: absolute;
+    overflow: hidden;
+}
+
+.slicer-grid-wrapper {
+    position: absolute;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
 }
 
 .slicer-grid-item {
@@ -50,6 +53,12 @@ body {
     transition: all var(--tile-transition-time) ease, background-color 400ms ease;
 }
 
+#loader-spinner {
+    position: absolute;
+    display: flex;
+    min-height: 100vh;
+    min-width: 100vw;
+}
 /* .item:hover {
     background-color: orange; 
 } */

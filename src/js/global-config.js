@@ -3,3 +3,7 @@ export const X_ROWS = parseInt(getComputedStyle(document.documentElement).getPro
 export const Y_COLS = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--y-cols'));
 export const WIDTH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-width'));
 export const HEIGHT = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-height'));
+
+export const FLEX_TRANSITION_TIME = parseInt(
+    getComputedStyle(document.documentElement).getPropertyValue('--flex-transition-time')
+);

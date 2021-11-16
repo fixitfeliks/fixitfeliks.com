@@ -11,8 +11,10 @@ import {
     SPREAD_MOVE_TIME,
     SPREAD_TOTAL_TIME,
     TILE_TRANSITION_TIME,
-    MAIN_TRANSITION_DELAY
+    MAIN_TRANSITION_DELAY,
+    MAIN_TRANSITION_OVERFLOW
 } from './slicer-constants.js';
+import { cssLoader } from './loader-spinner.js';
 
 export class ImageSlicer {
     constructor(src, rows, cols) {
@@ -42,10 +44,6 @@ export class ImageSlicer {
             this.tileWidth = this.width / this.cols;
             this.tileHeight = this.height / this.rows;
             this.grid = new ImageGrid(this.rows, this.cols, this.tileWidth, this.tileHeight);
-            this.tilesLoadedPromise = new Promise((resolve) => {
-                this.initImageTiles();
-                resolve();
-            });
             context();
         };
     }
@@ -60,15 +58,19 @@ export class ImageSlicer {
         const contentWrapper = document.createElement('div');
         contentWrapper.id = MAIN_WRAPPER_ELEMENT_ID;
         contentWrapper.className = MAIN_WRAPPER_ELEMENT_CLASS;
+        contentWrapper.appendChild(cssLoader);
         return contentWrapper;
     }
 
     initImageTiles() {
         console.log('init Tiles ', this.grid.tiles);
-        const cssLoader = document.getElementById(CSS_LOADER_ID);
-        const wrapper = document.getElementById(GRID_WRAPPER_ELEMENT_ID);
-        wrapper.style.width = this.width + 'px';
-        wrapper.style.height = this.height + 'px';
+        // const cssLoader = document.getElementById(CSS_LOADER_ID);
+        const mainWrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID);
+        const gridWrapper = document.getElementById(GRID_WRAPPER_ELEMENT_ID);
+        mainWrapper.style.width = this.width + 'px';
+        mainWrapper.style.height = this.height + 'px';
+        gridWrapper.style.width = this.width + 'px';
+        gridWrapper.style.height = this.height + 'px';
 
         for (let i = 0; i < this.grid.tiles.length; i++) {
             const tSrc = this.image.src;
@@ -98,8 +100,14 @@ export class ImageSlicer {
         return new Promise((resolve) => {
             this.imageLoadedPromise.then(() => {
                 console.log('image loaded');
+                this.tilesLoadedPromise = new Promise((resolve) => {
+                    this.initImageTiles();
+                    resolve();
+                });
                 this.tilesLoadedPromise.then(() => {
                     console.log('tiles loaded');
+                    const mainWrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID);
+                    // mainWrapper.classList.add(MAIN_TRANSITION_OVERFLOW);
                     const moveFrames = this.getFramesForNumMoves(SPREAD_TOTAL_MOVES);
                     let index = moveFrames.length - 1;
 
@@ -115,6 +123,7 @@ export class ImageSlicer {
                     }, SPREAD_MOVE_TIME);
 
                     const timeout = setTimeout(() => {
+                        mainWrapper.classList.remove(MAIN_TRANSITION_OVERFLOW);
                         resolve();
                     }, SPREAD_TOTAL_TIME + TILE_TRANSITION_TIME + MAIN_TRANSITION_DELAY);
                 });

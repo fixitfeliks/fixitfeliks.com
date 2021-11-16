@@ -1,9 +1,11 @@
-import { cssLoader } from './css-loader.js';
+import { cssLoader } from './loader-spinner.js';
 import {
+    MAIN_WRAPPER_ELEMENT_ID,
     GRID_WRAPPER_ELEMENT_ID,
     GRID_WRAPPER_ELEMENT_CLASS,
     GRID_ELEMENT_CLASS,
-    GRID_ELEMENT_ID_PREFIX
+    GRID_ELEMENT_ID_PREFIX,
+    CSS_LOADER_ID
 } from './slicer-constants.js';
 
 export function createGridLayout(numTiles) {
@@ -13,8 +15,8 @@ export function createGridLayout(numTiles) {
         const wrapper = document.createElement('div');
         wrapper.className = GRID_WRAPPER_ELEMENT_CLASS;
         wrapper.id = GRID_WRAPPER_ELEMENT_ID;
-        wrapper.style.width = '100px';
-        wrapper.style.height = '100px';
+        wrapper.style.width = '100%';
+        wrapper.style.height = '100%';
         // wrapper.appendChild(cssLoader);
         for (let i = 0; i < numTiles; i++) {
             const itemId = GRID_ELEMENT_ID_PREFIX + i;
@@ -41,12 +43,13 @@ export function initCanvasTile(canvas, tile) {
 }
 
 export function showTiles(tiles) {
-    const wrapper = document.getElementById(GRID_WRAPPER_ELEMENT_ID);
+    const wrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID);
     for (let i = 0; i < tiles.length; i++) {
         const tile = document.getElementById(GRID_ELEMENT_ID_PREFIX + tiles[i].id);
         tile.style.display = 'flex';
     }
-    cssLoader || wrapper.removeChild(cssLoader);
+    const loaderSpinner = document.getElementById(CSS_LOADER_ID);
+    if (loaderSpinner) wrapper.removeChild(loaderSpinner);
 }
 
 export function updateGridLayout(tiles) {

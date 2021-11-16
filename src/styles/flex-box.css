@@ -57,23 +57,25 @@
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: center;
-    align-content: stretch;
-    align-items: stretch;
-    height: 100%;
+    /* align-content: stretch;
+    align-items: stretch; */
+    max-height: 100%;
     min-height: 100vh;
     min-width: 100vw;
-    overflow: hidden;
 }
 
 .flex-item {
     display: flex;
     position: relative;
-    align-items: center;
+    /* align-items: center;
     justify-content: center;
-    align-self: center;
-    height: 100%;
+    align-self: center; */
+    /* height: 100%;
     width: 100%;
+    max-height: 100%;
+    max-width: 100%; */
     min-height: 0;
+    min-width: 0;
     -webkit-transition: all var(--flex-transition-time), linear;
     -moz-transition: all var(--flex-transition-time) linear;
     -ms-transition: all var(--flex-transition-time) linear;
@@ -83,24 +85,31 @@
 
 .flex-item-added {
     flex-grow: 1;
+    height: auto;
 }
 
 .flex-item-removed {
     flex-grow: 0;
+    height: 0;
 }
 
-.img-div {
+.img-wrapper {
+    min-height: 0;
+    min-width: 0;
     display: block;
-    height: 100%;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
+    max-height: 100%;
+    width: auto;
+    margin: auto;
 }
 
 img {
-    max-height: 100%;
-    height: auto;
     min-height: 0;
-    width: auto;
     min-width: 0;
+    max-height: 100%;
+    width: auto;
+    /* -webkit-transition: all var(--flex-transition-time), linear;
+    -moz-transition: all var(--flex-transition-time) linear;
+    -ms-transition: all var(--flex-transition-time) linear;
+    -o-transition: all var(--flex-transition-time) linear;
+    transition: all var(--flex-transition-time) linear; */
 }

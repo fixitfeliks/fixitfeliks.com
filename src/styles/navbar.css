@@ -1,0 +1,8 @@
+.navbar {
+    height: 10vh;
+    width: 100%;
+    background-color: #4c4c4c;
+    align-self: flex-start;
+    box-shadow: 0 16px 24px 0 rgba(0, 0, 0, 0.2), 0 20px 40px 0 rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+}

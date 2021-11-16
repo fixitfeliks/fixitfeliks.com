@@ -15,7 +15,7 @@ export function createGridLayout(numTiles) {
         wrapper.id = GRID_WRAPPER_ELEMENT_ID;
         wrapper.style.width = '100px';
         wrapper.style.height = '100px';
-        wrapper.appendChild(cssLoader);
+        // wrapper.appendChild(cssLoader);
         for (let i = 0; i < numTiles; i++) {
             const itemId = GRID_ELEMENT_ID_PREFIX + i;
             const gridItem = document.createElement('canvas');
@@ -46,7 +46,7 @@ export function showTiles(tiles) {
         const tile = document.getElementById(GRID_ELEMENT_ID_PREFIX + tiles[i].id);
         tile.style.display = 'flex';
     }
-    wrapper.removeChild(cssLoader);
+    cssLoader || wrapper.removeChild(cssLoader);
 }
 
 export function updateGridLayout(tiles) {

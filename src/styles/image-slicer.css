@@ -1,3 +1,8 @@
+:root {
+    /* time must be in ms */
+    --tile-transition-time: 1000ms;
+}
+
 html,
 body {
     margin: 0;
@@ -5,20 +10,19 @@ body {
 }
 
 .slicer-main-wrapper {
-    display: flex;
+    position: relative;
+    display: block;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
+    /* top: 0;
+    left: 0; */
+    /* height: 100vh;
+    width: 100vw; */
 }
 
 .slicer-grid-wrapper {
     position: relative;
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
     margin: auto;
@@ -39,11 +43,11 @@ body {
     width: 10px;
     height: 10px;
     background-color: blueviolet;
-    -webkit-transition: all 1s, background-color 400ms ease;
-    -moz-transition: all 1s ease, background-color 400ms ease;
-    -ms-transition: all 1s ease, background-color 400ms ease;
-    -o-transition: all 1s ease, background-color 400ms ease;
-    transition: all 1s ease, background-color 400ms ease;
+    -webkit-transition: all var(--tile-transition-time), background-color 400ms ease;
+    -moz-transition: all var(--tile-transition-time) ease, background-color 400ms ease;
+    -ms-transition: all var(--tile-transition-time) ease, background-color 400ms ease;
+    -o-transition: all var(--tile-transition-time) ease, background-color 400ms ease;
+    transition: all var(--tile-transition-time) ease, background-color 400ms ease;
 }
 
 /* .item:hover {

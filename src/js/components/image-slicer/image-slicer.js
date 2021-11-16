@@ -5,12 +5,13 @@ import {
     MAIN_WRAPPER_ELEMENT_ID,
     MAIN_WRAPPER_ELEMENT_CLASS,
     GRID_WRAPPER_ELEMENT_ID,
-    GRID_WRAPPER_ELEMENT_CLASS,
     GRID_ELEMENT_ID_PREFIX,
-    GRID_ELEMENT_CLASS,
     CSS_LOADER_ID,
     SPREAD_TOTAL_MOVES,
-    SPREAD_MOVE_TIME
+    SPREAD_MOVE_TIME,
+    SPREAD_TOTAL_TIME,
+    TILE_TRANSITION_TIME,
+    MAIN_TRANSITION_DELAY
 } from './slicer-constants.js';
 
 export class ImageSlicer {
@@ -94,21 +95,29 @@ export class ImageSlicer {
     }
 
     async initSpreadElement() {
-        this.imageLoadedPromise.then(() => {
-            console.log('image loaded');
-            this.tilesLoadedPromise.then(() => {
-                console.log('tiles loaded');
-                const moveFrames = this.getFramesForNumMoves(SPREAD_TOTAL_MOVES);
-                let index = moveFrames.length - 1;
+        return new Promise((resolve) => {
+            this.imageLoadedPromise.then(() => {
+                console.log('image loaded');
+                this.tilesLoadedPromise.then(() => {
+                    console.log('tiles loaded');
+                    const moveFrames = this.getFramesForNumMoves(SPREAD_TOTAL_MOVES);
+                    let index = moveFrames.length - 1;
 
-                updateGridLayout(shuffleArray(moveFrames[index]));
-                showTiles(this.grid.tiles);
+                    updateGridLayout(shuffleArray(moveFrames[index]));
+                    showTiles(this.grid.tiles);
 
-                const timer = setInterval(() => {
-                    updateGridLayout(moveFrames[index]);
-                    if (index == 0) clearInterval(timer);
-                    index--;
-                }, SPREAD_MOVE_TIME);
+                    const interval = setInterval(() => {
+                        updateGridLayout(moveFrames[index]);
+                        if (index == 0) {
+                            clearInterval(interval);
+                        }
+                        index--;
+                    }, SPREAD_MOVE_TIME);
+
+                    const timeout = setTimeout(() => {
+                        resolve();
+                    }, SPREAD_TOTAL_TIME + TILE_TRANSITION_TIME + MAIN_TRANSITION_DELAY);
+                });
             });
         });
     }
@@ -136,6 +145,4 @@ export class ImageSlicer {
     //         }
     //     }
     // }
-
-    load;
 }

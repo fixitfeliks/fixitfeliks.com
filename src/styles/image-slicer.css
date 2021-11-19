@@ -1,22 +1,24 @@
 :root {
     /* time must be in ms */
-    --tile-transition-time: 1000ms;
-}
-
-html,
-body {
-    margin: 0;
-    padding: 0;
+    --tile-transition-time: 2000ms;
 }
 
 .slicer-main-wrapper {
-    position: relative;
-    display: flex;
+    position: absolute;
+    display: block;
     justify-content: center;
     align-items: center;
     margin: auto;
-    max-height: 100%;
-    max-width: 100%;
+    top: 0;
+    left: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow: hidden;
+    -webkit-transition: top var(--tile-transition-time), ease;
+    -moz-transition: top var(--tile-transition-time) ease;
+    -ms-transition: top var(--tile-transition-time) ease;
+    -o-transition: top var(--tile-transition-time) ease;
+    transition: top var(--tile-transition-time) ease;
 }
 
 .slicer-transition-overflow {
@@ -26,8 +28,8 @@ body {
 }
 
 .slicer-grid-wrapper {
-    position: absolute;
-    display: block;
+    position: relative;
+    display: flex;
     justify-content: center;
     align-items: center;
     margin: auto;

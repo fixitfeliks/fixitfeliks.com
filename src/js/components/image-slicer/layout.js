@@ -59,11 +59,3 @@ export function updateGridLayout(tiles) {
         gridItem.style.left = tiles[i].x + 'px';
     }
 }
-
-function randomColorStyle(element) {
-    element.style.backgroundColor = `rgb(
-                    ${Math.floor(Math.random() * 256)},
-                    ${Math.floor(Math.random() * 256)},
-                    ${Math.floor(Math.random() * 256)}
-                )`;
-}

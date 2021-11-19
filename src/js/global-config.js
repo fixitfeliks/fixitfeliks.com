@@ -7,3 +7,6 @@ export const HEIGHT = parseInt(getComputedStyle(document.documentElement).getPro
 export const FLEX_TRANSITION_TIME = parseInt(
     getComputedStyle(document.documentElement).getPropertyValue('--flex-transition-time')
 );
+
+export const NAVBAR_ITEM_CLASSNAME = 'navbar-item';
+export const NAVBAR_ID = 'navbar-id';

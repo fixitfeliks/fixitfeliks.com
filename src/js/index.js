@@ -7,7 +7,9 @@ import testImg from 'Assets/test.png';
 import bearImg from 'Assets/bear.jpg';
 import weasleImf from 'Assets/weasle.jpg';
 import rue from 'Assets/rue.jpg';
+import 'Components/navbar/router.js'
 import { ImageSlicer } from 'Components/image-slicer/image-slicer.js';
+import { createNavbar } from 'Components/navbar/navbar.js';
 
 import { X_ROWS, Y_COLS, WIDTH, FLEX_TRANSITION_TIME } from 'Scripts/global-config.js';
 
@@ -79,9 +81,38 @@ function removeFlexItem(item, container) {
     }, FLEX_TRANSITION_TIME);
 }
 
+const main = document.createElement('div');
+main.classList.add('main-wrapper');
+
+document.body.appendChild(main);
+
 const test = new ImageSlicer(rue, 10, 10);
-const header = document.getElementsByTagName('header')[0];
-header.appendChild(test.getHTML());
+const header = document.createElement('header');
+main.appendChild(test.getHTML());
 let spreadCompletePromise = test.initSpreadElement();
 
-setInterval(() => {}, 1000);
+const testitem = document.createElement('div');
+testitem.classList.add('main-grid');
+testitem.id = 'test';
+main.appendChild(testitem);
+
+testitem.appendChild(createNavbar());
+// testitem.appendChild(header);
+
+spreadCompletePromise.then(() => {
+    const imageSlicer = document.getElementById('image-slicer-main');
+    const newTop = -1 * parseInt(imageSlicer.style.height) + 'px';
+    imageSlicer.style.top = newTop;
+    const testitem = document.getElementById('test');
+
+    imageSlicer.addEventListener('transitionend', () => {
+        imageSlicer.remove();
+    });
+
+    testitem.style.top = 0;
+});
+
+// setTimeout(() => {
+//     const imageSlicerWrapper = document.getElementById('image-slicer-main');
+//     const imageSlicerGrid = document.getElementById('image-slicer-grid');
+// }, 2000);

@@ -8,5 +8,6 @@ export const FLEX_TRANSITION_TIME = parseInt(
     getComputedStyle(document.documentElement).getPropertyValue('--flex-transition-time')
 );
 
+export const MAIN_WRAPPER_ID = 'main-wrapper-1';
 export const NAVBAR_ITEM_CLASSNAME = 'navbar-item';
 export const NAVBAR_ID = 'navbar-id';

@@ -4,67 +4,68 @@
 
 html,
 body {
-    height: 100vh;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
     margin: 0;
     padding: 0;
-    font: sans-serif;
-}
-
-.main-wrapper {
-    position: relative;
-    display: block;
-    margin: auto;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
+    font-family: sans-serif;
     overflow: hidden;
 }
 
-.main-grid {
+.main-wrapper {
     position: absolute;
+    display: block;
+    box-sizing: border-box;
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    -webkit-transition: transform var(--main-transition-time), ease;
+    -moz-transition: transform var(--main-transition-time) ease;
+    -ms-transition: transform var(--main-transition-time) ease;
+    -o-transition: transform var(--main-transition-time) ease;
+    transition: transform var(--main-transition-time) ease;
+}
+
+.main-grid {
+    position: relative;
     box-sizing: border-box;
     display: grid;
-    grid: auto-flow min-content auto min-content / 1fr;
-    grid-template-areas:
-        'header'
-        'nav'
-        'main'
-        'footer';
+    grid:
+        'nav' min-content
+        'main' auto
+        'footer' min-content
+        / 1fr;
     grid-gap: 1em;
     padding: 1%;
-    justify-content: stretch;
-    align-content: stretch;
-    width: 100vw;
-    height: 100vh;
-    top: 100vh;
+    width: 100%;
+    height: auto;
     left: 0;
-    -webkit-transition: top var(--tile-transition-time), ease;
-    -moz-transition: top var(--tile-transition-time) ease;
-    -ms-transition: top var(--tile-transition-time) ease;
-    -o-transition: top var(--tile-transition-time) ease;
-    transition: top var(--tile-transition-time) ease;
-}
-
-@media screen and (min-width: 600px) {
-    .main-grid {
-        grid: auto-flow min-content auto min-content / 1fr 7fr;
-        grid-template-areas:
-            'header header'
-            'nav main'
-            'footer footer';
-    }
-}
-
-header {
-    grid-area: header;
-}
-
-footer {
-    grid-area: footer;
 }
 
 nav {
     grid-area: nav;
-    height: 100%;
+}
+
+main {
+    grid-area: main;
+}
+
+footer {
+    grid-area: footer;
+    text-align: right;
+    border-top: 2px solid black;
+    padding: 1em 3em;
+}
+
+.float-up {
+    -ms-transform: translateY(calc(100vh));
+    -moz-transform: translateY(calc(100vh));
+    -webkit-transform: translateY(calc(100vh));
+    transform: translateY(calc(100vh));
+    top: 100vh;
 }

@@ -1,116 +1,122 @@
-import 'Styles/flex-box.css';
+// CSS - Styles
+import 'Styles/flex-card.css';
 import 'Styles/image-slicer.css';
 import 'Styles/loader-spinner.css';
 import 'Styles/navbar.css';
 import 'Styles/grid-responsive.css';
+
+// Assets - Images
 import testImg from 'Assets/test.png';
 import bearImg from 'Assets/bear.jpg';
 import weasleImf from 'Assets/weasle.jpg';
 import rue from 'Assets/rue.jpg';
-import 'Components/navbar/router.js'
+
+// Scripts - JS
+import 'Components/navbar/router.js';
 import { ImageSlicer } from 'Components/image-slicer/image-slicer.js';
-import { createNavbar } from 'Components/navbar/navbar.js';
+import { createNavbar, navOnScroll } from 'Components/navbar/navbar.js';
+import { X_ROWS, Y_COLS, WIDTH, FLEX_TRANSITION_TIME, MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
+import { getSingleFlexCard, getDoubleFlexCard, getHeaderFlexCard } from 'Components/flex-card.js';
 
-import { X_ROWS, Y_COLS, WIDTH, FLEX_TRANSITION_TIME } from 'Scripts/global-config.js';
-
-// const flexContainer = document.createElement('div');
-// flexContainer.className = 'flex-container';
-
-// const flexItem1 = document.createElement('div');
-// const flexItem3 = document.createElement('div');
-// const imgWrap1 = document.createElement('div');
-// imgWrap1.classList.add('img-wrapper');
-// const imgWrap2 = document.createElement('div');
-// imgWrap2.classList.add('img-wrapper');
-// flexItem1.className = 'flex-item';
-// flexItem3.className = 'flex-item';
-
-// const img1 = document.createElement('img');
-// img1.src = rue;
-// const img2 = document.createElement('img');
-// img2.src = rue;
-// imgWrap2.appendChild(img2);
-
-// const navbar = document.createElement('div');
-// navbar.classList.add('navbar');
-
-// document.body.appendChild(navbar);
-
-// imgWrap1.appendChild(test.getHTML());
-// flexItem1.appendChild(test.getHTML());
-// flexItem3.appendChild(imgWrap2);
-
-// flexItem1.classList.add('flex-item-added');
-// flexContainer.appendChild(flexItem1);
-// // document.body.appendChild(flexContainer);
-// let spreadCompletePromise = test.initSpreadElement();
-
-// // setTimeout(() => {
-// //     // addFlexItem(flexItem3, flexContainer);
-// //     document.body.getElementsByTagName('main')[0].appendChild(flexItem3);
-// // }, 5000);
-
-// spreadCompletePromise.then(() => {
-//     // const addFlexPromise = addFlexItem(flexItem2, flexContainer);
-//     // addFlexPromise.then(() => {
-//     //     removeFlexItem(flexItem1, flexContainer);
-//     // });
-// });
-
-// document.body.getElementsByTagName('header')[0].appendChild(test.getHTML());
-
-function addFlexItem(item, container) {
-    return new Promise((resolve) => {
-        item.classList.add('flex-item-removed');
-        container.appendChild(item);
-        setTimeout(() => {
-            item.classList.remove('flex-item-removed');
-            item.classList.add('flex-item-added');
-            setTimeout(() => {
-                resolve();
-            }, FLEX_TRANSITION_TIME);
-        }, 100);
-    });
-}
-
-function removeFlexItem(item, container) {
-    item.classList.remove('flex-item-added');
-    item.classList.add('flex-item-removed');
-    setTimeout(() => {
-        container.removeChild(item);
-    }, FLEX_TRANSITION_TIME);
-}
+// Content - JS
+import {
+    RESUME_HEADER_TITLE,
+    RESUME_HEADER_BODY,
+    WORK_EXPERIENCE_DNT_TITLE,
+    WORK_EXPERIENCE_DNT_SUMMARY,
+    WORK_EXPERIENCE_DNT_HEADER_WEB,
+    WORK_EXPERIENCE_DNT_CONTENT_WEB,
+    WORK_EXPERIENCE_DNT_HEADER_MOBILE,
+    WORK_EXPERIENCE_DNT_CONTENT_MOBILE,
+    WORK_EXPERIENCE_PS_TITLE,
+    WORK_EXPERIENCE_PS_SUMMARY,
+    WORK_EXPERIENCE_PS_HEADER_SOFTWARE,
+    WORK_EXPERIENCE_PS_CONTENT_SOFTWARE,
+    WORK_EXPERIENCE_PS_HEADER_ME,
+    WORK_EXPERIENCE_PS_CONTENT_ME,
+    WORK_EXPERIENCE_BD_TITLE,
+    WORK_EXPERIENCE_BD_SUMMARY,
+    WORK_EXPERIENCE_BD_CONTENT
+} from 'Scripts/content/resume.js';
 
 const main = document.createElement('div');
-main.classList.add('main-wrapper');
+main.classList.add('main-wrapper', 'float-up');
+main.id = MAIN_WRAPPER_ID;
 
 document.body.appendChild(main);
 
-const test = new ImageSlicer(rue, 10, 10);
-const header = document.createElement('header');
-main.appendChild(test.getHTML());
-let spreadCompletePromise = test.initSpreadElement();
+// const test = new ImageSlicer(rue, 10, 10);
+// const header = document.createElement('header');
+// main.appendChild(test.getHTML());
+// let spreadCompletePromise = test.initSpreadElement();
 
-const testitem = document.createElement('div');
-testitem.classList.add('main-grid');
-testitem.id = 'test';
-main.appendChild(testitem);
+const mainGrid = document.createElement('div');
+mainGrid.classList.add('main-grid');
+mainGrid.id = 'main-grid-1';
+mainGrid.appendChild(createNavbar());
+main.appendChild(mainGrid);
 
-testitem.appendChild(createNavbar());
-// testitem.appendChild(header);
-
-spreadCompletePromise.then(() => {
-    const imageSlicer = document.getElementById('image-slicer-main');
-    const newTop = -1 * parseInt(imageSlicer.style.height) + 'px';
-    imageSlicer.style.top = newTop;
-    const testitem = document.getElementById('test');
-
-    imageSlicer.addEventListener('transitionend', () => {
-        imageSlicer.remove();
+let last_known_scroll_position = 0;
+document.getElementById(MAIN_WRAPPER_ID).onscroll = function (e) {
+    window.requestAnimationFrame(function () {
+        last_known_scroll_position = document.getElementById(MAIN_WRAPPER_ID).scrollTop;
+        navOnScroll(document.getElementById(MAIN_WRAPPER_ID).scrollTop);
     });
+};
 
-    testitem.style.top = 0;
-});
+const mainDiv = document.createElement('main');
+mainDiv.appendChild(getHeaderFlexCard(RESUME_HEADER_TITLE, RESUME_HEADER_BODY));
+mainDiv.appendChild(
+    getDoubleFlexCard(
+        WORK_EXPERIENCE_DNT_TITLE,
+        WORK_EXPERIENCE_DNT_SUMMARY,
+        WORK_EXPERIENCE_DNT_HEADER_WEB,
+        WORK_EXPERIENCE_DNT_CONTENT_WEB
+    )
+);
+mainDiv.appendChild(getSingleFlexCard(WORK_EXPERIENCE_DNT_HEADER_MOBILE, WORK_EXPERIENCE_DNT_CONTENT_MOBILE));
+mainDiv.appendChild(
+    getDoubleFlexCard(
+        WORK_EXPERIENCE_PS_TITLE,
+        WORK_EXPERIENCE_PS_SUMMARY,
+        WORK_EXPERIENCE_PS_HEADER_SOFTWARE,
+        WORK_EXPERIENCE_PS_CONTENT_SOFTWARE
+    )
+);
+mainDiv.appendChild(getSingleFlexCard(WORK_EXPERIENCE_PS_HEADER_ME, WORK_EXPERIENCE_PS_CONTENT_ME));
+mainDiv.appendChild(
+    getDoubleFlexCard(WORK_EXPERIENCE_BD_TITLE, WORK_EXPERIENCE_BD_SUMMARY, null, WORK_EXPERIENCE_BD_CONTENT)
+);
+
+const footer = document.createElement('footer');
+footer.innerHTML = 'fix it feliks 2&copy;21 x_ks';
+
+mainGrid.appendChild(footer);
+mainGrid.appendChild(mainDiv);
+
+// mainGrid.appendChild(header);
+setTimeout(() => {
+    // mainGrid.style.top = 0;
+    main.classList.remove('float-up');
+    const addScrollbars = () => {
+        // main.classList.remove('hide-overflow');
+        mainGrid.removeEventListener('transitionend', addScrollbars);
+    };
+    mainGrid.addEventListener('transitionend', addScrollbars);
+}, 1000);
+
+// spreadCompletePromise.then(() => {
+//     const imageSlicer = document.getElementById('image-slicer-main');
+//     const newTop = -1 * parseInt(imageSlicer.style.height) + 'px';
+//     imageSlicer.style.top = newTop;
+//     const mainGrid = document.getElementById('test');
+
+//     imageSlicer.addEventListener('transitionend', () => {
+//         imageSlicer.remove();
+//     });
+
+//     mainGrid.style.top = 0;
+// });
 
 // setTimeout(() => {
 //     const imageSlicerWrapper = document.getElementById('image-slicer-main');

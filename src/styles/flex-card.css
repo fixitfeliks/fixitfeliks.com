@@ -1,0 +1,116 @@
+:root {
+    /* time must be in ms */
+    --flex-transition-time: 1000ms;
+}
+
+h3 {
+    margin: 0;
+}
+
+h4 {
+    margin: 0;
+}
+
+ul {
+    margin-top: 0.3em;
+}
+
+ul.no-bullets {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+    vertical-align: middle;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    box-sizing: border-box;
+    margin: 1em 1em;
+    padding: 0;
+    max-height: 100%;
+}
+
+.flex-body-header,
+.flex-title-header {
+    text-align: left;
+    /* font-weight: bold; */
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    margin: 1em;
+    /* background-color: blue; */
+}
+
+.flex-title-header {
+    position: flex;
+    align-self: center;
+}
+
+.flex-body-header {
+    position: relative;
+    align-self: top;
+}
+
+.flex-title-content,
+.flex-body-content {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    margin: 1em;
+    /* background-color: red; */
+}
+
+.flex-title-content {
+    text-align: right;
+}
+
+@media screen and (min-width: 600px) {
+    .flex-container {
+        flex-wrap: nowrap;
+    }
+
+    .flex-body-header,
+    .flex-title-header {
+        text-align: right;
+        width: 50%;
+        margin: 0 1em;
+    }
+
+    .flex-title-content {
+        text-align: left;
+    }
+
+    .flex-body-content {
+        margin: 0 1em;
+    }
+}
+
+.img-wrapper {
+    min-height: 0;
+    min-width: 0;
+    display: block;
+    max-height: 100%;
+    width: auto;
+    margin: auto;
+}
+
+img {
+    min-height: 0;
+    min-width: 0;
+    max-height: 100%;
+    width: auto;
+    /* -webkit-transition: all var(--flex-transition-time), linear;
+    -moz-transition: all var(--flex-transition-time) linear;
+    -ms-transition: all var(--flex-transition-time) linear;
+    -o-transition: all var(--flex-transition-time) linear;
+    transition: all var(--flex-transition-time) linear; */
+}

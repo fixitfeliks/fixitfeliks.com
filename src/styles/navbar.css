@@ -1,43 +1,39 @@
 :root {
     --nav-transition-time: 1000ms;
+    --mobile-width-bracket: 600px;
 }
 
 nav {
+    position: relative;
     display: block;
-    margin: auto;
-    height: 100%;
-    max-height: 100%;
-    min-height: 100%;
+    box-sizing: content-box;
+    text-align: right;
+    border-bottom: 2px solid black;
     width: 100%;
-    /* background-color: #4c4c4c; */
-    /* box-shadow: 0 16px 24px 0 rgba(0, 0, 0, 0.2), 0 20px 40px 0 rgba(0, 0, 0, 0.2); */
-    /* z-index: 9999; */
+    max-width: 100%;
 }
 
 .navbar-item {
-    border-radius: 1em;
-    box-shadow: 0 16px 24px 0 rgba(0, 0, 0, 0.2), 0 20px 40px 0 rgba(0, 0, 0, 0.2);
+    display: block;
     position: relative;
+    float: right;
     box-sizing: border-box;
-    top: 0;
-    max-width: 100%;
     width: 100%;
-    display: flex;
-    text-align: center;
-    vertical-align: middle;
-    padding: 1em;
-    margin: 1.5em 0;
-    align-items: center;
-    justify-content: center;
-    height: 10vh;
-    background-color: #595959;
-    color: white;
+    height: fit-content;
+    margin-top: 0;
+    padding: 1em 3em;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.navbar-item:hover {
-    box-shadow: 0 16px 24px 0 rgba(0, 0, 0, 0.2), 0 20px 40px 0 rgba(0, 0, 0, 0.8);
-    height: 11vh;
-    background-color: #333333;
+.navbar-item > a {
+    display: block;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    color: inherit;
+    text-decoration: inherit;
 }
 
 .transition {
@@ -50,4 +46,29 @@ nav {
 
 .disable-click {
     pointer-events: none;
+}
+
+.sticky {
+    position: fixed;
+}
+
+@media screen and (min-width: 600px) {
+    .navbar-item {
+        display: inline-block;
+        margin-top: 2em;
+        width: max-content;
+        align-items: right;
+        float: none;
+    }
+
+    .navbar-item:hover {
+        -webkit-font-smoothing: subpixel-antialiased;
+        backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: translateY(-1vh);
+        -moz-transform: translateY(-1vh);
+        -ms-transform: translateY(-1vh);
+        transform: translateY(-1vh);
+    }
 }

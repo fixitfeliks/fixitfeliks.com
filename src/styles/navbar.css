@@ -6,11 +6,15 @@
 nav {
     position: relative;
     display: block;
-    box-sizing: content-box;
+    box-sizing: border-box;
     text-align: right;
     border-bottom: 2px solid black;
+    min-width: min-content;
     width: 100%;
     max-width: 100%;
+    background-color: white;
+    height: max-content;
+    max-height: max-content;
 }
 
 .navbar-item {
@@ -19,12 +23,13 @@ nav {
     float: right;
     box-sizing: border-box;
     width: 100%;
-    height: fit-content;
+    height: max-content;
     margin-top: 0;
     padding: 1em 3em;
     color: black;
     font-weight: bold;
     cursor: pointer;
+    border-radius: 50px;
 }
 
 .navbar-item > a {
@@ -34,6 +39,7 @@ nav {
     width: 100%;
     color: inherit;
     text-decoration: inherit;
+    background-color: white;
 }
 
 .transition {
@@ -44,12 +50,58 @@ nav {
     transition: all var(--nav-transition-time) ease, height calc(var(--nav-transition-time) / 2) ease;
 }
 
+.transition-top {
+    -webkit-transition: top var(--nav-transition-time) ease;
+    -moz-transition: top var(--nav-transition-time) ease;
+    -ms-transition: top var(--nav-transition-time) ease;
+    -o-transition: top var(--nav-transition-time) ease;
+    transition: top var(--nav-transition-time) ease;
+}
+
 .disable-click {
     pointer-events: none;
 }
 
 .sticky {
     position: fixed;
+    z-index: 99;
+}
+
+.open-nav-button {
+    position: fixed;
+    display: block;
+    box-sizing: border-box;
+    z-index: 999;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.open-nav-button > div {
+    height: 0.75em;
+    width: 0.75em;
+    margin: 1em;
+    border: solid black;
+    border-width: 0 3px 3px 0;
+}
+
+.open-nav-hide {
+    display: none;
+}
+
+.open-nav-rotate {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.open-nav-top {
+    top: 0 !important;
 }
 
 @media screen and (min-width: 600px) {
@@ -70,5 +122,9 @@ nav {
         -moz-transform: translateY(-1vh);
         -ms-transform: translateY(-1vh);
         transform: translateY(-1vh);
+    }
+
+    .open-nav-button {
+        display: none;
     }
 }

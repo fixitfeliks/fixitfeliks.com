@@ -8,6 +8,12 @@ export const FLEX_TRANSITION_TIME = parseInt(
     getComputedStyle(document.documentElement).getPropertyValue('--flex-transition-time')
 );
 
-export const MAIN_WRAPPER_ID = 'main-wrapper-1';
-export const NAVBAR_ITEM_CLASSNAME = 'navbar-item';
+export const MAIN_WRAPPER_ID = 'main-wrapper-id';
+export const MAIN_GRID_ID = 'main-grid-id';
 export const NAVBAR_ID = 'navbar-id';
+export const NAVBAR_BUTTON_ID = 'open-navbar-id';
+export const NAVBAR_BUTTON_CLASSNAME = 'open-nav-button';
+export const HIDE_NAVBAR_BUTTON_CLASSNAME = 'open-nav-hide';
+export const ROTATE_NAVBAR_BUTTON_CLASSNAME = 'open-nav-rotate';
+export const NAVBAR_ITEM_LIST_ID = 'navbar-list-id';
+export const NAVBAR_ITEM_CLASSNAME = 'navbar-item';

@@ -14,7 +14,7 @@ import rue from 'Assets/rue.jpg';
 // Scripts - JS
 import 'Components/navbar/router.js';
 import { ImageSlicer } from 'Components/image-slicer/image-slicer.js';
-import { createNavbar, navOnScroll } from 'Components/navbar/navbar.js';
+import { getNavbarFragment } from 'Components/navbar/navbar.js';
 import { X_ROWS, Y_COLS, WIDTH, FLEX_TRANSITION_TIME, MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
 import { getSingleFlexCard, getDoubleFlexCard, getHeaderFlexCard } from 'Components/flex-card.js';
 
@@ -38,6 +38,7 @@ import {
     WORK_EXPERIENCE_BD_SUMMARY,
     WORK_EXPERIENCE_BD_CONTENT
 } from 'Scripts/content/resume.js';
+import { NAVBAR_ID } from './global-config';
 
 const main = document.createElement('div');
 main.classList.add('main-wrapper', 'float-up');
@@ -53,16 +54,8 @@ document.body.appendChild(main);
 const mainGrid = document.createElement('div');
 mainGrid.classList.add('main-grid');
 mainGrid.id = 'main-grid-1';
-mainGrid.appendChild(createNavbar());
+mainGrid.appendChild(getNavbarFragment(MAIN_WRAPPER_ID));
 main.appendChild(mainGrid);
-
-let last_known_scroll_position = 0;
-document.getElementById(MAIN_WRAPPER_ID).onscroll = function (e) {
-    window.requestAnimationFrame(function () {
-        last_known_scroll_position = document.getElementById(MAIN_WRAPPER_ID).scrollTop;
-        navOnScroll(document.getElementById(MAIN_WRAPPER_ID).scrollTop);
-    });
-};
 
 const mainDiv = document.createElement('main');
 mainDiv.appendChild(getHeaderFlexCard(RESUME_HEADER_TITLE, RESUME_HEADER_BODY));
@@ -94,15 +87,17 @@ footer.innerHTML = 'fix it feliks 2&copy;21 x_ks';
 mainGrid.appendChild(footer);
 mainGrid.appendChild(mainDiv);
 
+const addScrollbars = () => {
+    // main.classList.remove('hide-overflow');
+    document.body.style.overflow = 'auto';
+    main.removeEventListener('transitionend', addScrollbars);
+};
+main.ontransitionend = addScrollbars;
+
 // mainGrid.appendChild(header);
 setTimeout(() => {
-    // mainGrid.style.top = 0;
     main.classList.remove('float-up');
-    const addScrollbars = () => {
-        // main.classList.remove('hide-overflow');
-        mainGrid.removeEventListener('transitionend', addScrollbars);
-    };
-    mainGrid.addEventListener('transitionend', addScrollbars);
+    // mainGrid.style.top = 0;
 }, 1000);
 
 // spreadCompletePromise.then(() => {

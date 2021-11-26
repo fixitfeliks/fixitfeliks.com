@@ -73,7 +73,7 @@ ul.no-bullets {
     text-align: right;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 700px) {
     .flex-container {
         flex-wrap: nowrap;
     }

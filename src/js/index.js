@@ -12,34 +12,14 @@ import weasleImf from 'Assets/weasle.jpg';
 import rue from 'Assets/rue.jpg';
 
 // Scripts - JS
-import 'Components/navbar/router.js';
 import { ImageSlicer } from 'Components/image-slicer/image-slicer.js';
-import { getNavbarFragment } from 'Components/navbar/navbar.js';
+import { getNavbarFragment } from 'Components/navbar.js';
 import { X_ROWS, Y_COLS, WIDTH, FLEX_TRANSITION_TIME, MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
-import { getSingleFlexCard, getDoubleFlexCard, getHeaderFlexCard } from 'Components/flex-card.js';
 
 // Content - JS
-import {
-    RESUME_HEADER_TITLE,
-    RESUME_HEADER_BODY,
-    WORK_EXPERIENCE_DNT_TITLE,
-    WORK_EXPERIENCE_DNT_SUMMARY,
-    WORK_EXPERIENCE_DNT_HEADER_WEB,
-    WORK_EXPERIENCE_DNT_CONTENT_WEB,
-    WORK_EXPERIENCE_DNT_HEADER_MOBILE,
-    WORK_EXPERIENCE_DNT_CONTENT_MOBILE,
-    WORK_EXPERIENCE_PS_TITLE,
-    WORK_EXPERIENCE_PS_SUMMARY,
-    WORK_EXPERIENCE_PS_HEADER_SOFTWARE,
-    WORK_EXPERIENCE_PS_CONTENT_SOFTWARE,
-    WORK_EXPERIENCE_PS_HEADER_ME,
-    WORK_EXPERIENCE_PS_CONTENT_ME,
-    WORK_EXPERIENCE_BD_TITLE,
-    WORK_EXPERIENCE_BD_SUMMARY,
-    WORK_EXPERIENCE_BD_CONTENT
-} from 'Scripts/content/resume.js';
+import getResumePage from 'Scripts/content/resume.js';
 import { NAVBAR_ID } from './global-config';
-
+window.location.hash = '';
 const main = document.createElement('div');
 main.classList.add('main-wrapper', 'float-up');
 main.id = MAIN_WRAPPER_ID;
@@ -58,28 +38,7 @@ mainGrid.appendChild(getNavbarFragment(MAIN_WRAPPER_ID));
 main.appendChild(mainGrid);
 
 const mainDiv = document.createElement('main');
-mainDiv.appendChild(getHeaderFlexCard(RESUME_HEADER_TITLE, RESUME_HEADER_BODY));
-mainDiv.appendChild(
-    getDoubleFlexCard(
-        WORK_EXPERIENCE_DNT_TITLE,
-        WORK_EXPERIENCE_DNT_SUMMARY,
-        WORK_EXPERIENCE_DNT_HEADER_WEB,
-        WORK_EXPERIENCE_DNT_CONTENT_WEB
-    )
-);
-mainDiv.appendChild(getSingleFlexCard(WORK_EXPERIENCE_DNT_HEADER_MOBILE, WORK_EXPERIENCE_DNT_CONTENT_MOBILE));
-mainDiv.appendChild(
-    getDoubleFlexCard(
-        WORK_EXPERIENCE_PS_TITLE,
-        WORK_EXPERIENCE_PS_SUMMARY,
-        WORK_EXPERIENCE_PS_HEADER_SOFTWARE,
-        WORK_EXPERIENCE_PS_CONTENT_SOFTWARE
-    )
-);
-mainDiv.appendChild(getSingleFlexCard(WORK_EXPERIENCE_PS_HEADER_ME, WORK_EXPERIENCE_PS_CONTENT_ME));
-mainDiv.appendChild(
-    getDoubleFlexCard(WORK_EXPERIENCE_BD_TITLE, WORK_EXPERIENCE_BD_SUMMARY, null, WORK_EXPERIENCE_BD_CONTENT)
-);
+mainDiv.appendChild(getResumePage());
 
 const footer = document.createElement('footer');
 footer.innerHTML = 'fix it feliks 2&copy;21 x_ks';

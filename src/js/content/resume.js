@@ -1,24 +1,26 @@
-export const RESUME_HEADER_TITLE = /*html*/ `
+import { getSingleFlexCard, getDoubleFlexCard, getHeaderFlexCard } from 'Components/flex-card.js';
+
+const RESUME_HEADER_TITLE = /*html*/ `
     <ul class="no-bullets">
         <li><h3>Feliks Peysakhov</h3></li>
     </ul>
 `;
 
-export const RESUME_HEADER_BODY = /*html*/ `
+const RESUME_HEADER_BODY = /*html*/ `
     <ul class="no-bullets">
         <li>feliks.peysakhov@gmail.com</li>
     </ul>
 `;
 
 // DNT ******************************************************
-export const WORK_EXPERIENCE_DNT_TITLE = /*html*/ `
+const WORK_EXPERIENCE_DNT_TITLE = /*html*/ `
     <ul class="no-bullets">
         <li><h3>Dom & Tom</h3></li>
         <li>Web and Mobile Developer</li>
     </ul>
 `;
 
-export const WORK_EXPERIENCE_DNT_SUMMARY = /*html*/ `
+const WORK_EXPERIENCE_DNT_SUMMARY = /*html*/ `
     <ul class="no-bullets">
         <li><h3>New York, NY (Remote)</h3></li>
         <li>Part-time Contractor (12-20 hr/week)</li>
@@ -26,11 +28,11 @@ export const WORK_EXPERIENCE_DNT_SUMMARY = /*html*/ `
     </ul>
 `;
 
-export const WORK_EXPERIENCE_DNT_HEADER_WEB = /*html*/ ` 
+const WORK_EXPERIENCE_DNT_HEADER_WEB = /*html*/ ` 
     <h4>Web Development</h4>
 `;
 
-export const WORK_EXPERIENCE_DNT_CONTENT_WEB = /*html*/ `
+const WORK_EXPERIENCE_DNT_CONTENT_WEB = /*html*/ `
     <b>Full Stack Web Developer</b>
         <ul>
             <li>Tech lead on several maintenance and migration projects.</li>
@@ -48,17 +50,17 @@ export const WORK_EXPERIENCE_DNT_CONTENT_WEB = /*html*/ `
                 <li>MYSQL, Node.js, Prisma ORM, GraphQL, and React web app with Amazon Cognito, Wordpress as a headless CMS, and AWS Elasticsearch</li>
                 <li>Added new GraphQL mutations and updated AWS cognito packages to add admin password reset features</li>
                 <li>Front end fixes for issues with Prisma caching and pagination not searching properly on material ui tables</li>
-                <li>Added console to manage members of user accounts</li>
+                <li>Added console to manage members of user accounts</li>    
             </ul>
             <li>Other technologies: GIT for source control and Brightsign players for TVs</li>
         </ul>
 `;
 
-export const WORK_EXPERIENCE_DNT_HEADER_MOBILE = /*html*/ `
+const WORK_EXPERIENCE_DNT_HEADER_MOBILE = /*html*/ `
     <h4>Mobile Development</h4>
 `;
 
-export const WORK_EXPERIENCE_DNT_CONTENT_MOBILE = /*html*/ `
+const WORK_EXPERIENCE_DNT_CONTENT_MOBILE = /*html*/ `
 <b>Android & React Native Development</b>
 <ul>
     <li>Event management platform with admin console maintenance</li>
@@ -77,13 +79,13 @@ export const WORK_EXPERIENCE_DNT_CONTENT_MOBILE = /*html*/ `
 `;
 
 // PS *******************************************************
-export const WORK_EXPERIENCE_PS_TITLE = /*html*/ `
+const WORK_EXPERIENCE_PS_TITLE = /*html*/ `
     <ul class="no-bullets">
         <li><h3>Persistent Systems</h3></li>
         <li>Sr. Manufacturing Engineer</li>
     </ul>
 `;
-export const WORK_EXPERIENCE_PS_SUMMARY = /*html*/ `
+const WORK_EXPERIENCE_PS_SUMMARY = /*html*/ `
 
     <ul class="no-bullets">
         <li> <h3>New York, NY</h3></li>
@@ -92,8 +94,8 @@ export const WORK_EXPERIENCE_PS_SUMMARY = /*html*/ `
     </ul>
 `;
 
-export const WORK_EXPERIENCE_PS_HEADER_SOFTWARE = /*html*/ `<h4>Software Development</h4>`;
-export const WORK_EXPERIENCE_PS_CONTENT_SOFTWARE = /*html*/ `
+const WORK_EXPERIENCE_PS_HEADER_SOFTWARE = /*html*/ `<h4>Software Development</h4>`;
+const WORK_EXPERIENCE_PS_CONTENT_SOFTWARE = /*html*/ `
     <b>Live dashboards for production floor tvs and PCs </b>
         <ul>
             <li>Tech lead and full stack developer mentoring and training ERP analyst on backend.</li>
@@ -115,8 +117,8 @@ export const WORK_EXPERIENCE_PS_CONTENT_SOFTWARE = /*html*/ `
         </ul>
 `;
 
-export const WORK_EXPERIENCE_PS_HEADER_ME = /*html*/ `<h4>Manufacturing Engineer</h4>`;
-export const WORK_EXPERIENCE_PS_CONTENT_ME = /*html*/ `
+const WORK_EXPERIENCE_PS_HEADER_ME = /*html*/ `<h4>Manufacturing Engineer</h4>`;
+const WORK_EXPERIENCE_PS_CONTENT_ME = /*html*/ `
     <b>Electronics Assembly Support and Supervisor</b>
         <ul>
             <li>One manufacturing engineer directly reporting</li>
@@ -136,13 +138,13 @@ export const WORK_EXPERIENCE_PS_CONTENT_ME = /*html*/ `
 `;
 
 // BD *******************************************************
-export const WORK_EXPERIENCE_BD_TITLE = /*html*/ `
+const WORK_EXPERIENCE_BD_TITLE = /*html*/ `
     <ul class="no-bullets">
         <li><h3>Becton Dickinson</h3></li>
         <li>Sr. Manufacturing Engineer</li>
     </ul>
 `;
-export const WORK_EXPERIENCE_BD_SUMMARY = /*html*/ `
+const WORK_EXPERIENCE_BD_SUMMARY = /*html*/ `
 
     <ul class="no-bullets">
         <li> <h3>Franklin Lakes, NJ</h3></li>
@@ -151,7 +153,7 @@ export const WORK_EXPERIENCE_BD_SUMMARY = /*html*/ `
     </ul>
 `;
 
-export const WORK_EXPERIENCE_BD_CONTENT = /*html*/ `
+const WORK_EXPERIENCE_BD_CONTENT = /*html*/ `
     <ul>
         <li>Industrial automation and vision system subject matter expert on interdisciplinary teams for product improvements and capacity expansion</li>
         <li>Integrated a deep learning vision system solution from Cognex for high volume inspection processes and created training model sets. Used the same software to replace a poor QOS OCR text scanning program</li>
@@ -161,13 +163,13 @@ export const WORK_EXPERIENCE_BD_CONTENT = /*html*/ `
 `;
 
 // WA *******************************************************
-export const WORK_EXPERIENCE_WA_TITLE = /*html*/ `
+const WORK_EXPERIENCE_WA_TITLE = /*html*/ `
     <ul class="no-bullets">
         <li><h3>Weiss-Aug Co.</h3></li>
         <li>Sr. Manufacturing Engineer</li>
     </ul>
 `;
-export const WORK_EXPERIENCE_WA_SUMMARY = /*html*/ `
+const WORK_EXPERIENCE_WA_SUMMARY = /*html*/ `
 
     <ul class="no-bullets">
         <li> <h3>Franklin Lakes, NJ</h3></li>
@@ -176,7 +178,7 @@ export const WORK_EXPERIENCE_WA_SUMMARY = /*html*/ `
     </ul>
 `;
 
-export const WORK_EXPERIENCE_WA_CONTENT = /*html*/ `
+const WORK_EXPERIENCE_WA_CONTENT = /*html*/ `
     <ul>
         <li>Industrial automation and vision system subject matter expert on interdisciplinary teams for product improvements and capacity expansion</li>
         <li>Integrated a deep learning vision system solution from Cognex for high volume inspection processes and created training model sets. Used the same software to replace a poor QOS OCR text scanning program</li>
@@ -184,3 +186,30 @@ export const WORK_EXPERIENCE_WA_CONTENT = /*html*/ `
         <li>Authored and executed FAT, SAT, IQ, OQ, and PQ protocols as part of validation activities for new manufacturing equipment and processes</li>
     </ul>
 `;
+
+export default () => {
+    const fragment = document.createDocumentFragment();
+    fragment.appendChild(getHeaderFlexCard(RESUME_HEADER_TITLE, RESUME_HEADER_BODY));
+    fragment.appendChild(
+        getDoubleFlexCard(
+            WORK_EXPERIENCE_DNT_TITLE,
+            WORK_EXPERIENCE_DNT_SUMMARY,
+            WORK_EXPERIENCE_DNT_HEADER_WEB,
+            WORK_EXPERIENCE_DNT_CONTENT_WEB
+        )
+    );
+    fragment.appendChild(getSingleFlexCard(WORK_EXPERIENCE_DNT_HEADER_MOBILE, WORK_EXPERIENCE_DNT_CONTENT_MOBILE));
+    fragment.appendChild(
+        getDoubleFlexCard(
+            WORK_EXPERIENCE_PS_TITLE,
+            WORK_EXPERIENCE_PS_SUMMARY,
+            WORK_EXPERIENCE_PS_HEADER_SOFTWARE,
+            WORK_EXPERIENCE_PS_CONTENT_SOFTWARE
+        )
+    );
+    fragment.appendChild(getSingleFlexCard(WORK_EXPERIENCE_PS_HEADER_ME, WORK_EXPERIENCE_PS_CONTENT_ME));
+    fragment.appendChild(
+        getDoubleFlexCard(WORK_EXPERIENCE_BD_TITLE, WORK_EXPERIENCE_BD_SUMMARY, null, WORK_EXPERIENCE_BD_CONTENT)
+    );
+    return fragment;
+};

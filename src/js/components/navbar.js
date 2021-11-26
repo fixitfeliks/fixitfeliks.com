@@ -13,8 +13,6 @@ import {
 // TODO combine with CSS
 const RESPONSIVE_BREAKPOINT = 600;
 
-let navReady = true;
-
 const navbarRoutes = [
     {
         name: 'projects',
@@ -29,6 +27,12 @@ const navbarRoutes = [
         path: 'about-me'
     }
 ];
+
+window.addEventListener('hashchange', onRouteChanged);
+
+function onRouteChanged() {
+    const hash = window.location.hash.substring(1);
+}
 
 window.addEventListener('resize', () => {
     const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
@@ -54,11 +58,9 @@ export function getNavbarFragment(scrollId) {
     const navbarItemList = document.createElement('div');
     navbarItemList.id = NAVBAR_ITEM_LIST_ID;
     for (let i = 0; i < navbarRoutes.length; i++) {
-        const navbarItem = document.createElement('div');
-        const link = document.createElement('a');
-        link.href = `/#/${navbarRoutes[i].path}`;
+        const navbarItem = document.createElement('a');
+        navbarItem.href = `/#/${navbarRoutes[i].path}`;
         navbarItem.innerHTML = navbarRoutes[i].name;
-        navbarItem.appendChild(link);
         navbarItem.classList.add(NAVBAR_ITEM_CLASSNAME, 'transition');
         navbarItem.onclick = (e) => onNavClick(e);
         navbarItem.id = navbarRoutes[i].path;
@@ -66,8 +68,10 @@ export function getNavbarFragment(scrollId) {
         navbarItemList.appendChild(navbarItem);
         if (i === navbarRoutes.length - 1) navbarItem.style.textDecoration = 'underline';
     }
+
     navbar.appendChild(navbarItemList);
     navbar.appendChild(getOpenNavButtonFragment());
+
     fragment.appendChild(navbar);
 
     document.getElementById(scrollId).onscroll = function (e) {
@@ -173,23 +177,23 @@ function setVisibilityOpenNavButton(isShow) {
 }
 
 const onNavItemTransitionEnd = () => {
-    navReady = true;
+    // navReady = true;
 };
 
 function onNavClick(event) {
-    if (navReady) {
-        console.log('nav item click: ', event.target.id);
-        const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
-        const elementCollection = navbarItemList.children;
-        let index = -1;
-        for (let i = 0; i < elementCollection.length; i++) {
-            if (event.target.id === elementCollection[i].id) {
-                index = i;
-                i = elementCollection.length;
-            }
+    // if (navReady) {
+    console.log('nav item click: ', event.target.id);
+    const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
+    const elementCollection = navbarItemList.children;
+    let index = -1;
+    for (let i = 0; i < elementCollection.length; i++) {
+        if (event.target.id === elementCollection[i].id) {
+            index = i;
+            i = elementCollection.length;
         }
-        sortNavbarItems(parseInt(index));
     }
+    sortNavbarItems(parseInt(index));
+    // }
 }
 
 function sortNavbarItems(index) {
@@ -224,6 +228,7 @@ function sortNavbarItems(index) {
             cumlItemHeight += elementCollection[i].clientHeight;
             cumlItemWidth += elementCollection[i].clientWidth;
         }
+
         navbarItemList.insertAdjacentElement('beforeend', elementCollection[index]);
 
         updateAnimation(elementCollection);
@@ -238,7 +243,7 @@ function updateAnimation(elementCollection) {
             elementCollection[i].style.left = 0;
             elementCollection[i].style.top = 0;
             elementCollection[i].classList.add('transition');
-            navReady = false;
+            // navReady = false;
             // });
         }
     }, 10);

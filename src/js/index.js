@@ -12,6 +12,7 @@ import weasleImf from 'Assets/weasle.jpg';
 import rue from 'Assets/rue.jpg';
 
 // Scripts - JS
+import 'Components/router.js';
 import { ImageSlicer } from 'Components/image-slicer/image-slicer.js';
 import { getNavbarFragment } from 'Components/navbar.js';
 import { X_ROWS, Y_COLS, WIDTH, FLEX_TRANSITION_TIME, MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
@@ -19,7 +20,6 @@ import { X_ROWS, Y_COLS, WIDTH, FLEX_TRANSITION_TIME, MAIN_WRAPPER_ID } from 'Sc
 // Content - JS
 import getResumePage from 'Scripts/content/resume.js';
 import { NAVBAR_ID } from './global-config';
-window.location.hash = '';
 const main = document.createElement('div');
 main.classList.add('main-wrapper', 'float-up');
 main.id = MAIN_WRAPPER_ID;
@@ -48,10 +48,13 @@ mainGrid.appendChild(mainDiv);
 
 const addScrollbars = () => {
     // main.classList.remove('hide-overflow');
-    document.body.style.overflow = 'auto';
+    // document.body.style.overflow = 'auto';
     main.removeEventListener('transitionend', addScrollbars);
 };
 main.ontransitionend = addScrollbars;
+
+const nav = document.getElementsByTagName('nav')[0];
+mainDiv.style.minHeight = window.innerHeight - nav.clientHeight + 'px';
 
 // mainGrid.appendChild(header);
 setTimeout(() => {

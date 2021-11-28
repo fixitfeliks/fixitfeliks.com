@@ -7,6 +7,7 @@ export const TILE_TRANSITION_TIME = parseInt(
 );
 export const MAIN_TRANSITION_DELAY = 500;
 
+export const IMAGE_ID = 'image-slicer-image-id';
 export const MAIN_WRAPPER_ELEMENT_ID = 'image-slicer-main';
 export const MAIN_WRAPPER_ELEMENT_CLASS = 'slicer-main-wrapper';
 export const GRID_WRAPPER_ELEMENT_ID = 'image-slicer-grid';

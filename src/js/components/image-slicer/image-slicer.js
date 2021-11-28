@@ -12,38 +12,46 @@ import {
     SPREAD_TOTAL_TIME,
     TILE_TRANSITION_TIME,
     MAIN_TRANSITION_DELAY,
-    MAIN_TRANSITION_OVERFLOW
+    MAIN_TRANSITION_OVERFLOW,
+    IMAGE_ID
 } from './slicer-constants.js';
 import { cssLoader } from './loader-spinner.js';
+import { MAIN_WRAPPER_ID } from '../../global-config.js';
 
 export class ImageSlicer {
-    constructor(src, rows, cols) {
-        this.src = src;
+    constructor(imageSrc, rows, cols) {
+        this.imageSrc = imageSrc;
         this.rows = rows;
         this.cols = cols;
-        this.width = 0;
-        this.height = 0;
-        this.tileWidth = 0;
-        this.tileHeight = 0;
-        this.grid = new ImageGrid(this.rows, this.cols, this.tileWidth, this.tileHeight);
+        // Image width
+        this.imageWidth = undefined;
+        this.imageHeight = undefined;
+        // Unscaled tile width
+        this.tileWidth = undefined;
+        this.tileHeight = undefined;
+        // Scaled tile width
+        this.canvasWidth = undefined;
+        this.canvasHeight = undefined;
+        this.imageGrid = undefined;
+        this.tilesLoadedPromise;
         this.image = document.createElement('img');
         this.imageLoadedPromise = new Promise((resolve) => {
             const context = () => resolve();
             this.loadImage(context);
         });
-        this.tilesLoadedPromise;
     }
 
     loadImage(context) {
-        this.image.src = this.src;
+        const mainWrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID);
+        this.image.src = this.imageSrc;
         this.image.style.display = 'none';
+        this.image.id = IMAGE_ID;
         document.body.appendChild(this.image);
         this.image.onload = () => {
-            this.width = this.image.naturalWidth;
-            this.height = this.image.naturalHeight;
-            this.tileWidth = this.width / this.cols;
-            this.tileHeight = this.height / this.rows;
-            this.grid = new ImageGrid(this.rows, this.cols, this.tileWidth, this.tileHeight);
+            this.imageWidth = this.image.naturalWidth;
+            this.imageHeight = this.image.naturalHeight;
+            this.tileWidth = this.imageWidth / this.cols;
+            this.tileHeight = this.imageHeight / this.rows;
             context();
         };
     }
@@ -58,42 +66,90 @@ export class ImageSlicer {
         const contentWrapper = document.createElement('div');
         contentWrapper.id = MAIN_WRAPPER_ELEMENT_ID;
         contentWrapper.className = MAIN_WRAPPER_ELEMENT_CLASS;
-        contentWrapper.appendChild(cssLoader);
+        // contentWrapper.appendChild(cssLoader);
         return contentWrapper;
     }
 
     initImageTiles() {
-        console.log('init Tiles ', this.grid.tiles);
-        // const cssLoader = document.getElementById(CSS_LOADER_ID);
         const mainWrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID);
+        const clientWidth = mainWrapper.clientWidth;
+        const clientHeight = mainWrapper.clientHeight;
         const gridWrapper = document.getElementById(GRID_WRAPPER_ELEMENT_ID);
-        mainWrapper.style.width = this.width + 'px';
-        mainWrapper.style.height = this.height + 'px';
-        gridWrapper.style.width = this.width + 'px';
-        gridWrapper.style.height = this.height + 'px';
 
-        for (let i = 0; i < this.grid.tiles.length; i++) {
-            const tSrc = this.image.src;
-            let imageType = tSrc.substring(tSrc.lastIndexOf('.') + 1, tSrc.length);
+        let initWidth = undefined;
+        let initHeight = undefined;
+        let initTileWidth = undefined;
+        let initTileHeight = undefined;
+
+        if (this.imageWidth > clientWidth || this.imageHeight > clientHeight) {
+            const ratio = Math.min(clientWidth / this.imageWidth, clientHeight / this.imageHeight);
+            const tempInitWidth = this.imageWidth * ratio;
+            const tempInitHeight = this.imageHeight * ratio;
+            initTileWidth = Math.floor(tempInitWidth / this.cols);
+            initTileHeight = Math.floor(tempInitHeight / this.rows);
+            initWidth = this.cols * initTileWidth;
+            initHeight = this.rows * initTileHeight;
+        } else {
+            initWidth = this.imageWidth;
+            initHeight = this.imageHeight;
+            initTileWidth = initWidth / this.cols;
+            initTileHeight = initHeight / this.rows;
+        }
+
+        gridWrapper.style.width = initWidth + 'px';
+        gridWrapper.style.height = initHeight + 'px';
+
+        this.imageGrid = new ImageGrid(this.rows, this.cols, initTileWidth, initTileHeight);
+        const originalScaleGrid = new ImageGrid(this.rows, this.cols, this.tileWidth, this.tileHeight);
+
+        console.log('init Tiles ', this.imageGrid.tiles);
+
+        for (let i = 0; i < this.imageGrid.tiles.length; i++) {
+            let imageType = this.imageSrc.substring(this.imageSrc.lastIndexOf('.') + 1, this.imageSrc.length);
             imageType = imageType === 'jpg' ? 'jpeg' : imageType;
-            let canvas = document.getElementById(GRID_ELEMENT_ID_PREFIX + this.grid.tiles[i].id);
-            canvas.id = GRID_ELEMENT_ID_PREFIX + this.grid.tiles[i].id;
-            canvas.width = this.tileWidth;
-            canvas.height = this.tileHeight;
+            let canvas = document.getElementById(GRID_ELEMENT_ID_PREFIX + this.imageGrid.tiles[i].id);
+            canvas.id = GRID_ELEMENT_ID_PREFIX + this.imageGrid.tiles[i].id;
+            canvas.width = initTileWidth;
+            canvas.height = initTileHeight;
             let context = canvas.getContext('2d');
             context.drawImage(
                 this.image,
-                this.grid.tiles[i].x,
-                this.grid.tiles[i].y,
+                originalScaleGrid.tiles[i].x,
+                originalScaleGrid.tiles[i].y,
                 this.tileWidth,
                 this.tileHeight,
                 0,
                 0,
-                canvas.width,
-                canvas.height
+                initTileWidth,
+                initTileHeight
             );
-            initCanvasTile(canvas, this.grid.tiles[i]);
+            initCanvasTile(canvas, this.imageGrid.tiles[i]);
         }
+        window.addEventListener('resize', () => {
+            const mainWrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID);
+            const gridWrapper = document.getElementById(GRID_WRAPPER_ELEMENT_ID);
+            if (gridWrapper.children > 1) {
+                this.initImageTiles();
+            } else {
+                let newWidth = this.imageWidth;
+                let newHeight = this.imageHeight;
+
+                if (this.imageWidth > mainWrapper.clientWidth || this.imageHeight > mainWrapper.clientHeight) {
+                    const ratio = Math.min(
+                        mainWrapper.clientWidth / this.imageWidth,
+                        mainWrapper.clientHeight / this.imageHeight
+                    );
+                    newWidth = this.imageWidth * ratio;
+                    newHeight = this.imageHeight * ratio;
+                    const constNewTileWidth = Math.floor(newWidth / this.cols);
+                    const constNewtTileHeight = Math.floor(newHeight / this.rows);
+                    newWidth = this.cols * constNewTileWidth;
+                    newHeight = this.rows * constNewtTileHeight;
+                }
+                gridWrapper.style.width = newWidth + 'px';
+                gridWrapper.style.height = newHeight + 'px';
+            }
+        });
     }
 
     async initSpreadElement() {
@@ -112,7 +168,7 @@ export class ImageSlicer {
                     let index = moveFrames.length - 1;
 
                     updateGridLayout(shuffleArray(moveFrames[index]));
-                    showTiles(this.grid.tiles);
+                    showTiles(this.imageGrid.tiles);
 
                     const interval = setInterval(() => {
                         updateGridLayout(moveFrames[index]);
@@ -122,7 +178,13 @@ export class ImageSlicer {
                         index--;
                     }, SPREAD_MOVE_TIME);
 
-                    const timeout = setTimeout(() => {
+                    setTimeout(() => {
+                        const image = document.getElementById(IMAGE_ID);
+                        const imageGrid = document.getElementById(GRID_WRAPPER_ELEMENT_ID);
+                        image.remove();
+                        imageGrid.innerHTML = '';
+                        image.style.display = 'block';
+                        imageGrid.appendChild(image);
                         mainWrapper.classList.remove(MAIN_TRANSITION_OVERFLOW);
                         resolve();
                     }, SPREAD_TOTAL_TIME + TILE_TRANSITION_TIME + MAIN_TRANSITION_DELAY);
@@ -134,9 +196,9 @@ export class ImageSlicer {
     getFramesForNumMoves(numMoves) {
         let frames = [];
         for (let i = 0; i < numMoves; i++) {
-            frames.push(this.grid.getCurrentState());
-            for (let j = 0; j < this.grid.tiles.length; j++) {
-                this.grid.tiles[j].walk();
+            frames.push(this.imageGrid.getCurrentState());
+            for (let j = 0; j < this.imageGrid.tiles.length; j++) {
+                this.imageGrid.tiles[j].walk();
             }
         }
         return frames;
@@ -147,7 +209,7 @@ export class ImageSlicer {
     //     for (let i = 0; i < this.rows; i++) {
     //         for (let j = 0; j < this.cols; j++) {
     //             const item = document.getElementById(GRID_ELEMENT_ID_PREFIX + index);
-    //             item.style.backgroundImage = `url('${this.src}')`;
+    //             item.style.backgroundImage = `url('${this.imageSrc}')`;
     //             item.style.backgroundPositionX = -j * this.tileWidth + 'px';
     //             item.style.backgroundPositionY = -i * this.tileHeight + 'px';
     //             index++;

@@ -10,7 +10,7 @@ import {
 
 export function createGridLayout(numTiles) {
     console.log('create grid for numTiles:', numTiles);
-    const fragment = new DocumentFragment();
+    const fragment = document.createDocumentFragment();
     if (numTiles != null) {
         const wrapper = document.createElement('div');
         wrapper.className = GRID_WRAPPER_ELEMENT_CLASS;

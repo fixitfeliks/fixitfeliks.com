@@ -9,13 +9,12 @@ nav {
     box-sizing: border-box;
     text-align: right;
     border-bottom: 2px solid black;
-    min-width: min-content;
     width: 100%;
+    min-width: 0;
     max-width: 100%;
     max-height: min-content;
     background-color: white;
     height: min-content;
-    max-height: min-content;
 }
 
 .navbar-item {
@@ -38,18 +37,10 @@ nav {
     position: relative;
     box-sizing: border-box;
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
     height: min-content;
 }
-
-/* .navbar-item > a {
-    display: block;
-    margin: auto;
-    height: 100%;
-    width: 100%;
-    color: inherit;
-    text-decoration: inherit;
-    background-color: white;
-} */
 
 .transition {
     -webkit-transition: all var(--nav-transition-time) ease, height calc(var(--nav-transition-time) / 2) ease;
@@ -76,18 +67,42 @@ nav {
     z-index: 99;
 }
 
-.open-nav-button {
+.open-nav-button-container {
     position: fixed;
     display: block;
     box-sizing: border-box;
     z-index: 999;
-    cursor: pointer;
     top: 0;
     left: 0;
+    margin-left: 1em;
+    cursor: pointer;
+}
+
+.open-nav-button {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    min-height: 100%;
+    min-width: 100%;
     -webkit-transform: rotate(-45deg);
     -moz-transform: rotate(-45deg);
     -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
+}
+
+.open-nav-button::after {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 0.75em;
+    width: 0.75em;
+    margin: 1em;
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    /* -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg); */
 }
 
 .open-nav-button > div {
@@ -99,7 +114,8 @@ nav {
 }
 
 .open-nav-hide {
-    display: none;
+    left: -4em;
+    pointer-events: none;
 }
 
 .open-nav-rotate {

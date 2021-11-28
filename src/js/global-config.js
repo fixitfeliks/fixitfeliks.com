@@ -11,6 +11,7 @@ export const FLEX_TRANSITION_TIME = parseInt(
 export const MAIN_WRAPPER_ID = 'main-wrapper-id';
 export const MAIN_GRID_ID = 'main-grid-id';
 export const NAVBAR_ID = 'navbar-id';
+export const NAVBAR_BUTTON_CONTAINER_CLASSNAME = 'open-nav-button-container';
 export const NAVBAR_BUTTON_ID = 'open-navbar-id';
 export const NAVBAR_BUTTON_CLASSNAME = 'open-nav-button';
 export const HIDE_NAVBAR_BUTTON_CLASSNAME = 'open-nav-hide';

@@ -1,5 +1,6 @@
 import {
     MAIN_GRID_ID,
+    NAVBAR_BUTTON_CONTAINER_CLASSNAME,
     NAVBAR_BUTTON_ID,
     NAVBAR_BUTTON_CLASSNAME,
     HIDE_NAVBAR_BUTTON_CLASSNAME,
@@ -28,11 +29,11 @@ const navbarRoutes = [
     }
 ];
 
-window.addEventListener('hashchange', onRouteChanged);
+let state = {
+    path: 'projects'
+};
 
-function onRouteChanged() {
-    const hash = window.location.hash.substring(1);
-}
+window.location.hash = '/' + state.path;
 
 window.addEventListener('resize', () => {
     const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
@@ -57,6 +58,7 @@ export function getNavbarFragment(scrollId) {
     navbar.id = NAVBAR_ID;
     const navbarItemList = document.createElement('div');
     navbarItemList.id = NAVBAR_ITEM_LIST_ID;
+    const pathIndex = getInitialPathIndex(state.path);
     for (let i = 0; i < navbarRoutes.length; i++) {
         const navbarItem = document.createElement('a');
         navbarItem.href = `/#/${navbarRoutes[i].path}`;
@@ -66,10 +68,11 @@ export function getNavbarFragment(scrollId) {
         navbarItem.id = navbarRoutes[i].path;
         navbarItem.ontransitionend = onNavItemTransitionEnd;
         navbarItemList.appendChild(navbarItem);
-        if (i === navbarRoutes.length - 1) navbarItem.style.textDecoration = 'underline';
+        if (i === pathIndex) navbarItem.style.textDecoration = 'underline';
     }
 
     navbar.appendChild(navbarItemList);
+    navbarItemList.insertAdjacentElement('beforeend', navbarItemList.children[pathIndex]);
     navbar.appendChild(getOpenNavButtonFragment());
 
     fragment.appendChild(navbar);
@@ -123,17 +126,16 @@ function getNewNavbarTop() {
 
 function getOpenNavButtonFragment() {
     const fragment = document.createDocumentFragment();
+    const navbarButtonContainer = document.createElement('div');
+    navbarButtonContainer.classList.add(NAVBAR_BUTTON_CONTAINER_CLASSNAME, HIDE_NAVBAR_BUTTON_CLASSNAME, 'transition');
     const openNavButton = document.createElement('div');
     openNavButton.innerHTML = '<div></div>';
     fragment.appendChild(openNavButton);
     openNavButton.id = NAVBAR_BUTTON_ID;
-    openNavButton.classList.add(
-        NAVBAR_BUTTON_CLASSNAME,
-        HIDE_NAVBAR_BUTTON_CLASSNAME,
-        ROTATE_NAVBAR_BUTTON_CLASSNAME,
-        'transition'
-    );
-    openNavButton.onclick = toggleOpenNavButton;
+    openNavButton.classList.add(NAVBAR_BUTTON_CLASSNAME, 'transition');
+    navbarButtonContainer.appendChild(openNavButton);
+    navbarButtonContainer.onclick = toggleOpenNavButton;
+    fragment.appendChild(navbarButtonContainer);
     return fragment;
 }
 
@@ -165,13 +167,15 @@ function setVisibilityOpenNavButton(isShow) {
     const navButton = document.getElementById(NAVBAR_BUTTON_ID);
     if (navButton != null) {
         if (isShow) {
-            if (navButton.classList.contains(HIDE_NAVBAR_BUTTON_CLASSNAME)) {
-                navButton.classList.remove(HIDE_NAVBAR_BUTTON_CLASSNAME);
+            if (navButton.parentElement.classList.contains(HIDE_NAVBAR_BUTTON_CLASSNAME)) {
+                navButton.parentElement.classList.remove(HIDE_NAVBAR_BUTTON_CLASSNAME);
                 resetOpenNavButton();
             }
         } else {
-            if (!navButton.classList.contains(HIDE_NAVBAR_BUTTON_CLASSNAME))
-                navButton.classList.add(HIDE_NAVBAR_BUTTON_CLASSNAME);
+            if (!navButton.parentElement.classList.contains(HIDE_NAVBAR_BUTTON_CLASSNAME)) {
+                navButton.parentElement.classList.add(HIDE_NAVBAR_BUTTON_CLASSNAME);
+                resetOpenNavButton();
+            }
         }
     }
 }
@@ -183,6 +187,8 @@ const onNavItemTransitionEnd = () => {
 function onNavClick(event) {
     // if (navReady) {
     console.log('nav item click: ', event.target.id);
+    state.path = '/' + event.target.id;
+    resetOpenNavButton();
     const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
     const elementCollection = navbarItemList.children;
     let index = -1;
@@ -247,4 +253,10 @@ function updateAnimation(elementCollection) {
             // });
         }
     }, 10);
+}
+
+function getInitialPathIndex(path) {
+    for (let i = 0; i < navbarRoutes.length; i++) {
+        if (navbarRoutes[i].path === path) return i;
+    }
 }

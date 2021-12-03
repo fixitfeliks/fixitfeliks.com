@@ -18,10 +18,9 @@ import { getNavbarFragment } from 'Components/navbar.js';
 import { X_ROWS, Y_COLS, WIDTH, FLEX_TRANSITION_TIME, MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
 
 // Content - JS
-import getResumePage from 'Scripts/content/resume.js';
 import { NAVBAR_ID } from './global-config';
 const main = document.createElement('div');
-main.classList.add('main-wrapper', 'float-up');
+main.classList.add('main-wrapper');
 main.id = MAIN_WRAPPER_ID;
 
 document.body.appendChild(main);
@@ -38,7 +37,6 @@ mainGrid.appendChild(getNavbarFragment(MAIN_WRAPPER_ID));
 main.appendChild(mainGrid);
 
 const mainDiv = document.createElement('main');
-mainDiv.appendChild(getResumePage());
 
 const footer = document.createElement('footer');
 footer.innerHTML = 'fix it feliks 2&copy;21 x_ks';
@@ -54,13 +52,13 @@ const addScrollbars = () => {
 main.ontransitionend = addScrollbars;
 
 const nav = document.getElementsByTagName('nav')[0];
-mainDiv.style.minHeight = window.innerHeight - nav.clientHeight + 'px';
+// mainDiv.style.minHeight = `calc(${window.innerHeight - nav.clientHeight - footer.clientHeight}px - 4.5em)`;
 
 // mainGrid.appendChild(header);
-setTimeout(() => {
-    main.classList.remove('float-up');
-    // mainGrid.style.top = 0;
-}, 1000);
+// setTimeout(() => {
+//     main.classList.remove('float-up');
+//     // mainGrid.style.top = 0;
+// }, 1000);
 
 // spreadCompletePromise.then(() => {
 //     const imageSlicer = document.getElementById('image-slicer-main');
@@ -74,8 +72,3 @@ setTimeout(() => {
 
 //     mainGrid.style.top = 0;
 // });
-
-// setTimeout(() => {
-//     const imageSlicerWrapper = document.getElementById('image-slicer-main');
-//     const imageSlicerGrid = document.getElementById('image-slicer-grid');
-// }, 2000);

@@ -188,7 +188,7 @@ function onNavClick(event) {
     // if (navReady) {
     console.log('nav item click: ', event.target.id);
     state.path = '/' + event.target.id;
-    resetOpenNavButton();
+    if (window.location.hash.substring(1) !== state.path) resetOpenNavButton();
     const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
     const elementCollection = navbarItemList.children;
     let index = -1;
@@ -198,6 +198,7 @@ function onNavClick(event) {
             i = elementCollection.length;
         }
     }
+
     sortNavbarItems(parseInt(index));
     // }
 }

@@ -1,12 +1,11 @@
-import { TILE_STEPS_MAX } from './slicer-constants';
+import { TILE_STEPS_PER_MOVE } from './slicer-constants';
 export class ImageGrid {
-    tiles = [];
-
     constructor(rows, cols, tileWidth, tileHeight) {
         this.rows = rows;
         this.cols = cols;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
+        this.tiles = [];
         let index = 0;
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.cols; j++) {
@@ -29,9 +28,6 @@ export class ImageGrid {
 class Tile {
     dir = Math.floor(Math.random() * 4);
     lastDir = Math.floor(Math.random() * 4);
-    dirStepsMax = TILE_STEPS_MAX;
-    dirSteps = 0;
-    // isWalking = false;
 
     constructor(id, x, y, width, height) {
         this.id = id;
@@ -42,33 +38,30 @@ class Tile {
     }
 
     moveUp() {
-        this.y -= this.height;
+        this.y -= this.height * TILE_STEPS_PER_MOVE;
     }
 
     moveDown() {
-        this.y += this.height;
+        this.y += this.height * TILE_STEPS_PER_MOVE;
     }
 
     moveLeft() {
-        this.x -= this.width;
+        this.x -= this.width * TILE_STEPS_PER_MOVE;
     }
 
     moveRight() {
-        this.x += this.width;
+        this.x += this.width * TILE_STEPS_PER_MOVE;
     }
 
-    walk() {
+    walkRandom() {
+        this.lastDir = this.dir;
+        this.dir = Math.floor(Math.random() * 4);
         let moves = [() => this.moveUp(), () => this.moveDown(), () => this.moveLeft(), () => this.moveRight()];
-        if (this.dirSteps > this.dirStepsMax) {
-            this.dirSteps = 0;
-            this.lastDir = this.dir;
+
+        while (this.dir + this.lastDir === 1 || this.dir + this.lastDir === 5) {
             this.dir = Math.floor(Math.random() * 4);
-            while (this.dir + this.lastDir === 1 || this.dir + this.lastDir === 5) {
-                this.dir = Math.floor(Math.random() * 4);
-            }
         }
         moves[this.dir]();
-        this.dirSteps++;
     }
 
     getTile() {

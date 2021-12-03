@@ -1,6 +1,6 @@
 :root {
     /* time must be in ms */
-    --tile-transition-time: 2000ms;
+    --tile-move-time: 1000ms;
 }
 
 .slicer-main-wrapper {
@@ -18,15 +18,14 @@
     max-height: 100%;
     max-width: 100%;
     overflow: hidden;
-    -webkit-transition: top var(--tile-transition-time), ease;
-    -moz-transition: top var(--tile-transition-time) ease;
-    -ms-transition: top var(--tile-transition-time) ease;
-    -o-transition: top var(--tile-transition-time) ease;
-    transition: top var(--tile-transition-time) ease;
+    /* -webkit-transition: top var(--tile-move-time), ease;
+    -moz-transition: top var(--tile-move-time) ease;
+    -ms-transition: top var(--tile-move-time) ease;
+    -o-transition: top var(--tile-move-time) ease;
+    transition: top var(--tile-move-time) ease; */
 }
 
 .slicer-transition-overflow {
-    display: flex;
     position: absolute;
     overflow: hidden;
 }
@@ -42,27 +41,25 @@
 .slicer-grid-wrapper > img {
     display: 'none';
     width: 100%;
-    height: 100%;
+    max-width: 100%;
 }
 
 .slicer-grid-item {
     position: absolute;
     display: none;
-    flex-grow: 1;
-    text-align: center;
-    justify-content: center;
-    align-content: center;
-    top: 10px;
-    left: 10px;
     padding: 0px;
     width: 10px;
     height: 10px;
-    /* background-color: blueviolet; */
-    -webkit-transition: all var(--tile-transition-time), background-color 400ms ease;
-    -moz-transition: all var(--tile-transition-time) ease, background-color 400ms ease;
-    -ms-transition: all var(--tile-transition-time) ease, background-color 400ms ease;
-    -o-transition: all var(--tile-transition-time) ease, background-color 400ms ease;
-    transition: all var(--tile-transition-time) ease, background-color 400ms ease;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform;
+    -webkit-transition: -webkit-transform var(--tile-move-time) ease-in-out;
+    -moz-transition: -moz-transform var(--tile-move-time) ease-in-out;
+    -ms-transition: -ms-transform var(--tile-move-time) ease-in-out;
+    -o-transition: -o-transform var(--tile-move-time) ease-in-out;
+    transition: transform var(--tile-move-time) ease-in-out;
 }
 
 #loader-spinner {

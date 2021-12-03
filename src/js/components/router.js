@@ -1,4 +1,4 @@
-import getResumePage from 'Scripts/content/resume.js';
+import { getResumePage } from 'Scripts/content/resume.js';
 import { ImageSlicer } from 'Components/image-slicer/image-slicer.js';
 import rue from 'Assets/rue.jpg';
 import { MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
@@ -15,11 +15,10 @@ function onRouteChanged() {
     }
     switch (hash) {
         case 'projects':
-            const introSlice = new ImageSlicer(rue, 10, 10);
+            const introSlice = new ImageSlicer(0, rue, 10, 10);
 
             main.appendChild(introSlice.getHTML());
             let spreadCompletePromise = introSlice.initSpreadElement();
-            spreadCompletePromise.then(() => {});
             break;
 
         case 'skills-experience':

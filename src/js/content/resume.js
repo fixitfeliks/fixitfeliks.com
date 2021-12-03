@@ -1,4 +1,7 @@
+import webSkillsImg from 'Assets/web-skills.png';
+
 import { getSingleFlexCard, getDoubleFlexCard, getHeaderFlexCard } from 'Components/flex-card.js';
+import { ImageSlicer } from 'Components/image-slicer/image-slicer.js';
 
 const RESUME_HEADER_TITLE = /*html*/ `
     <ul class="no-bullets">
@@ -187,8 +190,15 @@ const WORK_EXPERIENCE_WA_CONTENT = /*html*/ `
     </ul>
 `;
 
-export default () => {
+export function getResumePage() {
     const fragment = document.createDocumentFragment();
+    const webSkillSlicerFragment = document.createElement('div');
+
+    const webSkillsImgSlicer = new ImageSlicer(1, webSkillsImg, 2, 3);
+    webSkillSlicerFragment.appendChild(webSkillsImgSlicer.getHTML());
+
+    fragment.appendChild(getHeaderFlexCard('Yo', webSkillSlicerFragment.innerHTML));
+    webSkillsImgSlicer.initSpreadElement();
     fragment.appendChild(getHeaderFlexCard(RESUME_HEADER_TITLE, RESUME_HEADER_BODY));
     fragment.appendChild(
         getDoubleFlexCard(
@@ -212,4 +222,15 @@ export default () => {
         getDoubleFlexCard(WORK_EXPERIENCE_BD_TITLE, WORK_EXPERIENCE_BD_SUMMARY, null, WORK_EXPERIENCE_BD_CONTENT)
     );
     return fragment;
-};
+}
+
+/*
+Web Development
+HTML CSS JS
+React Redux GraphQL REST
+
+Java, Spring Boot, Nodejs, Nginx
+AWS Route 53, S3, EC2, Cognito, IAM
+
+SQL Server, MYSQL, POSTGRES, MongoDB
+*/

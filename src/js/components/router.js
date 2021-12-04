@@ -1,4 +1,4 @@
-import { getResumePage } from 'Scripts/content/resume.js';
+import { getSkillsPage } from 'Scripts/content/skills.js';
 import { ImageSlicer } from 'Components/image-slicer/image-slicer.js';
 import rue from 'Assets/rue.jpg';
 import { MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
@@ -22,7 +22,7 @@ function onRouteChanged() {
             break;
 
         case 'skills-experience':
-            main.appendChild(getResumePage());
+            main.appendChild(getSkillsPage());
             break;
 
         case 'about-me':

@@ -18,7 +18,7 @@ export function createGridLayout(numTiles, id) {
         const wrapper = document.createElement('div');
         wrapper.className = GRID_WRAPPER_ELEMENT_CLASS;
         wrapper.id = GRID_WRAPPER_ELEMENT_ID + id;
-        wrapper.style.width = '100%';
+        // wrapper.style.width = '100%';
         // wrapper.style.height = '300px';
         // wrapper.appendChild(cssLoader);
         for (let i = 0; i < numTiles; i++) {
@@ -42,8 +42,8 @@ export function createGridLayout(numTiles, id) {
 export function initCanvasTile(canvas, tile) {
     // canvas.style.top = tile.y + 'px';
     // canvas.style.left = tile.x + 'px';
-    canvas.style.width = tile.width + 'px';
-    canvas.style.height = tile.height + 'px';
+    // canvas.style.width = tile.width + 'px';
+    // canvas.style.height = tile.height + 'px';
     applyTranslate(canvas, tile.x, tile.y);
 }
 

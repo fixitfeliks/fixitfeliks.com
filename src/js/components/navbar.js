@@ -12,7 +12,7 @@ import {
 } from 'Scripts/global-config.js';
 
 // TODO combine with CSS
-const RESPONSIVE_BREAKPOINT = 600;
+const RESPONSIVE_BREAKPOINT = 700;
 
 const navbarRoutes = [
     {
@@ -30,7 +30,7 @@ const navbarRoutes = [
 ];
 
 let state = {
-    path: 'projects'
+    path: 'skills-experience'
 };
 
 window.location.hash = '/' + state.path;

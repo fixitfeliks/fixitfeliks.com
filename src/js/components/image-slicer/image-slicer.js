@@ -33,6 +33,12 @@ export class ImageSlicer {
         this.canvasHeight = undefined;
         this.imageGrid = undefined;
         this.tilesLoadedPromise;
+        // Calculated Aspect Ratios
+        this.imageAspectRatio = undefined;
+        this.tilesAspectRatio = undefined;
+
+        this.moveIndex = undefined;
+
         this.image = document.createElement('img');
         this.imageLoadedPromise = new Promise((resolve) => {
             const context = () => resolve();
@@ -51,6 +57,8 @@ export class ImageSlicer {
             this.imageHeight = this.image.naturalHeight;
             this.tileWidth = this.imageWidth / this.cols;
             this.tileHeight = this.imageHeight / this.rows;
+            this.imageAspectRatio = this.imageHeight / this.imageWidth;
+            this.tilesAspectRatio = this.tileHeight / this.tileWidth;
             context();
         };
     }
@@ -112,6 +120,7 @@ export class ImageSlicer {
             canvas.width = initTileWidth;
             canvas.height = initTileHeight;
             let context = canvas.getContext('2d');
+            const scaleFactor = clientWidth / this.imageWidth;
             context.drawImage(
                 this.image,
                 originalScaleGrid.tiles[i].x,
@@ -125,37 +134,58 @@ export class ImageSlicer {
             );
             initCanvasTile(canvas, this.imageGrid.tiles[i]);
         }
-        window.addEventListener('resize', () => {
-            const mainWrappers = document.getElementsByClassName(MAIN_WRAPPER_ELEMENT_CLASS);
-            for (let i = 0; i < mainWrappers.length; i++) {
-                if (mainWrappers[i].children[0].children > 1) {
-                    this.initImageTiles();
-                } else {
-                    let newWidth = this.imageWidth;
-                    let newHeight = this.imageHeight;
+        // window.addEventListener('resize', () => {
+        //     const mainWrappers = document.getElementsByClassName(MAIN_WRAPPER_ELEMENT_CLASS);
+        //     for (let i = 0; i < mainWrappers.length; i++) {
+        //         if (mainWrappers[i].children[0].children > 1) {
+        //             this.initImageTiles();
+        //         } else {
+        //             let newWidth = this.imageWidth;
+        //             let newHeight = this.imageHeight;
 
-                    if (
-                        this.imageWidth > mainWrappers[i].clientWidth ||
-                        this.imageHeight > mainWrappers[i].clientHeight
-                    ) {
-                        const ratio = Math.min(
-                            mainWrappers[i].clientWidth / this.imageWidth,
-                            mainWrappers[i].clientHeight / this.imageHeight
-                        );
-                        newWidth = this.imageWidth * ratio;
-                        newHeight = this.imageHeight * ratio;
-                        const constNewTileWidth = Math.floor(newWidth / this.cols);
-                        const constNewtTileHeight = Math.floor(newHeight / this.rows);
-                        newWidth = this.cols * constNewTileWidth;
-                        newHeight = this.rows * constNewtTileHeight;
-                    }
-                    mainWrappers[i].children[0].style.width = newWidth + 'px';
-                    mainWrappers[i].children[0].style.height = newHeight + 'px';
-                }
-            }
-        });
+        //             if (
+        //                 this.imageWidth > mainWrappers[i].clientWidth ||
+        //                 this.imageHeight > mainWrappers[i].clientHeight
+        //             ) {
+        //                 const ratio = Math.min(
+        //                     mainWrappers[i].clientWidth / this.imageWidth,
+        //                     mainWrappers[i].clientHeight / this.imageHeight
+        //                 );
+        //                 newWidth = this.imageWidth * ratio;
+        //                 newHeight = this.imageHeight * ratio;
+        //                 const constNewTileWidth = Math.floor(newWidth / this.cols);
+        //                 const constNewtTileHeight = Math.floor(newHeight / this.rows);
+        //                 newWidth = this.cols * constNewTileWidth;
+        //                 newHeight = this.rows * constNewtTileHeight;
+        //             }
+        //             mainWrappers[i].children[0].style.width = newWidth + 'px';
+        //             mainWrappers[i].children[0].style.height = newHeight + 'px';
+        //         }
+        //     }
+        // });
     }
 
+    initFoldInElement() {
+        return new Promise((resolve) => {
+            this.imageLoadedPromise.then(() => {
+                console.log('fold-in image loaded');
+                this.tilesLoadedPromise = new Promise((resolve) => {
+                    this.initImageTiles();
+                    resolve();
+                });
+                this.tilesLoadedPromise.then(() => {
+                    console.log('fold-in tiles loaded');
+                    window.requestAnimationFrame(() => {
+                        updateGridLayout(this.imageGrid.getCurrentState(), this.id);
+                        showTiles(this.imageGrid.tiles, this.id);
+                        window.requestAnimationFrame(() => {
+                            updateGridLayout(moveFrames[0], this.id);
+                        });
+                    });
+                });
+            });
+        });
+    }
     initSpreadElement() {
         return new Promise((resolve) => {
             this.imageLoadedPromise.then(() => {
@@ -190,6 +220,7 @@ export class ImageSlicer {
 
                     setTimeout(() => {
                         const image = document.getElementById(IMAGE_ID + this.id);
+                        const slicerWrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID + this.id);
                         const imageGrid = document.getElementById(GRID_WRAPPER_ELEMENT_ID + this.id);
 
                         if (image) {
@@ -197,8 +228,8 @@ export class ImageSlicer {
                             image.style.display = 'block';
                         }
                         if (imageGrid) {
-                            imageGrid.innerHTML = '';
-                            imageGrid.appendChild(image);
+                            imageGrid.remove();
+                            slicerWrapper.appendChild(image);
                         }
                         mainWrapper.classList.remove(MAIN_TRANSITION_OVERFLOW);
 
@@ -218,6 +249,7 @@ export class ImageSlicer {
             }
             frames.push(this.imageGrid.getCurrentState());
         }
+        this.moveIndex = frames.length - 1;
         return frames;
     }
 

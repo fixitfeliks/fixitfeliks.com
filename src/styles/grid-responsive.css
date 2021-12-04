@@ -63,10 +63,10 @@ nav {
 main {
     grid-area: main;
     min-height: fit-content;
-    min-width: 100%;
     width: 100%;
-    max-width: 100%;
+    max-width: 1264px;
     box-sizing: border-box;
+    margin: 0 auto;
 }
 
 footer {

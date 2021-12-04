@@ -1,6 +1,6 @@
 :root {
     --nav-transition-time: 1000ms;
-    --mobile-width-bracket: 600px;
+    --mobile-width-bracket: 700px;
 }
 
 nav {
@@ -129,7 +129,7 @@ nav {
     top: 0 !important;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 700px) {
     .navbar-item {
         display: inline-block;
         margin-top: 2em;

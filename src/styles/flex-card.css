@@ -27,8 +27,9 @@ ul.no-bullets {
     flex-wrap: wrap;
     position: relative;
     box-sizing: border-box;
-    margin: 1em 1em;
-    padding: 0;
+    padding: 1em 1em;
+    width: 100%;
+    max-width: 100%;
 }
 
 .flex-body-header,
@@ -45,6 +46,7 @@ ul.no-bullets {
     width: 100%;
     max-width: 100%;
     margin: 1em;
+    font-weight: bold;
     /* background-color: blue; */
 }
 
@@ -59,9 +61,12 @@ ul.no-bullets {
 }
 
 .flex-title-content,
-.flex-body-content {
+.flex-body-content,
+.flex-body-image {
     position: relative;
+    display: block;
     align-items: center;
+    box-sizing: border-box;
     justify-content: center;
     align-self: center;
     height: 100%;
@@ -76,40 +81,48 @@ ul.no-bullets {
 }
 
 @media screen and (min-width: 700px) {
-    .flex-container {
+    /* .flex-container {
         flex-wrap: nowrap;
-    }
+    } */
 
     .flex-body-header,
     .flex-title-header {
-        text-align: right;
-        width: 50%;
-        margin: 0 1em;
+        /* text-align: right; */
+        /* width: 50%; */
+        margin: auto;
+        padding: 1em 20%;
+        font-size: 1.5em;
     }
 
     .flex-title-content {
         text-align: left;
     }
 
-    .flex-body-content {
-        margin: 0 1em;
+    .flex-body-content,
+    .flex-body-image {
+        margin: auto;
+        padding: 0 20%;
     }
 }
 
 .img-wrapper {
     min-height: 0;
-    min-width: 0;
+    min-width: 100%;
     display: block;
+    width: 100%;
+    height: auto;
     max-height: 100%;
-    width: auto;
+    max-width: 100%;
     margin: auto;
 }
 
 img {
     min-height: 0;
-    min-width: 0;
+    min-width: 100%;
     max-height: 100%;
-    width: auto;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
     /* -webkit-transition: all var(--flex-transition-time), linear;
     -moz-transition: all var(--flex-transition-time) linear;
     -ms-transition: all var(--flex-transition-time) linear;

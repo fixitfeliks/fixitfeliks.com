@@ -44,6 +44,7 @@ export function initCanvasTile(canvas, tile) {
     // canvas.style.left = tile.x + 'px';
     // canvas.style.width = tile.width + 'px';
     // canvas.style.height = tile.height + 'px';
+
     applyTranslate(canvas, tile.x, tile.y);
 }
 
@@ -53,8 +54,8 @@ export function showTiles(tiles, id) {
         const tile = document.getElementById(GRID_ELEMENT_ID + id + tiles[i].id);
         tile.style.display = 'block';
     }
-    const loaderSpinner = document.getElementById(CSS_LOADER_ID);
-    if (loaderSpinner) wrapper.removeChild(loaderSpinner);
+    // const loaderSpinner = document.getElementById(CSS_LOADER_ID);
+    // if (loaderSpinner) wrapper.removeChild(loaderSpinner);
 }
 
 export function updateGridLayout(tiles, id) {

@@ -35,6 +35,7 @@ let state = {
 
 window.location.hash = '/' + state.path;
 
+let debounce = undefined;
 window.addEventListener('resize', () => {
     const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
     const navbar = document.getElementById(NAVBAR_ID);
@@ -86,8 +87,12 @@ export function getNavbarFragment(scrollId) {
     return fragment;
 }
 
+let resetScroll = true;
 function navOnScroll(scrollY) {
     console.log('Scroll ', scrollY);
+    if (scrollY < 10) {
+        resetScroll = true;
+    }
     const navbar = document.getElementById(NAVBAR_ID);
     const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
     const navbarChildren = navbarItemList.children;
@@ -97,6 +102,7 @@ function navOnScroll(scrollY) {
     const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
     const originalNavbarWidth = bodyChildren[0].children[0].clientWidth;
     if (scrollY > navbarDelta && !navbar.classList.contains('sticky')) {
+        resetScroll = false;
         navbar.classList.add('sticky');
         if (mobileView) setVisibilityOpenNavButton(true);
         navbar.style.width = `calc((${originalNavbarWidth}px - 2em) )`;
@@ -104,7 +110,7 @@ function navOnScroll(scrollY) {
         bodyChildren[0].children[0].style.top = mobileView
             ? `${navbarItemHeight * navbarChildren.length}px`
             : `${navbarItemHeight}px`;
-    } else if (scrollY < navbarDelta && navbar.classList.contains('sticky')) {
+    } else if (scrollY < navbarDelta && navbar.classList.contains('sticky') && resetScroll) {
         navbar.classList.remove('transition-top');
         navbar.classList.remove('sticky');
         setVisibilityOpenNavButton(false);

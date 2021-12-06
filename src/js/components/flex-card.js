@@ -15,7 +15,7 @@ export function getHeaderImageBodyFlexCard(heading, imageSlicer, content) {
     flexContent.innerHTML = content;
     flexCard.appendChild(flexHeader);
     flexCard.appendChild(flexImageWrapper);
-    // flexCard.appendChild(flexContent);
+    flexCard.appendChild(flexContent);
 
     return fragment;
 }

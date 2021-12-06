@@ -13,7 +13,11 @@ export function getSkillsPage() {
         getHeaderImageBodyFlexCard(
             'Front End Skills',
             webSkillsImgSlicer.getHTML(),
-            'With the right amount of weed anything is possible.'
+            `
+            I really enjoy front end dev and learning about whats possible in the browser! Experience with React and Redux on large projects with lots of state to manage. 
+            I love working with React and understand the needs for state and properties on large projects, but also am always trying to learn more about the HTML, JS, and CSS combo. 
+            
+            `
         )
     );
     webSkillsImgSlicer.initFoldInElement();

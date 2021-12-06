@@ -64,6 +64,22 @@ export class ImageSlicer {
     }
 
     getHTML() {
+        // TODO Remove null error when navigating and coming back form a page
+        // with another image slicer (possible duplicate event listener without handle)
+        let resizeDebounce = undefined;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeDebounce);
+            resizeDebounce = setTimeout(() => {
+                console.log(`resize: (${window.innerWidth},${window.innerHeight})`);
+                const mainWrappers = document.getElementsByClassName(MAIN_WRAPPER_ELEMENT_CLASS);
+                for (let i = 0; i < mainWrappers.length; i++) {
+                    if (mainWrappers[i].children[0].children.length > 1) {
+                        this.initImageTiles();
+                    }
+                }
+            }, 500);
+        });
+
         const fragment = this.createWrapper();
         fragment.appendChild(createGridLayout(this.rows * this.cols, this.id));
         return fragment;
@@ -79,9 +95,9 @@ export class ImageSlicer {
 
     initImageTiles() {
         const mainWrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID + this.id);
+        const gridWrapper = document.getElementById(GRID_WRAPPER_ELEMENT_ID + this.id);
         const clientWidth = mainWrapper.clientWidth;
         const clientHeight = mainWrapper.clientHeight;
-        const gridWrapper = document.getElementById(GRID_WRAPPER_ELEMENT_ID + this.id);
 
         let initWidth = undefined;
         let initHeight = undefined;
@@ -134,35 +150,6 @@ export class ImageSlicer {
             );
             initCanvasTile(canvas, this.imageGrid.tiles[i]);
         }
-        // window.addEventListener('resize', () => {
-        //     const mainWrappers = document.getElementsByClassName(MAIN_WRAPPER_ELEMENT_CLASS);
-        //     for (let i = 0; i < mainWrappers.length; i++) {
-        //         if (mainWrappers[i].children[0].children > 1) {
-        //             this.initImageTiles();
-        //         } else {
-        //             let newWidth = this.imageWidth;
-        //             let newHeight = this.imageHeight;
-
-        //             if (
-        //                 this.imageWidth > mainWrappers[i].clientWidth ||
-        //                 this.imageHeight > mainWrappers[i].clientHeight
-        //             ) {
-        //                 const ratio = Math.min(
-        //                     mainWrappers[i].clientWidth / this.imageWidth,
-        //                     mainWrappers[i].clientHeight / this.imageHeight
-        //                 );
-        //                 newWidth = this.imageWidth * ratio;
-        //                 newHeight = this.imageHeight * ratio;
-        //                 const constNewTileWidth = Math.floor(newWidth / this.cols);
-        //                 const constNewtTileHeight = Math.floor(newHeight / this.rows);
-        //                 newWidth = this.cols * constNewTileWidth;
-        //                 newHeight = this.rows * constNewtTileHeight;
-        //             }
-        //             mainWrappers[i].children[0].style.width = newWidth + 'px';
-        //             mainWrappers[i].children[0].style.height = newHeight + 'px';
-        //         }
-        //     }
-        // });
     }
 
     initFoldInElement() {
@@ -175,11 +162,17 @@ export class ImageSlicer {
                 });
                 this.tilesLoadedPromise.then(() => {
                     console.log('fold-in tiles loaded');
+                    let frames = [];
+                    frames.push(this.imageGrid.getCurrentState());
+                    for (let i = 0; i < this.imageGrid.tiles.length; i++) {
+                        this.imageGrid.tiles[i].foldIn();
+                    }
+                    frames.push(this.imageGrid.getCurrentState());
                     window.requestAnimationFrame(() => {
-                        updateGridLayout(this.imageGrid.getCurrentState(), this.id);
+                        updateGridLayout(frames[1], this.id);
                         showTiles(this.imageGrid.tiles, this.id);
                         window.requestAnimationFrame(() => {
-                            updateGridLayout(moveFrames[0], this.id);
+                            updateGridLayout(frames[0], this.id);
                         });
                     });
                 });

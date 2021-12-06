@@ -9,7 +9,21 @@ export class ImageGrid {
         let index = 0;
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.cols; j++) {
-                this.tiles.push(new Tile(index, j * tileWidth, i * tileHeight, tileWidth, tileHeight));
+                let foldDirX = 0;
+                let foldDirY = 0;
+                let halfWidth = Math.floor(this.cols / 2);
+                let halfHeight = Math.floor(this.rows / 2);
+                foldDirX = j < halfWidth ? 1 : -1;
+                foldDirY = i < halfHeight ? 1 : -1;
+                if (this.cols % 2 === 1 && j === halfWidth) {
+                    foldDirX = 0;
+                }
+                if (this.rows % 2 === 1 && i === halfHeight) {
+                    foldDirY = 0;
+                }
+                this.tiles.push(
+                    new Tile(index, j * tileWidth, i * tileHeight, tileWidth, tileHeight, foldDirX, foldDirY)
+                );
                 index++;
             }
         }
@@ -29,12 +43,14 @@ class Tile {
     dir = Math.floor(Math.random() * 4);
     lastDir = Math.floor(Math.random() * 4);
 
-    constructor(id, x, y, width, height) {
+    constructor(id, x, y, width, height, foldDirX, foldDirY) {
         this.id = id;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.foldDirX = foldDirX;
+        this.foldDirY = foldDirY;
     }
 
     moveUp() {
@@ -62,6 +78,11 @@ class Tile {
             this.dir = Math.floor(Math.random() * 4);
         }
         moves[this.dir]();
+    }
+
+    foldIn() {
+        this.x = this.x + (this.foldDirX * this.width) / 2;
+        this.y = this.y + (this.foldDirY * this.height) / 2;
     }
 
     getTile() {

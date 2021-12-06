@@ -78,11 +78,11 @@ export function getNavbarFragment(scrollId) {
 
     fragment.appendChild(navbar);
 
-    document.getElementById(scrollId).onscroll = function (e) {
+    document.getElementById(scrollId).addEventListener('scroll', function (e) {
         window.requestAnimationFrame(function () {
             navOnScroll(document.getElementById(MAIN_WRAPPER_ID).scrollTop);
         });
-    };
+    });
 
     return fragment;
 }

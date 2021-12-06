@@ -38,6 +38,7 @@ export class ImageSlicer {
         this.tilesAspectRatio = undefined;
 
         this.moveIndex = undefined;
+        this.frames = undefined;
 
         this.image = document.createElement('img');
         this.imageLoadedPromise = new Promise((resolve) => {
@@ -59,6 +60,7 @@ export class ImageSlicer {
             this.tileHeight = this.imageHeight / this.rows;
             this.imageAspectRatio = this.imageHeight / this.imageWidth;
             this.tilesAspectRatio = this.tileHeight / this.tileWidth;
+            this.image.remove();
             context();
         };
     }
@@ -152,7 +154,7 @@ export class ImageSlicer {
         }
     }
 
-    initFoldInElement() {
+    initFoldInElement(wrapper = document.body) {
         return new Promise((resolve) => {
             this.imageLoadedPromise.then(() => {
                 console.log('fold-in image loaded');
@@ -162,21 +164,60 @@ export class ImageSlicer {
                 });
                 this.tilesLoadedPromise.then(() => {
                     console.log('fold-in tiles loaded');
-                    let frames = [];
-                    frames.push(this.imageGrid.getCurrentState());
+                    this.frames = [];
+                    this.frames.push(this.imageGrid.getCurrentState());
                     for (let i = 0; i < this.imageGrid.tiles.length; i++) {
                         this.imageGrid.tiles[i].foldIn();
                     }
-                    frames.push(this.imageGrid.getCurrentState());
-                    window.requestAnimationFrame(() => {
-                        updateGridLayout(frames[1], this.id);
-                        showTiles(this.imageGrid.tiles, this.id);
+                    this.frames.push(this.imageGrid.getCurrentState());
+                    const mainWrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID + this.id);
+                    const rect = mainWrapper.getBoundingClientRect();
+                    if (
+                        rect.y < -mainWrapper.clientHeight / 2 ||
+                        rect.y > window.innerHeight - mainWrapper.clientHeight / 2
+                    ) {
                         window.requestAnimationFrame(() => {
-                            updateGridLayout(frames[0], this.id);
+                            updateGridLayout(this.frames[1], this.id);
+                            showTiles(this.imageGrid.tiles, this.id);
                         });
+                    } else {
+                        window.requestAnimationFrame(() => {
+                            updateGridLayout(this.frames[1], this.id);
+                            showTiles(this.imageGrid.tiles, this.id);
+                            window.requestAnimationFrame(() => {
+                                updateGridLayout(this.frames[0], this.id);
+                            });
+                        });
+                    }
+
+                    wrapper.addEventListener('scroll', () => {
+                        this.setFoldScrollStatus();
                     });
                 });
             });
+        });
+    }
+
+    setFoldScrollStatus() {
+        const mainWrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID + this.id);
+        const rect = mainWrapper.getBoundingClientRect();
+        console.log(rect);
+        if (rect.y < -mainWrapper.clientHeight / 2 || rect.y > window.innerHeight - mainWrapper.clientHeight / 2) {
+            this.foldIn();
+        } else {
+            this.foldOut();
+        }
+    }
+
+    foldIn() {
+        window.requestAnimationFrame(() => {
+            updateGridLayout(this.frames[1], this.id);
+        });
+    }
+
+    foldOut() {
+        window.requestAnimationFrame(() => {
+            updateGridLayout(this.frames[0], this.id);
         });
     }
     initSpreadElement() {

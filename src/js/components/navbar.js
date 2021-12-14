@@ -30,12 +30,11 @@ const navbarRoutes = [
 ];
 
 let state = {
-    path: 'skills-experience'
+    path: 'about-me'
 };
 
-window.location.hash = '/' + state.path;
+// window.location.hash = '/' + state.path;
 
-let debounce = undefined;
 window.addEventListener('resize', () => {
     const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
     const navbar = document.getElementById(NAVBAR_ID);
@@ -101,17 +100,21 @@ function navOnScroll(scrollY) {
     const bodyChildren = document.body.children;
     const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
     const originalNavbarWidth = bodyChildren[0].children[0].clientWidth;
+    const newNavbarWidth =
+        navbar.parentElement.clientWidth -
+        parseFloat(window.getComputedStyle(navbar.parentElement, null).getPropertyValue('padding-left')) * 2;
     if (scrollY > navbarDelta && !navbar.classList.contains('sticky')) {
         resetScroll = false;
+        navbar.classList.remove('transition-top');
         navbar.classList.add('sticky');
         if (mobileView) setVisibilityOpenNavButton(true);
-        navbar.style.width = `calc((${originalNavbarWidth}px - 2em) )`;
+        navbar.style.width = `${newNavbarWidth}px`;
         navbar.style.top = `${-navbarDelta}px`; //TODO Fix nested children
         bodyChildren[0].children[0].style.top = mobileView
             ? `${navbarItemHeight * navbarChildren.length}px`
             : `${navbarItemHeight}px`;
     } else if (scrollY < navbarDelta && navbar.classList.contains('sticky') && resetScroll) {
-        navbar.classList.remove('transition-top');
+        navbar.classList.add('transition-top');
         navbar.classList.remove('sticky');
         setVisibilityOpenNavButton(false);
         navbar.style.width = '100%';
@@ -191,8 +194,45 @@ const onNavItemTransitionEnd = () => {
 };
 
 function onNavClick(event) {
-    // if (navReady) {
+    const navbar = document.getElementById(NAVBAR_ID);
+    const navButton = document.getElementById(NAVBAR_BUTTON_ID);
     console.log('nav item click: ', event.target.id);
+    const scrollTo = document.getElementById('scroll-' + event.target.id);
+    const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
+    if (scrollTo != null) {
+        let finalScrollTop = scrollTo.offsetTop;
+        if (!navbar.classList.contains('sticky')) {
+            if (mobileView) {
+                finalScrollTop -= navbar.children[0].children[0].clientHeight;
+            } else {
+                finalScrollTop -= navbar.clientHeight;
+            }
+            finalScrollTop -= parseFloat(window.getComputedStyle(navbar, null).getPropertyValue('border-bottom'));
+        } else {
+            if (mobileView) {
+                finalScrollTop += navbar.clientHeight - navbar.children[0].children[0].clientHeight;
+            } else {
+                finalScrollTop -=
+                    navbar.clientHeight -
+                    navbar.children[0].children[0].clientHeight -
+                    parseFloat(window.getComputedStyle(navbar.parentElement, null).getPropertyValue('padding-left')) *
+                        2;
+            }
+            finalScrollTop += parseFloat(window.getComputedStyle(navbar, null).getPropertyValue('border-bottom')) + 1;
+        }
+        console.log('Scroll To: ', finalScrollTop);
+        document.getElementById(MAIN_WRAPPER_ID).scrollTo({
+            top: finalScrollTop,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+    if (navButton.classList.contains(ROTATE_NAVBAR_BUTTON_CLASSNAME) && mobileView) {
+        navbar.classList.add('transition-top');
+        navButton.classList.remove(ROTATE_NAVBAR_BUTTON_CLASSNAME);
+        if (navbar != null) navbar.style.top = `${-getNewNavbarTop(navbar.children.length - 1)}px`;
+    }
+
     state.path = '/' + event.target.id;
     if (window.location.hash.substring(1) !== state.path) resetOpenNavButton();
     const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
@@ -204,7 +244,6 @@ function onNavClick(event) {
             i = elementCollection.length;
         }
     }
-
     sortNavbarItems(parseInt(index));
     // }
 }

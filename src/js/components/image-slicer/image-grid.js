@@ -6,7 +6,12 @@ export class ImageGrid {
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.tiles = [];
+        this.initGrid(tileWidth, tileHeight);
+    }
+
+    initGrid(tileWidth, tileHeight) {
         let index = 0;
+        this.tiles = [];
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.cols; j++) {
                 let foldDirX = 0;

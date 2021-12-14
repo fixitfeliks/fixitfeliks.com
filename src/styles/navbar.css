@@ -15,6 +15,7 @@ nav {
     max-height: min-content;
     background-color: white;
     height: min-content;
+    padding: 0;
 }
 
 .navbar-item {
@@ -24,12 +25,12 @@ nav {
     width: 100%;
     height: min-content;
     margin-top: 0;
-    padding: 1em 3em;
+    padding: 1em;
     color: black;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 50px;
     text-decoration: inherit;
+    font-size: 1em;
 }
 
 #navbar-list-id {
@@ -130,12 +131,16 @@ nav {
 }
 
 @media screen and (min-width: 700px) {
+    nav {
+        padding: 0 5em;
+    }
     .navbar-item {
         display: inline-block;
         margin-top: 2em;
         width: max-content;
         align-items: right;
         float: none;
+        font-size: 1.1em;
     }
 
     .navbar-item:hover {

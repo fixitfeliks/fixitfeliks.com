@@ -14,8 +14,8 @@ export function getHeaderImageBodyFlexCard(heading, imageSlicer, content) {
     flexContent.classList.add('flex-body-content');
     flexContent.innerHTML = content;
     flexCard.appendChild(flexHeader);
-    flexCard.appendChild(flexImageWrapper);
     flexCard.appendChild(flexContent);
+    flexCard.appendChild(flexImageWrapper);
 
     return fragment;
 }
@@ -77,12 +77,4 @@ export function getHeaderFlexCard(heading, content) {
     flexCard.appendChild(flexContent);
 
     return fragment;
-}
-
-function removeFlexCard(item, container) {
-    item.classList.remove('flex-item-added');
-    item.classList.add('flex-item-removed');
-    setTimeout(() => {
-        container.removeChild(item);
-    }, FLEX_TRANSITION_TIME);
 }

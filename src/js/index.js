@@ -12,10 +12,10 @@ import weasleImf from 'Assets/weasle.jpg';
 import rue from 'Assets/rue.jpg';
 
 // Scripts - JS
-import 'Components/router.js';
-import { ImageSlicer } from 'Components/image-slicer/image-slicer.js';
 import { getNavbarFragment } from 'Components/navbar.js';
-import { X_ROWS, Y_COLS, WIDTH, FLEX_TRANSITION_TIME, MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
+import { MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
+import getAboutMePage from 'Scripts/content/about-me.js';
+import getSkillsPage from 'Scripts/content/skills.js';
 
 // Content - JS
 import { NAVBAR_ID } from './global-config';
@@ -37,6 +37,8 @@ mainGrid.appendChild(getNavbarFragment(MAIN_WRAPPER_ID));
 main.appendChild(mainGrid);
 
 const mainDiv = document.createElement('main');
+mainDiv.appendChild(getAboutMePage());
+mainDiv.appendChild(getSkillsPage());
 
 const footer = document.createElement('footer');
 footer.innerHTML = 'fix it feliks 2&copy;21 x_ks';
@@ -44,31 +46,9 @@ footer.innerHTML = 'fix it feliks 2&copy;21 x_ks';
 mainGrid.appendChild(footer);
 mainGrid.appendChild(mainDiv);
 
-const addScrollbars = () => {
-    // main.classList.remove('hide-overflow');
-    // document.body.style.overflow = 'auto';
-    main.removeEventListener('transitionend', addScrollbars);
-};
-main.ontransitionend = addScrollbars;
-
-const nav = document.getElementsByTagName('nav')[0];
-// mainDiv.style.minHeight = `calc(${window.innerHeight - nav.clientHeight - footer.clientHeight}px - 4.5em)`;
-
-// mainGrid.appendChild(header);
-// setTimeout(() => {
-//     main.classList.remove('float-up');
-//     // mainGrid.style.top = 0;
-// }, 1000);
-
-// spreadCompletePromise.then(() => {
-//     const imageSlicer = document.getElementById('image-slicer-main');
-//     const newTop = -1 * parseInt(imageSlicer.style.height) + 'px';
-//     imageSlicer.style.top = newTop;
-//     const mainGrid = document.getElementById('test');
-
-//     imageSlicer.addEventListener('transitionend', () => {
-//         imageSlicer.remove();
-//     });
-
-//     mainGrid.style.top = 0;
-// });
+// const addScrollbars = () => {
+//     main.classList.remove('hide-overflow');
+//     document.body.style.overflow = 'auto';
+//     main.removeEventListener('transitionend', addScrollbars);
+// };
+// main.ontransitionend = addScrollbars;

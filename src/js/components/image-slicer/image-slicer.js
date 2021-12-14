@@ -39,6 +39,7 @@ export class ImageSlicer {
 
         this.moveIndex = undefined;
         this.frames = undefined;
+        this.onResize = undefined;
 
         this.image = document.createElement('img');
         this.imageLoadedPromise = new Promise((resolve) => {
@@ -72,14 +73,17 @@ export class ImageSlicer {
         window.addEventListener('resize', () => {
             clearTimeout(resizeDebounce);
             resizeDebounce = setTimeout(() => {
-                console.log(`resize: (${window.innerWidth},${window.innerHeight})`);
-                const mainWrappers = document.getElementsByClassName(MAIN_WRAPPER_ELEMENT_CLASS);
-                for (let i = 0; i < mainWrappers.length; i++) {
-                    if (mainWrappers[i].children[0].children.length > 1) {
-                        this.initImageTiles();
+                window.requestAnimationFrame(() => {
+                    console.log(`resize: (${window.innerWidth},${window.innerHeight})`);
+                    const mainWrappers = document.getElementsByClassName(MAIN_WRAPPER_ELEMENT_CLASS);
+                    for (let i = 0; i < mainWrappers.length; i++) {
+                        if (mainWrappers[i].children[0].children.length > 1) {
+                            this.initImageTiles();
+                            this.onResize();
+                        }
                     }
-                }
-            }, 500);
+                }, 500);
+            });
         });
 
         const fragment = this.createWrapper();
@@ -126,9 +130,7 @@ export class ImageSlicer {
         gridWrapper.style.width = initWidth + 'px';
         gridWrapper.style.height = initHeight + 'px';
 
-        this.imageGrid = new ImageGrid(this.rows, this.cols, initTileWidth, initTileHeight);
-        const originalScaleGrid = new ImageGrid(this.rows, this.cols, this.tileWidth, this.tileHeight);
-
+        this.imageGrid = new ImageGrid(this.rows, this.cols, this.tileWidth, this.tileHeight);
         console.log('init Tiles ', this.imageGrid.tiles);
 
         for (let i = 0; i < this.imageGrid.tiles.length; i++) {
@@ -138,11 +140,10 @@ export class ImageSlicer {
             canvas.width = initTileWidth;
             canvas.height = initTileHeight;
             let context = canvas.getContext('2d');
-            const scaleFactor = clientWidth / this.imageWidth;
             context.drawImage(
                 this.image,
-                originalScaleGrid.tiles[i].x,
-                originalScaleGrid.tiles[i].y,
+                this.imageGrid.tiles[i].x,
+                this.imageGrid.tiles[i].y,
                 this.tileWidth,
                 this.tileHeight,
                 0,
@@ -152,6 +153,7 @@ export class ImageSlicer {
             );
             initCanvasTile(canvas, this.imageGrid.tiles[i]);
         }
+        this.imageGrid.initGrid(initTileWidth, initTileHeight);
     }
 
     initFoldInElement(wrapper = document.body) {
@@ -164,44 +166,53 @@ export class ImageSlicer {
                 });
                 this.tilesLoadedPromise.then(() => {
                     console.log('fold-in tiles loaded');
-                    this.frames = [];
-                    this.frames.push(this.imageGrid.getCurrentState());
-                    for (let i = 0; i < this.imageGrid.tiles.length; i++) {
-                        this.imageGrid.tiles[i].foldIn();
-                    }
-                    this.frames.push(this.imageGrid.getCurrentState());
-                    const mainWrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID + this.id);
-                    const rect = mainWrapper.getBoundingClientRect();
-                    if (
-                        rect.y < -mainWrapper.clientHeight / 2 ||
-                        rect.y > window.innerHeight - mainWrapper.clientHeight / 2
-                    ) {
-                        window.requestAnimationFrame(() => {
-                            updateGridLayout(this.frames[1], this.id);
-                            showTiles(this.imageGrid.tiles, this.id);
-                        });
-                    } else {
-                        window.requestAnimationFrame(() => {
-                            updateGridLayout(this.frames[1], this.id);
-                            showTiles(this.imageGrid.tiles, this.id);
-                            window.requestAnimationFrame(() => {
-                                updateGridLayout(this.frames[0], this.id);
-                            });
-                        });
-                    }
-
+                    this.onResize = () => {
+                        this.getFoldMoves();
+                        this.initFoldItemByStatus();
+                    };
+                    this.getFoldMoves();
+                    this.initFoldItemByStatus();
                     wrapper.addEventListener('scroll', () => {
-                        this.setFoldScrollStatus();
+                        window.requestAnimationFrame(() => {
+                            this.setFoldScrollStatus();
+                        });
                     });
                 });
             });
         });
     }
 
+    getFoldMoves = () => {
+        this.frames = [];
+        this.frames.push(this.imageGrid.getCurrentState());
+        for (let i = 0; i < this.imageGrid.tiles.length; i++) {
+            this.imageGrid.tiles[i].foldIn();
+        }
+        this.frames.push(this.imageGrid.getCurrentState());
+    };
+
+    initFoldItemByStatus() {
+        const mainWrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID + this.id);
+        const rect = mainWrapper.getBoundingClientRect();
+        if (rect.y < -mainWrapper.clientHeight / 2 || rect.y > window.innerHeight - mainWrapper.clientHeight / 2) {
+            window.requestAnimationFrame(() => {
+                updateGridLayout(this.frames[1], this.id);
+                showTiles(this.imageGrid.tiles, this.id);
+            });
+        } else {
+            window.requestAnimationFrame(() => {
+                updateGridLayout(this.frames[1], this.id);
+                showTiles(this.imageGrid.tiles, this.id);
+                window.requestAnimationFrame(() => {
+                    updateGridLayout(this.frames[0], this.id);
+                });
+            });
+        }
+    }
+
     setFoldScrollStatus() {
         const mainWrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID + this.id);
         const rect = mainWrapper.getBoundingClientRect();
-        console.log(rect);
         if (rect.y < -mainWrapper.clientHeight / 2 || rect.y > window.innerHeight - mainWrapper.clientHeight / 2) {
             this.foldIn();
         } else {
@@ -257,14 +268,14 @@ export class ImageSlicer {
                         const slicerWrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID + this.id);
                         const imageGrid = document.getElementById(GRID_WRAPPER_ELEMENT_ID + this.id);
 
-                        if (image) {
-                            image.remove();
-                            image.style.display = 'block';
-                        }
-                        if (imageGrid) {
-                            imageGrid.remove();
-                            slicerWrapper.appendChild(image);
-                        }
+                        // if (image) {
+                        //     image.remove();
+                        //     image.style.display = 'block';
+                        // }
+                        // if (imageGrid) {
+                        //     imageGrid.remove();
+                        //     slicerWrapper.appendChild(image);
+                        // }
                         mainWrapper.classList.remove(MAIN_TRANSITION_OVERFLOW);
 
                         resolve();

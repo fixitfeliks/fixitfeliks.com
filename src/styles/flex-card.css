@@ -32,8 +32,22 @@ ul.no-bullets {
     max-width: 100%;
 }
 
-.flex-body-header,
+.flex-title-content {
+    font-size: 1em;
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    padding: 2em;
+    text-align: center;
+}
+
 .flex-title-header {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+}
+
+.flex-body-header {
     font-size: 1em;
     position: relative;
     display: block;
@@ -50,17 +64,11 @@ ul.no-bullets {
     /* background-color: blue; */
 }
 
-.flex-title-header {
-    position: flex;
-    align-self: center;
-}
-
 .flex-body-header {
     position: relative;
     align-self: top;
 }
 
-.flex-title-content,
 .flex-body-content,
 .flex-body-image {
     font-size: 1em;
@@ -77,8 +85,8 @@ ul.no-bullets {
     /* background-color: red; */
 }
 
-.flex-title-content {
-    text-align: right;
+.flex-body-content {
+    padding-top: 0;
 }
 
 @media screen and (min-width: 700px) {
@@ -86,28 +94,36 @@ ul.no-bullets {
         flex-wrap: nowrap;
     } */
 
-    .flex-body-header,
-    .flex-title-header {
+    .flex-body-header {
         /* text-align: right; */
         /* width: 50%; */
         margin: auto;
-        font-size: 1.2em;
         padding: 1em 20%;
         font-size: 1.5em;
     }
 
-    .flex-title-content {
-        text-align: left;
-    }
-
     .flex-body-content {
         margin: auto;
-        padding: 2em 20%;
+        padding: 2em 22%;
         font-size: 1.1em;
+        padding-top: 0;
     }
     .flex-body-image {
         margin: auto;
         padding: 0 20%;
+    }
+
+    .flex-title-header {
+        text-align: right;
+        width: 50%;
+        font-size: 1.2em;
+        padding-left: 20%;
+    }
+
+    .flex-title-content {
+        width: 50%;
+        padding-right: 20%;
+        text-align: left;
     }
 }
 

@@ -108,7 +108,7 @@ export default function () {
             `
         )
     );
-    backendSkillsImgSlicer.initFoldInElement(mainWrapper);
+    backendSkillsImgSlicer.initSpreadElement(mainWrapper);
 
     // Mobile
     // My first 'Smartphone' was the Samsung Blackjack, but no really it was an iPhone 4. Pretty sweet bit of kit for 2011.<br><br>
@@ -141,7 +141,7 @@ export default function () {
             `
         )
     );
-    databaseSkillsImgSlicer.initFoldInElement(mainWrapper);
+    databaseSkillsImgSlicer.initSpreadElement(mainWrapper);
 
     // Devops
     fragment.appendChild(
@@ -169,7 +169,7 @@ export default function () {
                 `
         )
     );
-    mcuSkillsImgSlicer.initFoldInElement(mainWrapper);
+    mcuSkillsImgSlicer.initSpreadElement(mainWrapper);
 
     // Engineering
     fragment.appendChild(
@@ -195,7 +195,7 @@ export default function () {
                     `
         )
     );
-    automationSkillsImgSlicer.initFoldInElement(mainWrapper);
+    automationSkillsImgSlicer.initSpreadElement(mainWrapper);
 
     fragment.children[0].id = 'scroll-skills-experience';
 

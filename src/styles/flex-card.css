@@ -89,6 +89,12 @@ ul.no-bullets {
     padding-top: 0;
 }
 
+.flex-body-image {
+    /* border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); */
+    padding: 2em 5px;
+}
+
 @media screen and (min-width: 700px) {
     /* .flex-container {
         flex-wrap: nowrap;
@@ -110,7 +116,7 @@ ul.no-bullets {
     }
     .flex-body-image {
         margin: auto;
-        padding: 0 20%;
+        padding: 2em 20%;
     }
 
     .flex-title-header {

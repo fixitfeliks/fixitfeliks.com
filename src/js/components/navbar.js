@@ -42,7 +42,7 @@ window.addEventListener('resize', () => {
     if (navbar.classList.contains('sticky')) {
         const navbarItemHeight = navbarItemList.children[0].clientHeight;
         navbar.style.top = mobileView
-            ? `${-navbarItemHeight * (navbarItemList.children.length - 1)}px`
+            ? `calc(${-navbarItemHeight * (navbarItemList.children.length - 1)}px + 1em)`
             : `calc(${-navbarItemHeight}px + 1em)`;
         if (mobileView) {
             resetOpenNavButton();
@@ -88,7 +88,6 @@ export function getNavbarFragment(scrollId) {
 
 let resetScroll = true;
 function navOnScroll(scrollY) {
-    console.log('Scroll ', scrollY);
     if (scrollY < 10) {
         resetScroll = true;
     }
@@ -207,7 +206,7 @@ function onNavClick(event) {
             } else {
                 finalScrollTop -= navbar.clientHeight;
             }
-            finalScrollTop -= parseFloat(window.getComputedStyle(navbar, null).getPropertyValue('border-bottom'));
+            // finalScrollTop -= parseFloat(window.getComputedStyle(navbar, null).getPropertyValue('border-bottom'));
         } else {
             if (mobileView) {
                 finalScrollTop += navbar.clientHeight - navbar.children[0].children[0].clientHeight;
@@ -217,8 +216,9 @@ function onNavClick(event) {
                     navbar.children[0].children[0].clientHeight -
                     parseFloat(window.getComputedStyle(navbar.parentElement, null).getPropertyValue('padding-left')) *
                         2;
+                // finalScrollTop +=
+                //     parseFloat(window.getComputedStyle(navbar, null).getPropertyValue('border-bottom')) + 1;
             }
-            finalScrollTop += parseFloat(window.getComputedStyle(navbar, null).getPropertyValue('border-bottom')) + 1;
         }
         console.log('Scroll To: ', finalScrollTop);
         document.getElementById(MAIN_WRAPPER_ID).scrollTo({

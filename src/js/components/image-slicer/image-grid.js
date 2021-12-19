@@ -14,24 +14,55 @@ export class ImageGrid {
         this.tiles = [];
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.cols; j++) {
-                let foldDirX = 0;
-                let foldDirY = 0;
-                let halfWidth = Math.floor(this.cols / 2);
-                let halfHeight = Math.floor(this.rows / 2);
-                foldDirX = j < halfWidth ? 1 : -1;
-                foldDirY = i < halfHeight ? 1 : -1;
-                if (this.cols % 2 === 1 && j === halfWidth) {
-                    foldDirX = 0;
-                }
-                if (this.rows % 2 === 1 && i === halfHeight) {
-                    foldDirY = 0;
-                }
+                const foldDir = this.getFoldDir(i, j);
                 this.tiles.push(
-                    new Tile(index, j * tileWidth, i * tileHeight, tileWidth, tileHeight, foldDirX, foldDirY)
+                    new Tile(
+                        index,
+                        j * tileWidth,
+                        i * tileHeight,
+                        tileWidth,
+                        tileHeight,
+                        foldDir.foldDirX,
+                        foldDir.foldDirY
+                    )
                 );
                 index++;
             }
         }
+    }
+
+    resetGrid(tileWidth, tileHeight) {
+        let index = 0;
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
+                const foldDir = this.getFoldDir(i, j);
+                this.tiles[index].id = index;
+                this.tiles[index].x = j * tileWidth;
+                this.tiles[index].y = i * tileHeight;
+                this.tiles[index].width = tileWidth;
+                this.tiles[index].height = tileHeight;
+                this.tiles[index].foldDirX = foldDir.foldDirX;
+                this.tiles[index].foldDirY = foldDir.foldDirY;
+                index++;
+            }
+        }
+    }
+
+    getFoldDir(i, j) {
+        let foldDirX = 0;
+        let foldDirY = 0;
+        let halfWidth = Math.floor(this.cols / 2);
+        let halfHeight = Math.floor(this.rows / 2);
+        foldDirX = j < halfWidth ? 1 : -1;
+        foldDirY = i < halfHeight ? 1 : -1;
+        if (this.cols % 2 === 1 && j === halfWidth) {
+            foldDirX = 0;
+        }
+        if (this.rows % 2 === 1 && i === halfHeight) {
+            foldDirY = 0;
+        }
+
+        return { foldDirX, foldDirY };
     }
 
     getCurrentState() {

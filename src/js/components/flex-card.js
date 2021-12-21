@@ -1,3 +1,18 @@
+export function getTitleCard(text) {
+    const fragment = document.createDocumentFragment();
+    const flexCard = document.createElement('div');
+    flexCard.classList.add('flex-container');
+    fragment.appendChild(flexCard);
+
+    const flexTitle = document.createElement('div');
+    flexTitle.classList.add('flex-body-header');
+    flexTitle.innerHTML = /*html*/ `<h2>${text}</h2>`;
+
+    flexCard.appendChild(flexTitle);
+    fragment.appendChild(flexCard);
+    return fragment;
+}
+
 export function getHeaderImageBodyFlexCard(heading, imageSlicer, content) {
     const fragment = document.createDocumentFragment();
     const flexCard = document.createElement('div');

@@ -22,7 +22,7 @@ import engineeringSkillsImgMobile from 'Assets/engineering-skills-mobile.png';
 import automationSkillsImg from 'Assets/automation-skills.png';
 import automationSkillsImgMobile from 'Assets/automation-skills-mobile.png';
 
-import { getHeaderImageBodyFlexCard } from 'Components/flex-card.js';
+import { getTitleCard, getHeaderImageBodyFlexCard } from 'Components/flex-card.js';
 import { ImageSlicer } from 'Components/image-slicer/image-slicer.js';
 
 import { MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
@@ -80,6 +80,8 @@ const automationSlicerHTML = automationSkillsImgSlicer.getHTML();
 export default function () {
     const fragment = document.createDocumentFragment();
     const mainWrapper = document.getElementById(MAIN_WRAPPER_ID);
+
+    fragment.appendChild(getTitleCard('skills & experience'));
 
     // FRONTEND
     fragment.appendChild(

@@ -3,10 +3,8 @@
     --flex-transition-time: 1000ms;
 }
 
-h3 {
-    margin: 0;
-}
-
+h2,
+h3,
 h4 {
     margin: 0;
 }
@@ -124,6 +122,7 @@ ul.no-bullets {
         width: 50%;
         font-size: 1.2em;
         padding-left: 20%;
+        padding-bottom: 2em;
     }
 
     .flex-title-content {

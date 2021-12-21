@@ -274,6 +274,12 @@ export class ImageSlicer {
                     // mainWrapper.classList.add(MAIN_TRANSITION_OVERFLOW);
                     this.frames = [...this.getFramesForNumMoves(SPREAD_TOTAL_MOVES)];
                     let index = this.frames.length - 1;
+                    this.onResize = () => {
+                        for (let i = 0; i < this.imageGrid.tiles.length; i++) {
+                            this.frames[0][i].x = this.imageGrid.tiles[i].x;
+                            this.frames[0][i].y = this.imageGrid.tiles[i].y;
+                        }
+                    };
 
                     updateGridLayout(this.frames[index], this.id);
                     showTiles(this.imageGrid.tiles, this.id);

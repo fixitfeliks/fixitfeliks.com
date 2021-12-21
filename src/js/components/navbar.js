@@ -42,7 +42,7 @@ window.addEventListener('resize', () => {
     if (navbar.classList.contains('sticky')) {
         const navbarItemHeight = navbarItemList.children[0].clientHeight;
         navbar.style.top = mobileView
-            ? `calc(${-navbarItemHeight * (navbarItemList.children.length - 1)}px + 1em)`
+            ? `calc(${-navbarItemHeight * (navbarItemList.children.length - 1)}px + .7em)`
             : `calc(${-navbarItemHeight}px + 1em)`;
         if (mobileView) {
             resetOpenNavButton();

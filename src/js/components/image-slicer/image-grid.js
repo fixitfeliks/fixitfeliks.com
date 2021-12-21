@@ -61,7 +61,6 @@ export class ImageGrid {
         if (this.rows % 2 === 1 && i === halfHeight) {
             foldDirY = 0;
         }
-
         return { foldDirX, foldDirY };
     }
 

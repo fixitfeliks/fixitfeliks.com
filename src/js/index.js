@@ -6,16 +6,14 @@ import 'Styles/navbar.css';
 import 'Styles/grid-responsive.css';
 
 // Assets - Images
-import testImg from 'Assets/test.png';
-import bearImg from 'Assets/bear.jpg';
 import weasleImf from 'Assets/weasle.jpg';
-import rue from 'Assets/rue.jpg';
 
 // Scripts - JS
 import { getNavbarFragment } from 'Components/navbar.js';
 import { MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
 import getAboutMePage from 'Scripts/content/about-me.js';
 import getSkillsPage from 'Scripts/content/skills.js';
+import getProjectPage from 'Scripts/content/projects.js';
 
 // Content - JS
 import { NAVBAR_ID } from './global-config';
@@ -39,6 +37,7 @@ main.appendChild(mainGrid);
 const mainDiv = document.createElement('main');
 mainDiv.appendChild(getAboutMePage());
 mainDiv.appendChild(getSkillsPage());
+mainDiv.appendChild(getProjectPage());
 
 const footer = document.createElement('footer');
 footer.innerHTML = 'fix it feliks 2&copy;21 x_ks';

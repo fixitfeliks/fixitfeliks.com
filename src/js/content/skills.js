@@ -87,13 +87,13 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Frontend',
-            frontendSlicerHTML,
             `
                 1-2 years front end development with React and Redux
                 Enjoy working on projects with Vanilla JS, CSS, and HTML.. like this site!<br><br>
                 Working with REST APIs and GraphQL clients like Apollo
 
-            `
+            `,
+            frontendSlicerHTML
         )
     );
     frontendSkillsImgSlicer.initFoldInElement(mainWrapper);
@@ -102,12 +102,12 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Backend',
-            backendSlicerHTML,
             `
                 3-4 Years with Java for Application development and 1 year with Spring<br><br>
                 Java was the first programming language I learned in HS. I enjoy it, but yea I know.
         
-            `
+            `,
+            backendSlicerHTML
         )
     );
     backendSkillsImgSlicer.initSpreadElement(mainWrapper);
@@ -119,14 +119,14 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Mobile',
-            mobileSlicerHTML,
             `
                 1-2 Years in Android and React Native <br><br>
                 My first 'Smartphone' was the Samsung Blackjack, but no really it was an iPhone 4. Pretty sweet bit of kit for 2011.<br><br>
                 I am an Android/Linux user but am comfortable with macOS. The Java got me into Android and I've stuck with it. I created my first app for a project in uni<br><br>
                 I spent a year with a Windows phone just to mix it up, not sure how about it now. The new iPhone 13 mini is looking really good right now actually and giving me 2011 vibes. 
                      
-            `
+            `,
+            mobileSlicerHTML
         )
     );
     mobileSkillsImgSlicer.initFoldInElement(mainWrapper);
@@ -135,12 +135,12 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Database',
-            databaseSlicerHTML,
             `
                 3-4 Years with SQL.
                 First full stack app was a LAMP stack with MYSQL<br><br>
                 Experience building relational data models and some experience with Dynamo DB and NoSQL
-            `
+            `,
+            databaseSlicerHTML
         )
     );
     databaseSkillsImgSlicer.initSpreadElement(mainWrapper);
@@ -149,12 +149,12 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Dev Ops',
-            devopsSlicerHTML,
             `
-                    3-4 Years with SQL.
-                    First full stack app was a LAMP stack with MYSQL<br><br>
-                    Experience building relational data models and some experience with Dynamo DB and NoSQL
-                `
+                3-4 Years with SQL.
+                First full stack app was a LAMP stack with MYSQL<br><br>
+                Experience building relational data models and some experience with Dynamo DB and NoSQL
+            `,
+            devopsSlicerHTML
         )
     );
     devopsSkillsImgSlicer.initFoldInElement(mainWrapper);
@@ -163,12 +163,12 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Microcontrollers and RaspberryPI',
-            mcuSlicerHTML,
             `
-                    2-3 years experience <br><br>
-                    Started out with 8-bit microchip microcontrollers and got into Arduino later on. <br><br>
-                    I really like the RaspberryPI Zero W!
-                `
+                2-3 years experience <br><br>
+                Started out with 8-bit microchip microcontrollers and got into Arduino later on. <br><br>
+                I really like the RaspberryPI Zero W!
+            `,
+            mcuSlicerHTML
         )
     );
     mcuSkillsImgSlicer.initSpreadElement(mainWrapper);
@@ -177,11 +177,11 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Mechanical & Electrical',
-            engineeringSlicerHTML,
             `
-                    5+ years experience <br><br>
-                    My core experiences are in industrial automation and manufacturing
-                `
+                5+ years experience <br><br>
+                My core experiences are in industrial automation and manufacturing
+            `,
+            engineeringSlicerHTML
         )
     );
     engineeringSkillsImgSlicer.initFoldInElement(mainWrapper);
@@ -190,11 +190,11 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Industrial Automation',
-            automationSlicerHTML,
             `
-                        5+ years experience <br><br>
-                        My core experiences are in industrial automation and manufacturing
-                    `
+                5+ years experience <br><br>
+                My core experiences are in industrial automation and manufacturing
+            `,
+            automationSlicerHTML
         )
     );
     automationSkillsImgSlicer.initSpreadElement(mainWrapper);

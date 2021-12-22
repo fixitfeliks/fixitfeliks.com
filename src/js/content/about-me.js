@@ -10,7 +10,7 @@ export default function () {
     fragment.appendChild(getTitleCard('about me'));
     fragment.appendChild(
         getHeaderFlexCard(
-            /*html*/ `<img src=${aboutMeImg} />`,
+            /*html*/ `<img src=${aboutMeImg} class="img-header"/>`,
             'Hi this is about me! I am a certified weasle, we do weasle things and the such. Do not be afraid of my weasle powers'
         )
     );

@@ -13,7 +13,7 @@ export function getTitleCard(text) {
     return fragment;
 }
 
-export function getHeaderImageBodyFlexCard(heading, imageSlicer, content) {
+export function getHeaderImageBodyFlexCard(heading, content, imageSlicer) {
     const fragment = document.createDocumentFragment();
     const flexCard = document.createElement('div');
     flexCard.classList.add('flex-container');

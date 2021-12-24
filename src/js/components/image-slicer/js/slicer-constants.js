@@ -11,5 +11,4 @@ export const GRID_WRAPPER_ELEMENT_ID = 'image-slicer-grid-';
 export const GRID_WRAPPER_ELEMENT_CLASS = 'slicer-grid-wrapper';
 export const GRID_ELEMENT_ID = 'image-slicer-grid-item-';
 export const GRID_ELEMENT_CLASS = 'slicer-grid-item';
-export const CSS_LOADER_ID = 'loader-spinner-';
 export const MAIN_TRANSITION_OVERFLOW = 'slicer-transition-overflow';

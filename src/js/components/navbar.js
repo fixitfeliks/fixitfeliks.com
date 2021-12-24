@@ -1,5 +1,4 @@
 import {
-    MAIN_GRID_ID,
     NAVBAR_BUTTON_CONTAINER_CLASSNAME,
     NAVBAR_BUTTON_ID,
     NAVBAR_BUTTON_CLASSNAME,
@@ -32,8 +31,6 @@ const navbarRoutes = [
 let state = {
     path: 'about-me'
 };
-
-// window.location.hash = '/' + state.path;
 
 window.addEventListener('resize', () => {
     const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
@@ -98,7 +95,6 @@ function navOnScroll(scrollY) {
     const navbarDelta = getNewNavbarTop();
     const bodyChildren = document.body.children;
     const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
-    const originalNavbarWidth = bodyChildren[0].children[0].clientWidth;
     const newNavbarWidth =
         navbar.parentElement.clientWidth -
         parseFloat(window.getComputedStyle(navbar.parentElement, null).getPropertyValue('padding-left')) * 2;
@@ -198,6 +194,7 @@ function onNavClick(event) {
     console.log('nav item click: ', event.target.id);
     const scrollTo = document.getElementById('scroll-' + event.target.id);
     const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
+    const borderWidth = window.getComputedStyle(navbar, null).getPropertyValue('border-bottom-width');
     if (scrollTo != null) {
         let finalScrollTop = scrollTo.offsetTop;
         if (!navbar.classList.contains('sticky')) {
@@ -206,18 +203,20 @@ function onNavClick(event) {
             } else {
                 finalScrollTop -= navbar.clientHeight;
             }
-            // finalScrollTop -= parseFloat(window.getComputedStyle(navbar, null).getPropertyValue('border-bottom'));
+            finalScrollTop -= parseFloat(borderWidth ? borderWidth : 0);
         } else {
             if (mobileView) {
                 finalScrollTop += navbar.clientHeight - navbar.children[0].children[0].clientHeight;
             } else {
+                const paddingWidth = window
+                    .getComputedStyle(navbar.parentElement, null)
+                    .getPropertyValue('padding-left');
+
                 finalScrollTop -=
                     navbar.clientHeight -
                     navbar.children[0].children[0].clientHeight -
-                    parseFloat(window.getComputedStyle(navbar.parentElement, null).getPropertyValue('padding-left')) *
-                        2;
-                // finalScrollTop +=
-                //     parseFloat(window.getComputedStyle(navbar, null).getPropertyValue('border-bottom')) + 1;
+                    parseFloat(paddingWidth ? paddingWidth : 0) * 2;
+                finalScrollTop += parseFloat(borderWidth ? borderWidth : 0) + 2;
             }
         }
         console.log('Scroll To: ', finalScrollTop);
@@ -227,6 +226,7 @@ function onNavClick(event) {
             behavior: 'smooth'
         });
     }
+
     if (navButton.classList.contains(ROTATE_NAVBAR_BUTTON_CLASSNAME) && mobileView) {
         navbar.classList.add('transition-top');
         navButton.classList.remove(ROTATE_NAVBAR_BUTTON_CLASSNAME);
@@ -245,7 +245,6 @@ function onNavClick(event) {
         }
     }
     sortNavbarItems(parseInt(index));
-    // }
 }
 
 function sortNavbarItems(index) {
@@ -290,7 +289,7 @@ function sortNavbarItems(index) {
 function updateAnimation(elementCollection) {
     setTimeout(() => {
         for (let i = elementCollection.length - 1; i >= 0; i--) {
-            // This skips some animations, why!?!?!
+            // TODO fix issue with requestAnimationFrame skipping.
             // window.requestAnimationFrame(function () {
             elementCollection[i].style.left = 0;
             elementCollection[i].style.top = 0;

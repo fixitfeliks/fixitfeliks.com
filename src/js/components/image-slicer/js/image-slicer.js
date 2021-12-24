@@ -1,20 +1,18 @@
-import { createGridLayout, initCanvasTile, updateGridLayout, showTiles } from './layout.js';
+import '../css/image-slicer.css';
+import { createGridLayout, initCanvasTile, updateGridLayout, showTiles } from './image-layout.js';
 import { ImageGrid } from './image-grid.js';
 import {
     MAIN_WRAPPER_ELEMENT_ID,
     MAIN_WRAPPER_ELEMENT_CLASS,
     GRID_WRAPPER_ELEMENT_ID,
     GRID_ELEMENT_ID,
-    CSS_LOADER_ID,
     SPREAD_TOTAL_MOVES,
     SPREAD_TOTAL_TIME,
     TILE_MOVE_TIME,
     MAIN_TRANSITION_DELAY,
     MAIN_TRANSITION_OVERFLOW,
-    IMAGE_ID,
-    GRID_WRAPPER_ELEMENT_CLASS
+    IMAGE_ID
 } from './slicer-constants.js';
-import { cssLoader } from './loader-spinner.js';
 
 export class ImageSlicer {
     constructor(id, imageSrc, rows, cols) {
@@ -22,20 +20,24 @@ export class ImageSlicer {
         this.imageSrc = imageSrc;
         this.rows = rows;
         this.cols = cols;
+
         // Image width
         this.imageWidth = undefined;
         this.imageHeight = undefined;
+
         // Unscaled tile width
         this.tileWidth = undefined;
         this.tileHeight = undefined;
         this.originalTileWidth = undefined;
         this.originalTileHeight = undefined;
+
         // Scaled tile width
         this.canvasWidth = undefined;
         this.canvasHeight = undefined;
         this.imageGrid = undefined;
         this.originalImageGrid = undefined;
         this.tilesLoadedPromise;
+
         // Calculated Aspect Ratios
         this.imageAspectRatio = undefined;
         this.tilesAspectRatio = undefined;
@@ -75,13 +77,10 @@ export class ImageSlicer {
         const contentWrapper = document.createElement('div');
         contentWrapper.id = MAIN_WRAPPER_ELEMENT_ID + this.id;
         contentWrapper.className = MAIN_WRAPPER_ELEMENT_CLASS;
-        // contentWrapper.appendChild(cssLoader);
         return contentWrapper;
     }
 
     getHTML() {
-        // TODO Remove null error when navigating and coming back form a page
-        // with another image slicer (possible duplicate event listener without handle)
         let resizeDebounce = undefined;
         window.addEventListener('resize', () => {
             clearTimeout(resizeDebounce);
@@ -115,8 +114,6 @@ export class ImageSlicer {
         let initTileHeight = undefined;
 
         if (this.imageWidth > clientWidth) {
-            //|| this.imageHeight > clientHeight) {
-            // const ratio = Math.min(clientWidth / this.imageWidth, clientHeight / this.imageHeight);
             const ratio = clientWidth / this.imageWidth;
             const tempInitWidth = this.imageWidth * ratio;
             const tempInitHeight = this.imageHeight * ratio;
@@ -271,7 +268,6 @@ export class ImageSlicer {
                 this.tilesLoadedPromise.then(() => {
                     console.log('tiles loaded');
                     const mainWrapper = document.getElementById(MAIN_WRAPPER_ELEMENT_ID + this.id);
-                    // mainWrapper.classList.add(MAIN_TRANSITION_OVERFLOW);
                     this.frames = [...this.getFramesForNumMoves(SPREAD_TOTAL_MOVES)];
                     let index = this.frames.length - 1;
                     this.onResize = () => {

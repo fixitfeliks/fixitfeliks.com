@@ -1,7 +1,5 @@
 // CSS - Styles
 import 'Styles/flex-card.css';
-import 'Styles/image-slicer.css';
-import 'Styles/loader-spinner.css';
 import 'Styles/navbar.css';
 import 'Styles/grid-responsive.css';
 

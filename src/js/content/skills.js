@@ -23,7 +23,7 @@ import automationSkillsImg from 'Assets/automation-skills.png';
 import automationSkillsImgMobile from 'Assets/automation-skills-mobile.png';
 
 import { getTitleCard, getHeaderImageBodyFlexCard } from 'Components/flex-card.js';
-import { ImageSlicer } from 'Components/image-slicer/image-slicer.js';
+import { ImageSlicer } from 'Components/image-slicer/js/image-slicer.js';
 
 import { MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
 

@@ -1,4 +1,5 @@
 import aboutMeImg from 'Assets/about-me.jpg';
+import phopshrImg from 'Assets/project-phosphr.png';
 import gitHubLogoImg from 'Assets/GitHub-Mark-32px.png';
 
 import { getTitleCard, getHeaderImageBodyFlexCard } from 'Components/flex-card.js';
@@ -7,8 +8,14 @@ export default function () {
     const fragment = document.createDocumentFragment();
     fragment.appendChild(getTitleCard('projects'));
 
-    const image = document.createElement('img');
-    image.setAttribute('src', aboutMeImg);
+    const elmImageSlicerImg = document.createElement('img');
+    elmImageSlicerImg.setAttribute('src', aboutMeImg);
+
+    const elmStirrerImg = document.createElement('img');
+    elmStirrerImg.setAttribute('src', aboutMeImg);
+
+    const elmPhopshrImg = document.createElement('img');
+    elmPhopshrImg.setAttribute('src', phopshrImg);
 
     const gitHubLogo = document.createElement('img');
     gitHubLogo.setAttribute('src', gitHubLogoImg);
@@ -16,20 +23,81 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Image Slicer',
-            /*html*/ `
+            /*html*/ `<div>
                 A small project I am working to turn into a component/library. Its whats powering the little animations on this site!<br><br>
                     <ul>
                         <li>Images are loaded and scaled to create a grid of canvas objects.</li>
                         <li>Canvas objects are animated using CSS translate transitions</li>
                         <li>'Tiles' in the grid are moved and a snapshot of the grid can be created at each step</li>
-                        <li>TAdd the snapshots to an array and render!</li>
+                        <li>Add the snapshots to an array and render!</li>
                     </ul>
-                    <div style="height:32px; display:flex; align-items:center;">
-                       <img src=${gitHubLogoImg} style="padding-right:17px;" />
-                       <a href="https://github.com/fixitfeliks/image-slicer" style="text-decoration: none;">github.com/fixitfeliks/image-slicer</a>
+                    <div class="gh-link-container">
+                       <img src=${gitHubLogoImg} class="gh-link-image" />
+                       <a href="https://github.com/fixitfeliks/image-slicer" class="gh-link-text" target="_blank">github.com/fixitfeliks/image-slicer</a>
                     </div>
+                </div>
             `,
-            image
+            elmImageSlicerImg
+        )
+    );
+
+    fragment.appendChild(
+        getHeaderImageBodyFlexCard(
+            'Brush-less DC Motor for Magnetic Stirrer',
+            /*html*/ ` <div>
+                    A magnetic stirrer based on a brush-less DC motor concept<br><br>
+                        <ul>
+                            <li>Conventional stirrers use a rotating magnet on a motor</li>
+                            <li>Magnetic stirrers based on this concept are pretty common, but I thought it would be cool to build one myself!</li>
+                            <li><a href="http://ww1.microchip.com/downloads/en/AppNotes/00885a.pdf" class="gh-link-text" target="_blank">Microchip AN885 - Brushless DC (BLDC) Motor Fundamentals</a></li>
+                            <li><a href="http://ww1.microchip.com/downloads/en/AppNotes/00857B.pdf" class="gh-link-text" target="_blank">Microchip AN857 - Brushless DC Motor Control Made Easy</a></li>
+                        </ul>
+                        Control & commutation done with an arduino<br><br>
+                        <div class="gh-link-container">
+                            
+                        <img src=${gitHubLogoImg} class="gh-link-image" />
+                        <a href="https://github.com/fixitfeliks/open-loop-bldc" class="gh-link-text" target="_blank">github.com/fixitfeliks/open-loop-bldc</a>
+                        </div><br><br>
+                        <div class="iframe-wrapper">
+                            <iframe src="https://drive.google.com/file/d/1sD-0xDB0bGW0HveV3NwNqf3t4Pn1eciU/preview" width="100%" height="480" allow="autoplay"></iframe>
+                        </div>
+                    </div>
+                `,
+            document.createDocumentFragment()
+        )
+    );
+
+    fragment.appendChild(
+        getHeaderImageBodyFlexCard(
+            'Google HomeGraph API App with IOT Device',
+            /*html*/ ` <div>
+                    A learning project I did that was of course never finished, it would be cool to update this!<br><br>
+                        NodeJS Backend<br><br>
+                        <div class="gh-link-container">
+                            <img src=${gitHubLogoImg} class="gh-link-image" />
+                            <a href="https://github.com/fixitfeliks/phosphr-cloud" class="gh-link-text" target="_blank">github.com/fixitfeliks/phosphr-cloud</a>
+                        </div><br>
+                        Account Linking with Google HomeGraph API<br><br>
+                        <div class="gh-link-container">
+                            <img src=${gitHubLogoImg} class="gh-link-image" />
+                            <a href="https://github.com/fixitfeliks/homegraph-nodejs-server" class="gh-link-text" target="_blank">github.com/fixitfeliks/homegraph-nodejs-server</a>
+                        </div><br>
+                        React Native Mobile App with Expo<br><br>
+                        <div class="gh-link-container">
+                            <img src=${gitHubLogoImg} class="gh-link-image" />
+                            <a href="https://github.com/fixitfeliks/phosphr-mobile" class="gh-link-text" target="_blank">github.com/fixitfeliks/phosphr-mobile</a>
+                        </div><br>
+                        RaspberryPI Django Server with GPIO Zero<br><br>
+                        <div class="gh-link-container">
+                            <img src=${gitHubLogoImg} class="gh-link-image" />
+                            <a href="https://github.com/fixitfeliks/phosphr-pi" class="gh-link-text" target="_blank">github.com/fixitfeliks/phosphr-pi</a>
+                        </div><br><br>
+                        <div class="iframe-wrapper">
+                            <iframe src="https://drive.google.com/file/d/1CkY5dERs6OberRMrSGWSAZk_g2iCbq-m/preview" width="640" height="480" allow="autoplay"></iframe>
+                        </div>
+                    </div>
+                `,
+            document.createDocumentFragment()
         )
     );
 

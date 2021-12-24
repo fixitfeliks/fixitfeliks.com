@@ -1,8 +1,6 @@
-import { X_ROWS, Y_COLS } from 'Scripts/global-config.js';
-
-export function squareShuffle(gridCoors) {
-    let newGrid = { ...gridCoors };
-    let traveled = createAndFillTwoDArray(X_ROWS, Y_COLS, 0);
+export function squareShuffle(grid) {
+    let newGrid = { ...grid };
+    let traveled = createAndFill2DArray(grid.x, grid.y, 0);
     for (let i = 0; i < newGrid.length; i++) {
         for (let j = 0; j < newGrid[i].length; j++) {
             let dir = 0;
@@ -44,6 +42,6 @@ export function shuffleArray(array) {
     return newArray;
 }
 
-function createAndFillTwoDArray(rows, columns, defaultValue) {
+function createAndFill2DArray(rows, columns, defaultValue) {
     return Array.from({ length: rows }, () => Array.from({ length: columns }, () => defaultValue));
 }

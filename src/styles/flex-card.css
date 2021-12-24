@@ -36,13 +36,15 @@ ul.no-bullets {
     display: block;
     box-sizing: border-box;
     padding: 2em;
-    text-align: center;
+    text-align: justify;
+    line-height: 1.2em;
 }
 
 .flex-title-header {
     position: relative;
     display: block;
     box-sizing: border-box;
+    padding: 0 5%;
 }
 
 .flex-body-header {
@@ -93,16 +95,14 @@ ul.no-bullets {
     padding: 2em 5px;
 }
 
-@media screen and (min-width: 700px) {
-    /* .flex-container {
-        flex-wrap: nowrap;
-    } */
+.flex-body-image img {
+    translate: 0;
+}
 
+@media screen and (min-width: 700px) {
     .flex-body-header {
-        /* text-align: right; */
-        /* width: 50%; */
         margin: auto;
-        padding: 1em 20%;
+        padding: 1em 10%;
         font-size: 1.5em;
     }
 
@@ -118,17 +118,31 @@ ul.no-bullets {
     }
 
     .flex-title-header {
+        padding: 0 15%;
+    }
+
+    .flex-title-content {
+        padding: 5% 10%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .flex-title-header {
+        display: flex;
         text-align: right;
         width: 50%;
         font-size: 1.2em;
-        padding-left: 20%;
-        padding-bottom: 2em;
+        padding-left: 15%;
+        align-self: center;
+        padding: 0 5%;
     }
 
     .flex-title-content {
         width: 50%;
-        padding-right: 20%;
-        text-align: left;
+        padding-right: 15%;
+        padding-top: 0;
+        font-size: 1.1em;
+        line-height: 1.3em;
     }
 }
 

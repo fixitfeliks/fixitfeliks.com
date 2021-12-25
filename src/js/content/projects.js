@@ -32,7 +32,7 @@ export default function () {
                         <li>Add the snapshots to an array and render!</li>
                     </ul>
                     <div class="gh-link-container">
-                       <img src=${gitHubLogoImg} class="gh-link-image" />
+                        &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
                        <a href="https://github.com/fixitfeliks/image-slicer" class="gh-link-text" target="_blank">github.com/fixitfeliks/image-slicer</a>
                     </div>
                 </div>
@@ -54,12 +54,11 @@ export default function () {
                         </ul>
                         Control & commutation done with an arduino<br><br>
                         <div class="gh-link-container">
-                            
-                        <img src=${gitHubLogoImg} class="gh-link-image" />
-                        <a href="https://github.com/fixitfeliks/open-loop-bldc" class="gh-link-text" target="_blank">github.com/fixitfeliks/open-loop-bldc</a>
+                            &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
+                            <a href="https://github.com/fixitfeliks/open-loop-bldc" class="gh-link-text" target="_blank">github.com/fixitfeliks/open-loop-bldc</a>
                         </div><br><br>
                         <div class="iframe-wrapper">
-                            <iframe src="https://drive.google.com/file/d/1sD-0xDB0bGW0HveV3NwNqf3t4Pn1eciU/preview" width="100%" height="480" allow="autoplay"></iframe>
+                            <iframe src="https://drive.google.com/file/d/1sD-0xDB0bGW0HveV3NwNqf3t4Pn1eciU/preview" width="100%" height="480" frameBorder="0" allow="autoplay"></iframe>
                         </div>
                     </div>
                 `,
@@ -74,26 +73,26 @@ export default function () {
                     A learning project I did that was of course never finished, it would be cool to update this!<br><br>
                         NodeJS Backend<br><br>
                         <div class="gh-link-container">
-                            <img src=${gitHubLogoImg} class="gh-link-image" />
+                            &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
                             <a href="https://github.com/fixitfeliks/phosphr-cloud" class="gh-link-text" target="_blank">github.com/fixitfeliks/phosphr-cloud</a>
                         </div><br>
                         Account Linking with Google HomeGraph API<br><br>
                         <div class="gh-link-container">
-                            <img src=${gitHubLogoImg} class="gh-link-image" />
+                            &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
                             <a href="https://github.com/fixitfeliks/homegraph-nodejs-server" class="gh-link-text" target="_blank">github.com/fixitfeliks/homegraph-nodejs-server</a>
                         </div><br>
                         React Native Mobile App with Expo<br><br>
                         <div class="gh-link-container">
-                            <img src=${gitHubLogoImg} class="gh-link-image" />
+                            &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
                             <a href="https://github.com/fixitfeliks/phosphr-mobile" class="gh-link-text" target="_blank">github.com/fixitfeliks/phosphr-mobile</a>
                         </div><br>
                         RaspberryPI Django Server with GPIO Zero<br><br>
                         <div class="gh-link-container">
-                            <img src=${gitHubLogoImg} class="gh-link-image" />
+                            &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
                             <a href="https://github.com/fixitfeliks/phosphr-pi" class="gh-link-text" target="_blank">github.com/fixitfeliks/phosphr-pi</a>
                         </div><br><br>
                         <div class="iframe-wrapper">
-                            <iframe src="https://drive.google.com/file/d/1CkY5dERs6OberRMrSGWSAZk_g2iCbq-m/preview" width="640" height="480" allow="autoplay"></iframe>
+                            <iframe src="https://drive.google.com/file/d/1CkY5dERs6OberRMrSGWSAZk_g2iCbq-m/preview" width="640" height="480" frameBorder="0" allow="autoplay"></iframe>
                         </div>
                     </div>
                 `,

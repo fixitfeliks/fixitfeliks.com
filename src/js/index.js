@@ -7,7 +7,7 @@ import 'Styles/grid-responsive.css';
 import weasleImf from 'Assets/weasle.jpg';
 
 // Scripts - JS
-import { getNavbarFragment } from 'Components/navbar.js';
+import { getNavbarFragment, updateScrollPositions } from 'Components/navbar.js';
 import { MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
 import getAboutMePage from 'Scripts/content/about-me.js';
 import getSkillsPage from 'Scripts/content/skills.js';
@@ -42,6 +42,8 @@ footer.innerHTML = 'fix it feliks 2&copy;21 x_ks';
 
 mainGrid.appendChild(footer);
 mainGrid.appendChild(mainDiv);
+
+updateScrollPositions();
 
 // const addScrollbars = () => {
 //     main.classList.remove('hide-overflow');

@@ -12,6 +12,7 @@ import {
 
 // TODO combine with CSS
 const RESPONSIVE_BREAKPOINT = 700;
+let updateScrollReady = true;
 
 const navbarRoutes = [
     {
@@ -83,6 +84,22 @@ export function getNavbarFragment(scrollId) {
     return fragment;
 }
 
+function updateNavOnScroll(scrollY) {
+    const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
+
+    for (let i = 0; i < navbarRoutes.length; i++) {
+        if (scrollY > navbarRoutes[i].scroll) {
+            for (let j = 0; j < navbarItemList.children.length - 1; j++) {
+                if (navbarItemList.children[j].id == navbarRoutes[i].path) {
+                    sortNavbarItems(j);
+                    break;
+                }
+            }
+            break;
+        }
+    }
+}
+
 let resetScroll = true;
 function navOnScroll(scrollY) {
     if (scrollY < 10) {
@@ -102,6 +119,7 @@ function navOnScroll(scrollY) {
         resetScroll = false;
         navbar.classList.remove('transition-top');
         navbar.classList.add('sticky');
+        updateScrollPositions();
         if (mobileView) setVisibilityOpenNavButton(true);
         navbar.style.width = `${newNavbarWidth}px`;
         navbar.style.top = `${-navbarDelta}px`; //TODO Fix nested children
@@ -111,11 +129,13 @@ function navOnScroll(scrollY) {
     } else if (scrollY < navbarDelta && navbar.classList.contains('sticky') && resetScroll) {
         navbar.classList.add('transition-top');
         navbar.classList.remove('sticky');
+        updateScrollPositions();
         setVisibilityOpenNavButton(false);
         navbar.style.width = '100%';
         navbar.style.top = '0px';
         bodyChildren[0].children[0].style.top = '0px';
     }
+    if (updateScrollReady) updateNavOnScroll(scrollY);
 }
 
 function getNewNavbarTop() {
@@ -186,39 +206,48 @@ function setVisibilityOpenNavButton(isShow) {
 
 const onNavItemTransitionEnd = () => {
     // navReady = true;
+    updateScrollReady = true;
 };
 
+function scrollOffsetCalc(finalScrollTop) {
+    const navbar = document.getElementById(NAVBAR_ID);
+    const borderWidth = window.getComputedStyle(navbar, null).getPropertyValue('border-bottom-width');
+    const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
+
+    if (!navbar.classList.contains('sticky')) {
+        if (mobileView) {
+            finalScrollTop -= navbar.children[0].children[0].clientHeight;
+        } else {
+            finalScrollTop -= navbar.clientHeight;
+        }
+        finalScrollTop -= parseFloat(borderWidth ? borderWidth : 0);
+    } else {
+        if (mobileView) {
+            finalScrollTop += navbar.clientHeight - navbar.children[0].children[0].clientHeight;
+        } else {
+            const paddingWidth = window.getComputedStyle(navbar.parentElement, null).getPropertyValue('padding-left');
+
+            finalScrollTop -=
+                navbar.clientHeight -
+                navbar.children[0].children[0].clientHeight -
+                parseFloat(paddingWidth ? paddingWidth : 0) * 2;
+            finalScrollTop += parseFloat(borderWidth ? borderWidth : 0) + 1;
+        }
+    }
+
+    return finalScrollTop;
+}
+
 function onNavClick(event) {
+    updateScrollReady = false;
     const navbar = document.getElementById(NAVBAR_ID);
     const navButton = document.getElementById(NAVBAR_BUTTON_ID);
     console.log('nav item click: ', event.target.id);
     const scrollTo = document.getElementById('scroll-' + event.target.id);
     const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
-    const borderWidth = window.getComputedStyle(navbar, null).getPropertyValue('border-bottom-width');
-    if (scrollTo != null) {
-        let finalScrollTop = scrollTo.offsetTop;
-        if (!navbar.classList.contains('sticky')) {
-            if (mobileView) {
-                finalScrollTop -= navbar.children[0].children[0].clientHeight;
-            } else {
-                finalScrollTop -= navbar.clientHeight;
-            }
-            finalScrollTop -= parseFloat(borderWidth ? borderWidth : 0);
-        } else {
-            if (mobileView) {
-                finalScrollTop += navbar.clientHeight - navbar.children[0].children[0].clientHeight;
-            } else {
-                const paddingWidth = window
-                    .getComputedStyle(navbar.parentElement, null)
-                    .getPropertyValue('padding-left');
+    let finalScrollTop = scrollOffsetCalc(scrollTo.offsetTop);
 
-                finalScrollTop -=
-                    navbar.clientHeight -
-                    navbar.children[0].children[0].clientHeight -
-                    parseFloat(paddingWidth ? paddingWidth : 0) * 2;
-                finalScrollTop += parseFloat(borderWidth ? borderWidth : 0) + 2;
-            }
-        }
+    if (scrollTo != null) {
         console.log('Scroll To: ', finalScrollTop);
         document.getElementById(MAIN_WRAPPER_ID).scrollTo({
             top: finalScrollTop,
@@ -304,4 +333,11 @@ function getInitialPathIndex(path) {
     for (let i = 0; i < navbarRoutes.length; i++) {
         if (navbarRoutes[i].path === path) return i;
     }
+}
+
+export function updateScrollPositions() {
+    navbarRoutes.forEach((obj) => {
+        const element = document.getElementById(`scroll-${obj.path}`);
+        obj.scroll = scrollOffsetCalc(element.offsetTop);
+    });
 }

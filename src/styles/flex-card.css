@@ -48,7 +48,7 @@ ul.no-bullets {
 }
 
 .flex-body-header {
-    font-size: 1em;
+    font-size: 1.2em;
     position: relative;
     display: block;
     text-align: left;
@@ -59,7 +59,7 @@ ul.no-bullets {
     height: 100%;
     width: 100%;
     max-width: 100%;
-    padding: 1em;
+    padding: 0.8em;
     font-weight: bold;
     /* background-color: blue; */
 }
@@ -87,6 +87,7 @@ ul.no-bullets {
 
 .flex-body-content {
     padding-top: 0;
+    line-height: 1.3em;
 }
 
 .flex-body-image {
@@ -102,13 +103,13 @@ ul.no-bullets {
 @media screen and (min-width: 700px) {
     .flex-body-header {
         margin: auto;
-        padding: 1em 10%;
+        padding: 1em 12%;
         font-size: 1.5em;
     }
 
     .flex-body-content {
         margin: auto;
-        padding: 2em 22%;
+        padding: 2em 15%;
         font-size: 1.1em;
         padding-top: 0;
     }
@@ -123,6 +124,8 @@ ul.no-bullets {
 
     .flex-title-content {
         padding: 5% 10%;
+        font-size: 1.2em;
+        line-height: 1.3em;
     }
 }
 
@@ -138,11 +141,14 @@ ul.no-bullets {
     }
 
     .flex-title-content {
+        display: flex;
+        align-self: center;
         width: 50%;
-        padding-right: 15%;
-        padding-top: 0;
-        font-size: 1.1em;
+        padding: 0;
+        padding-right: 5%;
+        font-size: 1.2em;
         line-height: 1.3em;
+        vertical-align: middle;
     }
 }
 

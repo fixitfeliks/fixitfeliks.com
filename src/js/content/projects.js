@@ -1,6 +1,7 @@
 import aboutMeImg from 'Assets/about-me.jpg';
 import phopshrImg from 'Assets/project-phosphr.png';
 import gitHubLogoImg from 'Assets/GitHub-Mark-32px.png';
+import boardOneImg from 'Assets/BoardOne_2.png';
 
 import { getTitleCard, getHeaderImageBodyFlexCard } from 'Components/flex-card.js';
 
@@ -95,6 +96,30 @@ export default function () {
                         <div class="iframe-wrapper">
                             <iframe src="https://drive.google.com/file/d/1CkY5dERs6OberRMrSGWSAZk_g2iCbq-m/preview" width="640" height="480" frameBorder="0" allow="autoplay"></iframe>
                         </div>
+                    </div>
+                `,
+            document.createDocumentFragment()
+        )
+    );
+
+    fragment.appendChild(
+        getHeaderImageBodyFlexCard(
+            'Arduino 8-Bit RGB LED Controller with Bluetooth Android App',
+            /*html*/ ` <div>
+                    Simple Arduino PWM RGD driver with HC-06 Bluetooth Module. Android App in Java. <br><br>
+                    Board designed in Eagle and fabricated by etching on a cnc mill. Generic 6040 CNC router with 3D printed fixtures run with Linux CNC image.<br><br>
+                        Java App<br><br>
+                        <div class="gh-link-container">
+                            &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
+                            <a href="https://github.com/fixitfeliks/android-led-controller" class="gh-link-text" target="_blank">github.com/fixitfeliks/android-led-controller</a>
+                        </div><br>
+                        Arduino Routine<br><br>
+                        <div class="gh-link-container">
+                            &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
+                            <a href="https://github.com/fixitfeliks/arduino-led-controller" class="gh-link-text" target="_blank">github.com/fixitfeliks/arduino-led-controller"</a>
+                        </div><br><br>
+                        PCB Designed in Eagle<br><br>
+                        <img src=${boardOneImg} class="img-style"/>
                     </div>
                 `,
             document.createDocumentFragment()

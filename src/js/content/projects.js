@@ -10,6 +10,7 @@ export default function () {
 
     const elmImageSlicerImg = document.createElement('img');
     elmImageSlicerImg.setAttribute('src', aboutMeImg);
+    elmImageSlicerImg.classList.add('img-style');
 
     const elmStirrerImg = document.createElement('img');
     elmStirrerImg.setAttribute('src', aboutMeImg);

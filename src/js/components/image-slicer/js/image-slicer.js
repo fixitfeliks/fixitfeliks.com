@@ -162,7 +162,6 @@ export class ImageSlicer {
         gridWrapper.style.height = dimensions.initHeight + 'px';
 
         this.imageGrid.resetGrid(dimensions.initTileWidth, dimensions.initTileHeight);
-        console.log('scale Tiles ', this.imageGrid.tiles);
         this.paintCanvasTiles(dimensions);
     }
 

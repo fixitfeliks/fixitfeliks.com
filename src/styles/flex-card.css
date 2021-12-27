@@ -163,11 +163,12 @@ ul.no-bullets {
     margin: auto;
 }
 
-.img-header {
+.img-style {
     min-height: 0;
     max-height: 100%;
     max-width: 100%;
     height: auto;
+    border-radius: 18px;
     /* -webkit-transition: all var(--flex-transition-time), linear;
     -moz-transition: all var(--flex-transition-time) linear;
     -ms-transition: all var(--flex-transition-time) linear;

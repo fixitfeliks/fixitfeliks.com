@@ -13,6 +13,7 @@ import {
 // TODO combine with CSS
 const RESPONSIVE_BREAKPOINT = 700;
 let updateScrollReady = true;
+let navReady = true;
 
 const navbarRoutes = [
     {
@@ -34,21 +35,38 @@ let state = {
 };
 
 window.addEventListener('resize', () => {
-    const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
-    const navbar = document.getElementById(NAVBAR_ID);
-    const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
-    if (navbar.classList.contains('sticky')) {
-        const navbarItemHeight = navbarItemList.children[0].clientHeight;
-        navbar.style.top = mobileView
-            ? `calc(${-navbarItemHeight * (navbarItemList.children.length - 1)}px + .7em)`
-            : `calc(${-navbarItemHeight}px + 1em)`;
-        if (mobileView) {
-            resetOpenNavButton();
-            setVisibilityOpenNavButton(true);
-        }
-        navbar.style.width = `calc(${navbar.parentElement.clientWidth}px - 2em)`;
-    }
+    onResize();
 });
+
+function onResize() {
+    window.requestAnimationFrame(() => {
+        const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
+        const navbar = document.getElementById(NAVBAR_ID);
+        if (navbar.classList.contains('sticky')) {
+            if (mobileView) {
+                resetOpenNavButton();
+                setVisibilityOpenNavButton(true);
+            }
+            navbar.style.top = mobileView ? `${getNewNavbarTop()}px` : `${-getNavBarTopPadding()}px`;
+            navbar.style.width = `calc(${navbar.parentElement.clientWidth}px - 2em)`;
+        }
+    });
+}
+
+function getOpenNavButtonFragment() {
+    const fragment = document.createDocumentFragment();
+    const navbarButtonContainer = document.createElement('div');
+    navbarButtonContainer.classList.add(NAVBAR_BUTTON_CONTAINER_CLASSNAME, HIDE_NAVBAR_BUTTON_CLASSNAME, 'transition');
+    const openNavButton = document.createElement('div');
+    openNavButton.innerHTML = '<div></div>';
+    fragment.appendChild(openNavButton);
+    openNavButton.id = NAVBAR_BUTTON_ID;
+    openNavButton.classList.add(NAVBAR_BUTTON_CLASSNAME, 'transition');
+    navbarButtonContainer.appendChild(openNavButton);
+    navbarButtonContainer.onclick = toggleOpenNavButton;
+    fragment.appendChild(navbarButtonContainer);
+    return fragment;
+}
 
 export function getNavbarFragment(scrollId) {
     const fragment = document.createDocumentFragment();
@@ -109,9 +127,9 @@ function navOnScroll(scrollY) {
     const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
     const navbarChildren = navbarItemList.children;
     const navbarItemHeight = navbarChildren[0].clientHeight;
-    const navbarDelta = getNewNavbarTop();
     const bodyChildren = document.body.children;
     const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
+    const navbarDelta = getNavBarTopPadding();
     const newNavbarWidth =
         navbar.parentElement.clientWidth -
         parseFloat(window.getComputedStyle(navbar.parentElement, null).getPropertyValue('padding-left')) * 2;
@@ -122,7 +140,7 @@ function navOnScroll(scrollY) {
         updateScrollPositions();
         if (mobileView) setVisibilityOpenNavButton(true);
         navbar.style.width = `${newNavbarWidth}px`;
-        navbar.style.top = `${-navbarDelta}px`; //TODO Fix nested children
+        navbar.style.top = mobileView ? `${getNewNavbarTop()}px` : `${-getNavBarTopPadding()}px`; //TODO Fix nested children
         bodyChildren[0].children[0].style.top = mobileView
             ? `${navbarItemHeight * navbarChildren.length}px`
             : `${navbarItemHeight}px`;
@@ -138,29 +156,18 @@ function navOnScroll(scrollY) {
     if (updateScrollReady) updateNavOnScroll(scrollY);
 }
 
-function getNewNavbarTop() {
-    const navbar = document.getElementById(NAVBAR_ID);
+function getNavBarTopPadding() {
     const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
     const navbarChildren = navbarItemList.children;
     const navbarItemHeight = navbarChildren[0].clientHeight;
-    const navbarHeight = navbar.clientHeight;
-    const navbarDelta = navbarHeight - navbarItemHeight;
-    return navbarDelta;
+    const navbarDelta = navbarItemHeight - parseFloat(getComputedStyle(navbarChildren[0]).fontSize);
+    return Math.floor(navbarDelta);
 }
 
-function getOpenNavButtonFragment() {
-    const fragment = document.createDocumentFragment();
-    const navbarButtonContainer = document.createElement('div');
-    navbarButtonContainer.classList.add(NAVBAR_BUTTON_CONTAINER_CLASSNAME, HIDE_NAVBAR_BUTTON_CLASSNAME, 'transition');
-    const openNavButton = document.createElement('div');
-    openNavButton.innerHTML = '<div></div>';
-    fragment.appendChild(openNavButton);
-    openNavButton.id = NAVBAR_BUTTON_ID;
-    openNavButton.classList.add(NAVBAR_BUTTON_CLASSNAME, 'transition');
-    navbarButtonContainer.appendChild(openNavButton);
-    navbarButtonContainer.onclick = toggleOpenNavButton;
-    fragment.appendChild(navbarButtonContainer);
-    return fragment;
+function getNewNavbarTop() {
+    const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
+    const navbarChildren = navbarItemList.children;
+    return Math.floor((navbarChildren.length - 1) * -navbarChildren[0].clientHeight);
 }
 
 const toggleOpenNavButton = () => {
@@ -170,8 +177,7 @@ const toggleOpenNavButton = () => {
     if (navButton != null) {
         if (navButton.classList.contains(ROTATE_NAVBAR_BUTTON_CLASSNAME)) {
             navButton.classList.remove(ROTATE_NAVBAR_BUTTON_CLASSNAME);
-            if (navbar != null && navbarItemList != null)
-                navbar.style.top = `${-getNewNavbarTop(navbarItemList.length - 1)}px`;
+            if (navbar != null && navbarItemList != null) navbar.style.top = `${getNewNavbarTop()}px`;
         } else {
             navbar.classList.add('transition-top');
             navButton.classList.add(ROTATE_NAVBAR_BUTTON_CLASSNAME);
@@ -205,8 +211,7 @@ function setVisibilityOpenNavButton(isShow) {
 }
 
 const onNavItemTransitionEnd = () => {
-    // navReady = true;
-    updateScrollReady = true;
+    navReady = true;
 };
 
 function scrollOffsetCalc(finalScrollTop) {
@@ -239,41 +244,55 @@ function scrollOffsetCalc(finalScrollTop) {
 }
 
 function onNavClick(event) {
-    updateScrollReady = false;
-    const navbar = document.getElementById(NAVBAR_ID);
-    const navButton = document.getElementById(NAVBAR_BUTTON_ID);
-    console.log('nav item click: ', event.target.id);
-    const scrollTo = document.getElementById('scroll-' + event.target.id);
-    const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
-    let finalScrollTop = scrollOffsetCalc(scrollTo.offsetTop);
+    if (navReady) {
+        updateScrollReady = false;
+        const navbar = document.getElementById(NAVBAR_ID);
+        const navButton = document.getElementById(NAVBAR_BUTTON_ID);
+        console.log('nav item click: ', event.target.id);
+        const scrollTo = document.getElementById('scroll-' + event.target.id);
+        const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
+        let finalScrollTop = scrollOffsetCalc(scrollTo.offsetTop);
 
-    if (scrollTo != null) {
-        console.log('Scroll To: ', finalScrollTop);
-        document.getElementById(MAIN_WRAPPER_ID).scrollTo({
-            top: finalScrollTop,
-            left: 0,
-            behavior: 'smooth'
-        });
-    }
+        if (scrollTo != null) {
+            console.log('Scroll To: ', finalScrollTop);
+            document.getElementById(MAIN_WRAPPER_ID).scrollTo({
+                top: finalScrollTop,
+                left: 0,
+                behavior: 'smooth'
+            });
+            const timeout = () => {
+                const scrollToElementTop = document.getElementById(MAIN_WRAPPER_ID).scrollTop;
+                if (scrollToElementTop == finalScrollTop) {
+                    updateScrollReady = true;
+                } else {
+                    setTimeout(() => {
+                        timeout();
+                    }, 10);
+                }
+            };
 
-    if (navButton.classList.contains(ROTATE_NAVBAR_BUTTON_CLASSNAME) && mobileView) {
-        navbar.classList.add('transition-top');
-        navButton.classList.remove(ROTATE_NAVBAR_BUTTON_CLASSNAME);
-        if (navbar != null) navbar.style.top = `${-getNewNavbarTop(navbar.children.length - 1)}px`;
-    }
-
-    state.path = '/' + event.target.id;
-    if (window.location.hash.substring(1) !== state.path) resetOpenNavButton();
-    const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
-    const elementCollection = navbarItemList.children;
-    let index = -1;
-    for (let i = 0; i < elementCollection.length; i++) {
-        if (event.target.id === elementCollection[i].id) {
-            index = i;
-            i = elementCollection.length;
+            timeout();
         }
+
+        if (navButton.classList.contains(ROTATE_NAVBAR_BUTTON_CLASSNAME) && mobileView) {
+            navbar.classList.add('transition-top');
+            navButton.classList.remove(ROTATE_NAVBAR_BUTTON_CLASSNAME);
+            if (navbar != null) navbar.style.top = `${getNewNavbarTop()}px`;
+        }
+
+        state.path = '/' + event.target.id;
+        if (window.location.hash.substring(1) !== state.path) resetOpenNavButton();
+        const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
+        const elementCollection = navbarItemList.children;
+        let index = -1;
+        for (let i = 0; i < elementCollection.length; i++) {
+            if (event.target.id === elementCollection[i].id) {
+                index = i;
+                i = elementCollection.length;
+            }
+        }
+        sortNavbarItems(parseInt(index));
     }
-    sortNavbarItems(parseInt(index));
 }
 
 function sortNavbarItems(index) {
@@ -323,7 +342,7 @@ function updateAnimation(elementCollection) {
             elementCollection[i].style.left = 0;
             elementCollection[i].style.top = 0;
             elementCollection[i].classList.add('transition');
-            // navReady = false;
+            navReady = false;
             // });
         }
     }, 10);

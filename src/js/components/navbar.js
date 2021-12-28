@@ -40,8 +40,11 @@ window.addEventListener('resize', () => {
 
 function onResize() {
     window.requestAnimationFrame(() => {
+        updateScrollPositions();
+        const bodyChildren = document.body.children;
         const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
         const navbar = document.getElementById(NAVBAR_ID);
+        const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
         if (navbar.classList.contains('sticky')) {
             if (mobileView) {
                 resetOpenNavButton();
@@ -49,6 +52,13 @@ function onResize() {
             }
             navbar.style.top = mobileView ? `${getNewNavbarTop()}px` : `${-getNavBarTopPadding()}px`;
             navbar.style.width = `calc(${navbar.parentElement.clientWidth}px - 2em)`;
+            const navbarItemHeight = navbarItemList.children[0].clientHeight;
+            bodyChildren[0].children[0].style.top = mobileView
+                ? `${navbarItemHeight * navbarItemList.children.length}px`
+                : `${navbarItemHeight}px`;
+        } else {
+            bodyChildren[0].children[0].style.top = '0px';
+            navbar.style.top = '0px';
         }
     });
 }
@@ -119,7 +129,14 @@ function updateNavOnScroll(scrollY) {
 }
 
 let resetScroll = true;
+let scrollTimeout;
 function navOnScroll(scrollY) {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        console.log('Scroll ended');
+        updateScrollReady = true;
+    }, 250);
+    console.log('Scroll: ', scrollY);
     if (scrollY < 10) {
         resetScroll = true;
     }
@@ -137,7 +154,6 @@ function navOnScroll(scrollY) {
         resetScroll = false;
         navbar.classList.remove('transition-top');
         navbar.classList.add('sticky');
-        updateScrollPositions();
         if (mobileView) setVisibilityOpenNavButton(true);
         navbar.style.width = `${newNavbarWidth}px`;
         navbar.style.top = mobileView ? `${getNewNavbarTop()}px` : `${-getNavBarTopPadding()}px`; //TODO Fix nested children
@@ -147,13 +163,13 @@ function navOnScroll(scrollY) {
     } else if (scrollY < navbarDelta && navbar.classList.contains('sticky') && resetScroll) {
         navbar.classList.add('transition-top');
         navbar.classList.remove('sticky');
-        updateScrollPositions();
         setVisibilityOpenNavButton(false);
         navbar.style.width = '100%';
         navbar.style.top = '0px';
         bodyChildren[0].children[0].style.top = '0px';
     }
     if (updateScrollReady) updateNavOnScroll(scrollY);
+    updateScrollPositions();
 }
 
 function getNavBarTopPadding() {
@@ -260,18 +276,6 @@ function onNavClick(event) {
                 left: 0,
                 behavior: 'smooth'
             });
-            const timeout = () => {
-                const scrollToElementTop = document.getElementById(MAIN_WRAPPER_ID).scrollTop;
-                if (scrollToElementTop == finalScrollTop) {
-                    updateScrollReady = true;
-                } else {
-                    setTimeout(() => {
-                        timeout();
-                    }, 10);
-                }
-            };
-
-            timeout();
         }
 
         if (navButton.classList.contains(ROTATE_NAVBAR_BUTTON_CLASSNAME) && mobileView) {

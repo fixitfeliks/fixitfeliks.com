@@ -12,9 +12,10 @@ export default function () {
         getHeaderFlexCard(
             /*html*/ `<img src=${aboutMeImg} class="img-style"/>`,
             /*html*/ `Hi I'm Feliks! <br><br>
-            Engineer, programmer, researcher, eccentric, professional troubleshooter, and somewhat of a scientist myself. <br><br>
-            Passionate about science and technology and my greatest skill is my ability to learn quickly having a very strong and diverse foundation across many technical fields. <br><br>
-
+            Engineer, programmer, researcher, eccentric, troubleshooter, and somewhat of a scientist myself. <br><br>
+            Passionate about science, technology, and lifelong learning. <br><br>
+            My greatest skill is my ability to learn quickly having a very strong and diverse foundation across many technical fields. <br><br>
+            Excited about the future specializing in software development and the next challenge!
             `
         )
     );

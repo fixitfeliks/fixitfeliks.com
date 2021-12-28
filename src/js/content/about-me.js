@@ -11,11 +11,11 @@ export default function () {
     fragment.appendChild(
         getHeaderFlexCard(
             /*html*/ `<img src=${aboutMeImg} class="img-style"/>`,
-            /*html*/ `Hi I'm Feliks! <br><br>
-            Engineer, programmer, researcher, eccentric, troubleshooter, and somewhat of a scientist myself. <br><br>
-            Passionate about science, technology, and lifelong learning. <br><br>
-            My greatest skill is my ability to learn quickly having a very strong and diverse foundation across many technical fields. <br><br>
-            Excited about the future specializing in software development and the next challenge!
+            /*html*/ `<p>Hi I'm Feliks!</p> 
+            <p>Engineer, programmer, researcher, eccentric, troubleshooter, and somewhat of a scientist myself. </p>
+            <p>Passionate about science, technology, and lifelong learning. </p>
+            <p>My greatest skill is my ability to learn quickly having a very strong and diverse foundation across many technical fields.</p>
+            <p>Excited about the future specializing in software development and the next chapter!</p>
             `
         )
     );

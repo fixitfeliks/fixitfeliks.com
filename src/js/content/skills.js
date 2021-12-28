@@ -87,10 +87,10 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Frontend',
-            `
-                1-2 years front end development with React and Redux
-                Enjoy working on projects with Vanilla JS, CSS, and HTML.. like this site!<br><br>
-                Working with REST APIs and GraphQL clients like Apollo
+            /*html*/ `
+                <p>1-2 years front end development with React and recently with Redux and middleware Redux-Saga. </p>
+                <p>Enjoy working on projects with Vanilla JS, CSS, and HTML without any dependencies or external libraries... like this site  I built with webpack!</p>
+                <p>Working with REST APIs and GraphQL clients like Apollo </p>
 
             `,
             frontendSlicerHTML
@@ -102,9 +102,9 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Backend',
-            `
-                3-4 Years with Java for Application development and 1 year with Spring<br><br>
-                Java was the first programming language I learned in HS. I enjoy it, but yea I know.
+            /*html*/ `
+                <p>3-4 Years with Java for Application development and 1 year with Spring</p>
+                <p> Java was the first programming language I learned in HS!</p>
         
             `,
             backendSlicerHTML
@@ -112,18 +112,14 @@ export default function () {
     );
     backendSkillsImgSlicer.initSpreadElement(mainWrapper);
 
-    // Mobile
-    // My first 'Smartphone' was the Samsung Blackjack, but no really it was an iPhone 4. Pretty sweet bit of kit for 2011.<br><br>
-    // When I wanted to get into mobile development I switched over to an Android Nexus mostly because of the Java, but also the open source.
-    // I've been an Android user ever since and built my first
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Mobile',
-            `
-                1-2 Years in Android and React Native <br><br>
-                My first 'Smartphone' was the Samsung Blackjack, but no really it was an iPhone 4. Pretty sweet bit of kit for 2011.<br><br>
-                I am an Android/Linux user but am comfortable with macOS. The Java got me into Android and I've stuck with it. I created my first app for a project in uni<br><br>
-                I spent a year with a Windows phone just to mix it up, not sure how about it now. The new iPhone 13 mini is looking really good right now actually and giving me 2011 vibes. 
+            /*html*/ `
+                <p>1-2 Years in Android and React Native</p>
+                <p>My first 'Smartphone' was the Samsung Blackjack, then the iPhone 4. Pretty sweet bit of kit for 2011.</p>
+                <p>The Java got me into Android and I've stuck with it. I created my first app for my senior design project in College.</p>
+                <p>I spent a year with a Windows phone just to mix it up, I regret nothing.</p>
                      
             `,
             mobileSlicerHTML
@@ -135,10 +131,11 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Database',
-            `
-                3-4 Years with SQL.
-                First full stack app was a LAMP stack with MYSQL<br><br>
-                Experience building relational data models and some experience with Dynamo DB and NoSQL
+            /*html*/ `
+                <p>3-4 Years with SQL.</p>
+                <p>First full stack app was a LAMP stack with MYSQL.</p>
+                <p>Experience building relational data models and some experience with Dynamo DB and NoSQL.
+                    Interested about learning more about the inner-workings of DBMS and how to optimize and tune queries and models for scalability.</p>
             `,
             databaseSlicerHTML
         )
@@ -149,10 +146,11 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Dev Ops',
-            `
-                3-4 Years with SQL.
-                First full stack app was a LAMP stack with MYSQL<br><br>
-                Experience building relational data models and some experience with Dynamo DB and NoSQL
+            /*html*/ `
+                <p>Been play around with and installing Linux on random systems for over a decade, professional daily experience over a year.</p>
+                <p>Comfortable setting up nginx and configuring on a Linux system.</p>
+                <p>Just getting into Docker, but already had my fair share of setting up Dockerized apps, configuring Docker networks, and troubleshooting in Docker VMs on Linux and Rancher.</p>
+                <p>I really enjoy setting up system and working with automation, I would have a lot of fun with a career in DevOps</p>
             `,
             devopsSlicerHTML
         )
@@ -163,10 +161,10 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Microcontrollers and RaspberryPI',
-            `
-                2-3 years experience <br><br>
-                Started out with 8-bit microchip microcontrollers and got into Arduino later on. <br><br>
-                I really like the RaspberryPI Zero W!
+            /*html*/ `
+                <p>2-3 years experience </p>
+                <p>Started out with 8-bit microchip microcontrollers and got into Arduino later on.</p>
+                <p>I really liked the RaspberryPI W Zero for my IOT platform. Had it setup to broadcast its own AP for setup and a cron script to disable/enable the AP if no connection was found.</p>
             `,
             mcuSlicerHTML
         )
@@ -177,9 +175,9 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Mechanical & Electrical',
-            `
-                5+ years experience <br><br>
-                My core experiences are in industrial automation and manufacturing
+            /*html*/ `
+                <p>5+ years experience</p>
+                <p>Skills with Solidworks, electrical troubleshooting, and fabrication. I had my own machine shop with mill, lathe, and grinder used for in house fabrication of machine and automated assembly equipment fixtures and components.</p>
             `,
             engineeringSlicerHTML
         )
@@ -190,9 +188,10 @@ export default function () {
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Industrial Automation',
-            `
-                5+ years experience <br><br>
-                My core experiences are in industrial automation and manufacturing
+            /*html*/ `
+                <p>5+ years experience</p>
+                <p>My core experiences are in industrial automation and manufacturing</p>
+                <p>I've built vision guided robotic packaging cells. Worked on and troubleshot equipment that would weld, crimp, and measure the smallest precision stamped components to automated assembly cells that would take up an entire two story warehouse complete with large conveyor and elevator systems.</p>
             `,
             automationSlicerHTML
         )

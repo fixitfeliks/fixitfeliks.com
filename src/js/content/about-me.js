@@ -1,9 +1,6 @@
 import aboutMeImg from 'Assets/me.jpg';
 
-import { MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
 import { getTitleCard, getHeaderFlexCard } from 'Components/flex-card.js';
-
-const MOBILE_BREAKPOINT = 700;
 
 export default function () {
     const fragment = document.createDocumentFragment();

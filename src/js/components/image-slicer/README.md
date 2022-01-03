@@ -50,3 +50,4 @@ initRandomElement(wrapper);
 #### Current known issues, limitations, and room for improvements
 
 1. If an image is not evenly divisible by the number of rows and cols there will be artifacts when the tiles come together. This is resolved on resize, but not on zoom. It has to do with errors when scaling, slicing, and arranging the canvas tiles. Will work on a refactor and optimization focused on these issues.
+2. Mobile browsers may zoom or scale viewport and create similar artifacts.

@@ -84,22 +84,22 @@ export default function () {
                         <p><div class="gh-link-container">
                             &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
                             <a href="https://github.com/fixitfeliks/phosphr-cloud" class="gh-link-text" target="_blank">github.com/fixitfeliks/phosphr-cloud</a>
-                        </div></p>
+                        </div></p>&emsp;
                         <p>Account Linking with Google HomeGraph API</p>
                         <p><div class="gh-link-container">
                             &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
                             <a href="https://github.com/fixitfeliks/homegraph-nodejs-server" class="gh-link-text" target="_blank">github.com/fixitfeliks/homegraph-nodejs-server</a>
-                        </div></p>
+                        </div></p>&emsp;
                         <p>React Native Mobile App with Expo</p>
                         <p><div class="gh-link-container">
                             &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
                             <a href="https://github.com/fixitfeliks/phosphr-mobile" class="gh-link-text" target="_blank">github.com/fixitfeliks/phosphr-mobile</a>
-                        </div></p>
+                        </div></p>&emsp;
                         <p>RaspberryPI Django Server with GPIO Zero</p>
                         <p><div class="gh-link-container">
                             &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
                             <a href="https://github.com/fixitfeliks/phosphr-pi" class="gh-link-text" target="_blank">github.com/fixitfeliks/phosphr-pi</a>
-                        </div><br></p>
+                        </div><br></p>&emsp;
                         <p><div class="iframe-wrapper">
                             <iframe src="https://drive.google.com/file/d/1CkY5dERs6OberRMrSGWSAZk_g2iCbq-m/preview" width="640" height="480" frameBorder="0" allow="autoplay"></iframe>
                         </div></p>
@@ -119,7 +119,7 @@ export default function () {
                         <p><div class="gh-link-container">
                             &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
                             <a href="https://github.com/fixitfeliks/android-led-controller" class="gh-link-text" target="_blank">github.com/fixitfeliks/android-led-controller</a>
-                        </div></p>
+                        </div></p>&emsp;
                         <p>Arduino Routine</p>
                         <p><div class="gh-link-container">
                             &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />

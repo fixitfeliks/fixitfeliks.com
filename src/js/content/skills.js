@@ -27,7 +27,7 @@ import { ImageSlicer } from 'Components/image-slicer/js/image-slicer.js';
 
 import { MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
 
-const MOBILE_BREAKPOINT = 700;
+const MOBILE_BREAKPOINT = 800;
 
 const frontendSkillsImgSlicer =
     window.innerWidth > MOBILE_BREAKPOINT

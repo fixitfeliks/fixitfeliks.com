@@ -57,5 +57,6 @@ module.exports = {
         },
         compress: true,
         port: 8080
-    }
+    },
+    target: ['web', 'es5']
 };

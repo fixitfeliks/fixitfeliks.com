@@ -45,6 +45,7 @@ ul.no-bullets {
     display: block;
     box-sizing: border-box;
     padding: 0 5%;
+    align-items: flex-start;
 }
 
 .flex-body-header {
@@ -125,6 +126,7 @@ ul.no-bullets {
     margin: 0 -0.5em;
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 .img-grid > img {

@@ -27,7 +27,7 @@ import { ImageSlicer } from 'Components/image-slicer/js/image-slicer.js';
 
 import { MAIN_WRAPPER_ID } from 'Scripts/global-config.js';
 
-const MOBILE_BREAKPOINT = 800;
+const MOBILE_BREAKPOINT = 700;
 
 const frontendSkillsImgSlicer =
     window.innerWidth > MOBILE_BREAKPOINT
@@ -88,15 +88,15 @@ export default function () {
         getHeaderImageBodyFlexCard(
             'Frontend',
             /*html*/ `
-                <p>1-2 years front end development with React and recently with Redux and middleware Redux-Saga. </p>
-                <p>Enjoy working on projects with Vanilla JS, CSS, and HTML without any dependencies or external libraries... like this site  I built with webpack!</p>
+                <p>1-2 years front end development with React and recently with Redux and middleware like Redux-Saga. </p>
+                <p>Enjoy learning and working on projects with Vanilla JS, CSS, and HTML without any dependencies or external libraries... like this site I built with webpack!</p>
                 <p>Working with REST APIs and GraphQL clients like Apollo </p>
 
             `,
             frontendSlicerHTML
         )
     );
-    frontendSkillsImgSlicer.initFoldInElement(mainWrapper);
+    frontendSkillsImgSlicer.initRandom(mainWrapper);
 
     // BACKEND
     fragment.appendChild(
@@ -105,27 +105,28 @@ export default function () {
             /*html*/ `
                 <p>3-4 Years with Java for Application development and 1 year with Spring</p>
                 <p> Java was the first programming language I learned in HS!</p>
+                <p>Fairly new to Python, but used it for helper scripts. Ran Django on the PI to take advantage of the Python GPIO Zero library.</p>
         
             `,
             backendSlicerHTML
         )
     );
-    backendSkillsImgSlicer.initSpreadElement(mainWrapper);
+    backendSkillsImgSlicer.initRandom(mainWrapper);
 
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Mobile',
             /*html*/ `
                 <p>1-2 Years in Android and React Native</p>
-                <p>My first 'Smartphone' was the Samsung Blackjack, then the iPhone 4. Pretty sweet bit of kit for 2011.</p>
-                <p>The Java got me into Android and I've stuck with it. I created my first app for my senior design project in College.</p>
+                <p>My first 'Smartphone' was the Samsung Blackjack. Pretty sweet bit of kit for 2007.</p>
+                <p>The Java got me into Android and I've stuck with it. I created my first app for my senior design project in college.</p>
                 <p>I spent a year with a Windows phone just to mix it up, I regret nothing.</p>
                      
             `,
             mobileSlicerHTML
         )
     );
-    mobileSkillsImgSlicer.initFoldInElement(mainWrapper);
+    mobileSkillsImgSlicer.initRandom(mainWrapper);
 
     // Database
     fragment.appendChild(
@@ -140,36 +141,36 @@ export default function () {
             databaseSlicerHTML
         )
     );
-    databaseSkillsImgSlicer.initSpreadElement(mainWrapper);
+    databaseSkillsImgSlicer.initRandom(mainWrapper);
 
     // Devops
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Dev Ops',
             /*html*/ `
-                <p>Been play around with and installing Linux on random systems for over a decade, professional daily experience over a year.</p>
+                <p>Been playing around with and installing Linux on random systems for over a decade, professional daily experience over a year.</p>
                 <p>Comfortable setting up nginx and configuring on a Linux system.</p>
                 <p>Just getting into Docker, but already had my fair share of setting up Dockerized apps, configuring Docker networks, and troubleshooting in Docker VMs on Linux and Rancher.</p>
-                <p>I really enjoy setting up system and working with automation, I would have a lot of fun with a career in DevOps</p>
+                <p>I really enjoy setting up systems and working with automation, I would have a lot of fun with a career in DevOps</p>
             `,
             devopsSlicerHTML
         )
     );
-    devopsSkillsImgSlicer.initFoldInElement(mainWrapper);
+    devopsSkillsImgSlicer.initRandom(mainWrapper);
 
     // MCU
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Microcontrollers and RaspberryPI',
             /*html*/ `
-                <p>2-3 years experience </p>
-                <p>Started out with 8-bit microchip microcontrollers and got into Arduino later on.</p>
+                <p>2-3 years experience. </p>
+                <p>Started out with 8-bit Microchip microcontrollers and got into Arduino later on.</p>
                 <p>I really liked the RaspberryPI W Zero for my IOT platform. Had it setup to broadcast its own AP for setup and a cron script to disable/enable the AP if no connection was found.</p>
             `,
             mcuSlicerHTML
         )
     );
-    mcuSkillsImgSlicer.initSpreadElement(mainWrapper);
+    mcuSkillsImgSlicer.initRandom(mainWrapper);
 
     // Engineering
     fragment.appendChild(
@@ -177,27 +178,27 @@ export default function () {
             'Mechanical & Electrical',
             /*html*/ `
                 <p>5+ years experience</p>
-                <p>Skills with Solidworks, electrical troubleshooting, and fabrication. I had my own machine shop with mill, lathe, and grinder used for in house fabrication of machine and automated assembly equipment fixtures and components.</p>
+                <p>Skilled with SolidWorks, electrical troubleshooting, and fabrication. I had my own machine shop with mill, lathe, and grinder used for in house fabrication of machine and automated assembly equipment fixtures and components.</p>
             `,
             engineeringSlicerHTML
         )
     );
-    engineeringSkillsImgSlicer.initFoldInElement(mainWrapper);
+    engineeringSkillsImgSlicer.initRandom(mainWrapper);
 
     // Automation
     fragment.appendChild(
         getHeaderImageBodyFlexCard(
             'Industrial Automation',
             /*html*/ `
-                <p>5+ years experience</p>
+                <p>5+ years experience.</p>
+                <p>Skilled PLC and Vision System programmer, I can appreciate a nice finite state machine.</p>
                 <p>My core experiences are in industrial automation and manufacturing</p>
                 <p>I've built vision guided robotic packaging cells. Worked on and troubleshot equipment that would weld, crimp, and measure the smallest precision stamped components to automated assembly cells that would take up an entire two story warehouse complete with large conveyor and elevator systems.</p>
             `,
             automationSlicerHTML
         )
     );
-    automationSkillsImgSlicer.initSpreadElement(mainWrapper);
-
+    automationSkillsImgSlicer.initRandom(mainWrapper);
     fragment.children[0].id = 'scroll-skills-experience';
 
     return fragment;

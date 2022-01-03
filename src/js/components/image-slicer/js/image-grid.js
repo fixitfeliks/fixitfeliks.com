@@ -1,4 +1,3 @@
-import { TILE_STEPS_PER_MOVE } from './slicer-constants';
 export class ImageGrid {
     constructor(rows, cols, tileWidth, tileHeight) {
         this.rows = rows;
@@ -88,26 +87,31 @@ class Tile {
         this.foldDirY = foldDirY;
     }
 
-    moveUp() {
-        this.y -= this.height * TILE_STEPS_PER_MOVE;
+    moveUp(steps) {
+        this.y -= this.height * steps;
     }
 
-    moveDown() {
-        this.y += this.height * TILE_STEPS_PER_MOVE;
+    moveDown(steps) {
+        this.y += this.height * steps;
     }
 
-    moveLeft() {
-        this.x -= this.width * TILE_STEPS_PER_MOVE;
+    moveLeft(steps) {
+        this.x -= this.width * steps;
     }
 
-    moveRight() {
-        this.x += this.width * TILE_STEPS_PER_MOVE;
+    moveRight(steps) {
+        this.x += this.width * steps;
     }
 
-    walkRandom() {
+    walkRandom(steps) {
         this.lastDir = this.dir;
         this.dir = Math.floor(Math.random() * 4);
-        let moves = [() => this.moveUp(), () => this.moveDown(), () => this.moveLeft(), () => this.moveRight()];
+        let moves = [
+            () => this.moveUp(steps),
+            () => this.moveDown(steps),
+            () => this.moveLeft(steps),
+            () => this.moveRight(steps)
+        ];
 
         while (this.dir + this.lastDir === 1 || this.dir + this.lastDir === 5) {
             this.dir = Math.floor(Math.random() * 4);

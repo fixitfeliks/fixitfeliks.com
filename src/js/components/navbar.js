@@ -87,7 +87,7 @@ export function getNavbarFragment(scrollId) {
     const pathIndex = getInitialPathIndex(state.path);
     for (let i = 0; i < navbarRoutes.length; i++) {
         const navbarItem = document.createElement('a');
-        navbarItem.href = `/#/${navbarRoutes[i].path}`;
+        // navbarItem.href = `/#/${navbarRoutes[i].path}`;
         navbarItem.innerHTML = navbarRoutes[i].name;
         navbarItem.classList.add(NAVBAR_ITEM_CLASSNAME, 'transition');
         navbarItem.onclick = (e) => onNavClick(e);
@@ -104,9 +104,9 @@ export function getNavbarFragment(scrollId) {
     fragment.appendChild(navbar);
 
     document.getElementById(scrollId).addEventListener('scroll', function (e) {
-        window.requestAnimationFrame(function () {
-            navOnScroll(document.getElementById(MAIN_WRAPPER_ID).scrollTop);
-        });
+        // window.requestAnimationFrame(function () {
+        navOnScroll(document.getElementById(MAIN_WRAPPER_ID).scrollTop);
+        // });
     });
 
     return fragment;
@@ -133,10 +133,8 @@ let scrollTimeout;
 function navOnScroll(scrollY) {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
-        console.log('Scroll ended');
         updateScrollReady = true;
     }, 250);
-    console.log('Scroll: ', scrollY);
     if (scrollY < 10) {
         resetScroll = true;
     }
@@ -146,7 +144,7 @@ function navOnScroll(scrollY) {
     const navbarItemHeight = navbarChildren[0].clientHeight;
     const bodyChildren = document.body.children;
     const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
-    const navbarDelta = getNavBarTopPadding();
+    const navbarDelta = getNavBarStickyTrigger();
     const newNavbarWidth =
         navbar.parentElement.clientWidth -
         parseFloat(window.getComputedStyle(navbar.parentElement, null).getPropertyValue('padding-left')) * 2;
@@ -180,10 +178,20 @@ function getNavBarTopPadding() {
     return Math.floor(navbarDelta);
 }
 
+function getNavBarStickyTrigger() {
+    const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
+    if (mobileView) {
+        const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
+        return navbarItemList.children[0].clientHeight * (navbarItemList.children.length - 2);
+    } else {
+        return getNavBarTopPadding();
+    }
+}
+
 function getNewNavbarTop() {
     const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
     const navbarChildren = navbarItemList.children;
-    return Math.floor((navbarChildren.length - 1) * -navbarChildren[0].clientHeight);
+    return (navbarChildren.length - 1) * -navbarChildren[0].clientHeight;
 }
 
 const toggleOpenNavButton = () => {
@@ -264,13 +272,11 @@ function onNavClick(event) {
         updateScrollReady = false;
         const navbar = document.getElementById(NAVBAR_ID);
         const navButton = document.getElementById(NAVBAR_BUTTON_ID);
-        console.log('nav item click: ', event.target.id);
         const scrollTo = document.getElementById('scroll-' + event.target.id);
         const mobileView = window.innerWidth <= RESPONSIVE_BREAKPOINT ? true : false;
         let finalScrollTop = scrollOffsetCalc(scrollTo.offsetTop);
 
         if (scrollTo != null) {
-            console.log('Scroll To: ', finalScrollTop);
             document.getElementById(MAIN_WRAPPER_ID).scrollTo({
                 top: finalScrollTop,
                 left: 0,
@@ -284,8 +290,6 @@ function onNavClick(event) {
             if (navbar != null) navbar.style.top = `${getNewNavbarTop()}px`;
         }
 
-        state.path = '/' + event.target.id;
-        if (window.location.hash.substring(1) !== state.path) resetOpenNavButton();
         const navbarItemList = document.getElementById(NAVBAR_ITEM_LIST_ID);
         const elementCollection = navbarItemList.children;
         let index = -1;

@@ -79,12 +79,25 @@ footer {
     box-sizing: border-box;
 }
 
+.intro-slice-wrapper {
+    position: absolute;
+    top: -100vh;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    -webkit-transition: transform var(--main-transition-time), ease;
+    -moz-transition: transform var(--main-transition-time) ease;
+    -ms-transition: transform var(--main-transition-time) ease;
+    -o-transition: transform var(--main-transition-time) ease;
+    transition: transform var(--main-transition-time) ease;
+}
+
 .float-up {
     -ms-transform: translateY(calc(100vh));
     -moz-transform: translateY(calc(100vh));
     -webkit-transform: translateY(calc(100vh));
     transform: translateY(calc(100vh));
-    top: 100vh;
 }
 
 .gh-link-container {
@@ -103,7 +116,7 @@ footer {
 
 .iframe-wrapper {
     position: relative;
-    padding-bottom: 75%;
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
 }

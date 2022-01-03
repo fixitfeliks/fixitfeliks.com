@@ -9,7 +9,6 @@ import {
 } from './slicer-constants.js';
 
 export function createGridLayout(numTiles, id) {
-    console.log('create grid for numTiles:', numTiles);
     const fragment = document.createDocumentFragment();
     const itemsFragment = document.createDocumentFragment();
     if (numTiles != null) {

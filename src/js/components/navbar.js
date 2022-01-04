@@ -68,7 +68,7 @@ function getOpenNavButtonFragment() {
     const navbarButtonContainer = document.createElement('div');
     navbarButtonContainer.classList.add(NAVBAR_BUTTON_CONTAINER_CLASSNAME, HIDE_NAVBAR_BUTTON_CLASSNAME, 'transition');
     const openNavButton = document.createElement('div');
-    openNavButton.innerHTML = '<div></div>';
+    openNavButton.innerHTML = /*html*/ `<span></span><span></span><span></span>`;
     fragment.appendChild(openNavButton);
     openNavButton.id = NAVBAR_BUTTON_ID;
     openNavButton.classList.add(NAVBAR_BUTTON_CLASSNAME, 'transition');
@@ -87,7 +87,6 @@ export function getNavbarFragment(scrollId) {
     const pathIndex = getInitialPathIndex(state.path);
     for (let i = 0; i < navbarRoutes.length; i++) {
         const navbarItem = document.createElement('a');
-        // navbarItem.href = `/#/${navbarRoutes[i].path}`;
         navbarItem.innerHTML = navbarRoutes[i].name;
         navbarItem.classList.add(NAVBAR_ITEM_CLASSNAME, 'transition');
         navbarItem.onclick = (e) => onNavClick(e);
@@ -104,9 +103,9 @@ export function getNavbarFragment(scrollId) {
     fragment.appendChild(navbar);
 
     document.getElementById(scrollId).addEventListener('scroll', function (e) {
-        // window.requestAnimationFrame(function () {
-        navOnScroll(document.getElementById(MAIN_WRAPPER_ID).scrollTop);
-        // });
+        window.requestAnimationFrame(function () {
+            navOnScroll(document.getElementById(MAIN_WRAPPER_ID).scrollTop);
+        });
     });
 
     return fragment;

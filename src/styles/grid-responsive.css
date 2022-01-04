@@ -94,10 +94,10 @@ footer {
 }
 
 .float-up {
-    -ms-transform: translateY(calc(100vh));
-    -moz-transform: translateY(calc(100vh));
-    -webkit-transform: translateY(calc(100vh));
-    transform: translateY(calc(100vh));
+    -ms-transform: translateY(calc(100vh)) translate3d(0, 0, 0);
+    -moz-transform: translateY(calc(100vh)) translate3d(0, 0, 0);
+    -webkit-transform: translateY(calc(100vh)) translate3d(0, 0, 0);
+    transform: translateY(calc(100vh)) translate3d(0, 0, 0);
 }
 
 .gh-link-container {

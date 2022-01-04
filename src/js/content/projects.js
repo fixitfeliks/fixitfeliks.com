@@ -120,6 +120,7 @@ export default function () {
                             &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
                             <a href="https://github.com/fixitfeliks/android-led-controller" class="gh-link-text" target="_blank">github.com/fixitfeliks/android-led-controller</a>
                         </div></p>&emsp;
+
                         <p>Arduino Routine</p>
                         <p><div class="gh-link-container">
                             &emsp;<img src=${gitHubLogoImg} class="gh-link-image" />
@@ -136,8 +137,8 @@ export default function () {
                         <p><br>Machining two boards at once by drilling both Top and Bottom traces on one side and flipping. The secret sauce is in the alignment.</p>
                         <p>
                             <div class="img-grid">
-                            <img src=${pcbCNC1}/>
-                            <img src=${pcbCNC2}/>
+                            <img src=${pcbCNC1} />
+                            <img src=${pcbCNC2} />
                             <img src=${pcbCNC3} class="img-full-width"/>
                             <img src=${pcbCNC4} class="img-full-width"/>
                             </div>

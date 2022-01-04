@@ -106,10 +106,10 @@ nav {
 }
 
 .open-nav-rotate {
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg) translate3d(0, 0, 0);
+    -moz-transform: rotate(45deg) translate3d(0, 0, 0);
+    -ms-transform: rotate(45deg) translate3d(0, 0, 0);
+    transform: rotate(45deg) translate3d(0, 0, 0);
 }
 
 .open-nav-top {
@@ -133,10 +133,10 @@ nav {
         backface-visibility: hidden;
         -ms-backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
-        -webkit-transform: translateY(-1vh);
-        -moz-transform: translateY(-1vh);
-        -ms-transform: translateY(-1vh);
-        transform: translateY(-1vh);
+        -webkit-transform: translateY(-1vh) translate3d(0, 0, 0);
+        -moz-transform: translateY(-1vh) translate3d(0, 0, 0);
+        -ms-transform: translateY(-1vh) translate3d(0, 0, 0);
+        transform: translateY(-1vh) translate3d(0, 0, 0);
     }
 
     .open-nav-button {

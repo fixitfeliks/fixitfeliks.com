@@ -363,8 +363,11 @@ function getInitialPathIndex(path) {
 }
 
 export function updateScrollPositions() {
-    navbarRoutes.forEach((obj) => {
-        const element = document.getElementById(`scroll-${obj.path}`);
-        obj.scroll = scrollOffsetCalc(element.offsetTop);
-    });
+    if (navbarRoutes != null)
+        navbarRoutes.forEach((obj) => {
+            if (obj != null) {
+                const element = document.getElementById(`scroll-${obj.path}`);
+                obj.scroll = scrollOffsetCalc(element.offsetTop);
+            }
+        });
 }

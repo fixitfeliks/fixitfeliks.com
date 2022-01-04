@@ -5,6 +5,7 @@ import 'Styles/grid-responsive.css';
 
 // Assets - Images
 import felixLogo from 'Assets/felix-logo.png';
+import felixLogoMobile from 'Assets/felix-logo-mobile.png';
 
 // Scripts - JS
 import { getNavbarFragment, updateScrollPositions } from 'Components/navbar.js';
@@ -14,7 +15,13 @@ import getSkillsPage from 'Scripts/content/skills.js';
 import getProjectPage from 'Scripts/content/projects.js';
 import { ImageSlicer } from 'Components/image-slicer/js/image-slicer.js';
 
-const introSlice = new ImageSlicer(0, felixLogo, 10, 10);
+const MOBILE_BREAKPOINT = 700;
+
+const introSlice =
+    window.innerWidth > MOBILE_BREAKPOINT
+        ? new ImageSlicer(0, felixLogo, 5, 10)
+        : new ImageSlicer(0, felixLogoMobile, 5, 10);
+
 const introSliceWrapper = document.createElement('div');
 introSliceWrapper.classList.add('intro-slice-wrapper', 'float-up');
 introSliceWrapper.appendChild(introSlice.getHTML());

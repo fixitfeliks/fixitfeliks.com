@@ -77,6 +77,7 @@ nav {
     left: 0;
     padding: 1em;
     cursor: pointer;
+    transform: translateX(0) translate3d(0, 0, 0);
 }
 
 .open-nav-button {
@@ -111,7 +112,7 @@ nav {
 }
 
 .open-nav-hide {
-    left: -4em;
+    transform: translateX(-60px) translate3d(0, 0, 0);
     pointer-events: none;
 }
 

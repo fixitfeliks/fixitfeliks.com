@@ -88,9 +88,9 @@ export default function () {
         getHeaderImageBodyFlexCard(
             'Frontend',
             /*html*/ `
-                <p>1-2 years front end development with React and recently with Redux and middleware like Redux-Saga. </p>
-                <p>Enjoy learning and working on projects with Vanilla JS, CSS, and HTML without any dependencies or external libraries... like this site I built with webpack!</p>
-                <p>Working with REST APIs and GraphQL clients like Apollo </p>
+                <p>Front end development with React and recently with Redux and middleware like Redux-Saga. </p>
+                <p>But I also enjoy working on projects with vanilla JS, CSS, and HTML... like this site I built with webpack!</p>
+                <p>Working with REST APIs and GraphQL clients like Apollo.</p>
 
             `,
             frontendSlicerHTML
@@ -103,8 +103,8 @@ export default function () {
         getHeaderImageBodyFlexCard(
             'Backend',
             /*html*/ `
-                <p>3-4 Years with Java for Application development and 1 year with Spring</p>
-                <p> Java was the first programming language I learned in HS!</p>
+                <p>Desktop Java application and backend web development with Spring Boot.</p>
+                <p>Java was the first programming language I learned in HS!</p>
                 <p>Fairly new to Python, but used it for helper scripts. Ran Django on the PI to take advantage of the Python GPIO Zero library.</p>
         
             `,
@@ -117,7 +117,7 @@ export default function () {
         getHeaderImageBodyFlexCard(
             'Mobile',
             /*html*/ `
-                <p>1-2 Years in Android and React Native</p>
+                <p>Experience with Android and React Native</p>
                 <p>My first 'Smartphone' was the Samsung Blackjack. Pretty sweet bit of kit for 2007.</p>
                 <p>The Java got me into Android and I've stuck with it. I created my first app for my senior design project in college.</p>
                 <p>I spent a year with a Windows phone just to mix it up, I regret nothing.</p>
@@ -133,10 +133,9 @@ export default function () {
         getHeaderImageBodyFlexCard(
             'Database',
             /*html*/ `
-                <p>3-4 Years with SQL.</p>
                 <p>First full stack app was a LAMP stack with MYSQL.</p>
-                <p>Experience building relational data models and some experience with Dynamo DB and NoSQL.
-                    Interested about learning more about the inner-workings of DBMS and how to optimize and tune queries and models for scalability.</p>
+                <p>Experience building relational data models and some experience with Dynamo DB and NoSQL.</p>
+                <p>Interested in learning more about the inner-workings and optimizations of different DBMSs.</p>
             `,
             databaseSlicerHTML
         )
@@ -148,10 +147,9 @@ export default function () {
         getHeaderImageBodyFlexCard(
             'Dev Ops',
             /*html*/ `
-                <p>Been playing around with and installing Linux on random systems for over a decade, professional daily experience over a year.</p>
-                <p>Comfortable setting up nginx and configuring on a Linux system.</p>
-                <p>Just getting into Docker, but already had my fair share of setting up Dockerized apps, configuring Docker networks, and troubleshooting in Docker VMs on Linux and Rancher.</p>
-                <p>I really enjoy setting up systems and working with automation, I would have a lot of fun with a career in DevOps</p>
+                <p>Comfortable setting up nginx and configuring on Linux systems.</p>
+                <p>Experience with Dockerized apps, configuring Docker networks, and troubleshooting in Docker VMs on Linux and Rancher.</p>
+                <p>I really enjoy setting up systems and servers, and working with automation!</p>
             `,
             devopsSlicerHTML
         )
@@ -163,7 +161,6 @@ export default function () {
         getHeaderImageBodyFlexCard(
             'Microcontrollers and RaspberryPI',
             /*html*/ `
-                <p>2-3 years experience. </p>
                 <p>Started out with 8-bit Microchip microcontrollers and got into Arduino later on.</p>
                 <p>I really liked the RaspberryPI W Zero for my IOT platform. Had it setup to broadcast its own AP for setup and a cron script to disable/enable the AP if no connection was found.</p>
             `,
@@ -177,8 +174,9 @@ export default function () {
         getHeaderImageBodyFlexCard(
             'Mechanical & Electrical',
             /*html*/ `
-                <p>5+ years experience</p>
-                <p>Skilled with SolidWorks, electrical troubleshooting, and fabrication. I had my own machine shop with mill, lathe, and grinder used for in house fabrication of machine and automated assembly equipment fixtures and components.</p>
+                <p>Skilled with SolidWorks, electrical troubleshooting, and fabrication. </p>
+                <p>I had my own machine shop with mill, lathe, and grinder used for in house fabrication of machine and automated assembly equipment fixtures and components.</p>
+                <p>Now I have my own 3D printer and a CNC router with a setup for PCB isolation milling.</p>
             `,
             engineeringSlicerHTML
         )
@@ -190,10 +188,9 @@ export default function () {
         getHeaderImageBodyFlexCard(
             'Industrial Automation',
             /*html*/ `
-                <p>5+ years experience.</p>
-                <p>Skilled PLC and Vision System programmer, I can appreciate a nice finite state machine.</p>
-                <p>My core experiences are in industrial automation and manufacturing</p>
-                <p>I've built vision guided robotic packaging cells. Worked on and troubleshot equipment that would weld, crimp, and measure the smallest precision stamped components to automated assembly cells that would take up an entire two story warehouse complete with large conveyor and elevator systems.</p>
+                <p>PLC programming and vision system setup including fixturing, lensing, and lighting.</p>
+                <p>My mechanical and electrical experience is rooted in building and repairing industrial automation and manufacturing equipment for over 5 years.</p>
+                <p>I've built a vision guided robotic packaging cell and worked with equipment used for production of automotive, medical, military, and aerospace components including large scale high volume automated assembly cells.</p>
             `,
             automationSlicerHTML
         )
